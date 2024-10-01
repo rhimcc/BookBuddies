@@ -45,31 +45,5 @@ class BookService: ObservableObject {
             print("Decoding Error: \(error)")  // Print a more specific decoding error
         }
     }
-    func printBooks() {
-        print("print service")
-        print(books)
-    }
-        
 }
 
-struct Books: Decodable {
-    let items: [Book]?
-}
-
-
-struct Book: Decodable, Identifiable{
-    let id: String?
-    let selfLink: String?
-    let volumeInfo: VolumeInfo?
-}
-
-struct VolumeInfo: Decodable {
-    let title: String
-    let authors: [String]?
-    let imageLinks: ImageLinks?
-}
-
-struct ImageLinks: Decodable {
-    let smallThumbnail: String
-    let thumbnail: String
-}
