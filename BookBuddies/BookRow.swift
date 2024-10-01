@@ -12,17 +12,10 @@ struct BookRow: View {
     var body: some View {
         ZStack {
             HStack(alignment: .center) {
-                Text(book.volumeInfo?.imageLinks?.thumbnail ?? "")
                 var imageURL = book.convertURL()
-               
-                AsyncImage(url: URL(string: imageURL)) { image in
-                    image.resizable()
-                        .scaledToFill()
-                        .frame(width: 120, height: 120)
-                        .clipped()
-                } placeholder: {
-                    Text("not loaded")
-                }
+                
+                BookView(image: imageURL, width: 75, height: 105)
+                   
                 
                 VStack(alignment: .leading) {
                     Text(book.volumeInfo?.title ?? "") // book name
