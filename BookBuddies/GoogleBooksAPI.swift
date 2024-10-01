@@ -10,13 +10,13 @@ import Foundation
 class BookService: ObservableObject {
     
     private var apiKey = "AIzaSyA-7vVE2PH2E9XPGfgwIP-6YvB1mwRYv8c"
-    @Published var books: [Book] = []
-    func fetchBook(keyword: String) {
+    var books: [Book] = []
+    
+    func fetchBooks(keyword: String, completion: @escaping () -> Void) {
         let urlString = "https://www.googleapis.com/books/v1/volumes?q=\(keyword)&key=\(apiKey)"
-        
-        performRequest(urlString: urlString)
+        performRequest(urlString: urlString, completion: completion)
     }
-    func performRequest(urlString: String) {
+    func performRequest(urlString: String, completion: @escaping () -> Void) {
         if let url = URL(string: urlString) {
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: url) { (data, response, error) in
@@ -25,7 +25,7 @@ class BookService: ObservableObject {
                     return
                 }
                 if let safeData = data {
-                    self.parseJSON(bookData: safeData)
+                    self.parseJSON(bookData: safeData, completion: completion)
                 }
             }
             task.resume()
@@ -33,16 +33,21 @@ class BookService: ObservableObject {
         
         
     }
-    func parseJSON(bookData: Data) {
+    func parseJSON(bookData: Data, completion: @escaping () -> Void) {
         let decoder = JSONDecoder()
         do {
             let decodedData = try decoder.decode(Books.self, from: bookData)
             DispatchQueue.main.async {
                 self.books = decodedData.items ?? []
+                completion()
             }
         } catch {
             print("Decoding Error: \(error)")  // Print a more specific decoding error
         }
+    }
+    func printBooks() {
+        print("print service")
+        print(books)
     }
         
 }
@@ -61,4 +66,10 @@ struct Book: Decodable, Identifiable{
 struct VolumeInfo: Decodable {
     let title: String
     let authors: [String]?
+    let imageLinks: ImageLinks?
+}
+
+struct ImageLinks: Decodable {
+    let smallThumbnail: String
+    let thumbnail: String
 }

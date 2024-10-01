@@ -8,12 +8,16 @@
 import Foundation
 
 class BookViewModel: ObservableObject {
+    @Published var books: [Book] = []
     @Published var searchQuery: String = "" {
         didSet {
-            bookService.fetchBook(keyword: searchQuery)
+            bookService.fetchBooks(keyword: searchQuery) {
+                self.books = self.bookService.books
+            }
         }
     }
     
     @Published var searchActive: Bool = false
-    var bookService: BookService = BookService()
+
+     var bookService: BookService = BookService()
 }
