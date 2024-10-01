@@ -12,8 +12,8 @@ struct BookRow: View {
     var body: some View {
         ZStack {
             HStack(alignment: .center) {
-                var imageURL = book.convertURL()
-                
+                let imageURL = book.convertURL()
+                let authors = book.getAuthorString()
                 BookView(image: imageURL, width: 75, height: 105)
                    
                 
@@ -28,6 +28,13 @@ struct BookRow: View {
                         .bold()
                         .font(.system(size: 20))
                         .padding(.leading, 10)
+                    
+                    Text(authors)
+                        .lineLimit(2)
+                        .minimumScaleFactor(0.5)
+                        .multilineTextAlignment(.leading)
+                        .fixedSize(horizontal: false, vertical: true)
+            
                     
                 }
                 Button ("Add to"){
