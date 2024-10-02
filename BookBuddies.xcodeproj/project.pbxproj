@@ -19,10 +19,15 @@
 		9988868D2CAAE362004E9E0F /* SearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9988868C2CAAE362004E9E0F /* SearchResultsView.swift */; };
 		9988868F2CAAE67D004E9E0F /* BookshelfBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9988868E2CAAE67D004E9E0F /* BookshelfBackground.swift */; };
 		998886912CAB7A23004E9E0F /* BookRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998886902CAB7A23004E9E0F /* BookRow.swift */; };
-		998886932CABA181004E9E0F /* BookModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998886922CABA181004E9E0F /* BookModels.swift */; };
+		998886932CABA181004E9E0F /* BookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998886922CABA181004E9E0F /* BookModel.swift */; };
 		998886952CABA269004E9E0F /* BookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998886942CABA269004E9E0F /* BookView.swift */; };
 		998886972CACDBC8004E9E0F /* ShelfView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998886962CACDBC8004E9E0F /* ShelfView.swift */; };
 		998886992CACE78E004E9E0F /* Bookshelf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998886982CACE78E004E9E0F /* Bookshelf.swift */; };
+		9988869B2CACE807004E9E0F /* BookshelfViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9988869A2CACE807004E9E0F /* BookshelfViewModel.swift */; };
+		9988869D2CACF0BD004E9E0F /* VolumeInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9988869C2CACF0BD004E9E0F /* VolumeInfoModel.swift */; };
+		9988869F2CACF0C5004E9E0F /* ImageLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9988869E2CACF0C5004E9E0F /* ImageLinks.swift */; };
+		998886A12CAD02D2004E9E0F /* BookPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998886A02CAD02D2004E9E0F /* BookPreview.swift */; };
+		998886A32CAD052D004E9E0F /* BookshelfModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998886A22CAD052D004E9E0F /* BookshelfModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,10 +44,15 @@
 		9988868C2CAAE362004E9E0F /* SearchResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsView.swift; sourceTree = "<group>"; };
 		9988868E2CAAE67D004E9E0F /* BookshelfBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfBackground.swift; sourceTree = "<group>"; };
 		998886902CAB7A23004E9E0F /* BookRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookRow.swift; sourceTree = "<group>"; };
-		998886922CABA181004E9E0F /* BookModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookModels.swift; sourceTree = "<group>"; };
+		998886922CABA181004E9E0F /* BookModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookModel.swift; sourceTree = "<group>"; };
 		998886942CABA269004E9E0F /* BookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookView.swift; sourceTree = "<group>"; };
 		998886962CACDBC8004E9E0F /* ShelfView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelfView.swift; sourceTree = "<group>"; };
 		998886982CACE78E004E9E0F /* Bookshelf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookshelf.swift; sourceTree = "<group>"; };
+		9988869A2CACE807004E9E0F /* BookshelfViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfViewModel.swift; sourceTree = "<group>"; };
+		9988869C2CACF0BD004E9E0F /* VolumeInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeInfoModel.swift; sourceTree = "<group>"; };
+		9988869E2CACF0C5004E9E0F /* ImageLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLinks.swift; sourceTree = "<group>"; };
+		998886A02CAD02D2004E9E0F /* BookPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookPreview.swift; sourceTree = "<group>"; };
+		998886A22CAD052D004E9E0F /* BookshelfModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,8 +89,13 @@
 				998886902CAB7A23004E9E0F /* BookRow.swift */,
 				998886762CAAD972004E9E0F /* ContentView.swift */,
 				998886982CACE78E004E9E0F /* Bookshelf.swift */,
+				998886A02CAD02D2004E9E0F /* BookPreview.swift */,
+				9988869A2CACE807004E9E0F /* BookshelfViewModel.swift */,
 				998886842CAADB35004E9E0F /* GoogleBooksAPI.swift */,
-				998886922CABA181004E9E0F /* BookModels.swift */,
+				998886922CABA181004E9E0F /* BookModel.swift */,
+				998886A22CAD052D004E9E0F /* BookshelfModel.swift */,
+				9988869C2CACF0BD004E9E0F /* VolumeInfoModel.swift */,
+				9988869E2CACF0C5004E9E0F /* ImageLinks.swift */,
 				998886782CAAD972004E9E0F /* Item.swift */,
 				998886862CAAE2DF004E9E0F /* BookViewModel.swift */,
 				998886882CAAE33B004E9E0F /* SearchBaseView.swift */,
@@ -178,15 +193,20 @@
 				998886852CAADB35004E9E0F /* GoogleBooksAPI.swift in Sources */,
 				998886952CABA269004E9E0F /* BookView.swift in Sources */,
 				998886972CACDBC8004E9E0F /* ShelfView.swift in Sources */,
+				9988869D2CACF0BD004E9E0F /* VolumeInfoModel.swift in Sources */,
+				998886A32CAD052D004E9E0F /* BookshelfModel.swift in Sources */,
 				998886772CAAD972004E9E0F /* ContentView.swift in Sources */,
 				9988868B2CAAE356004E9E0F /* SearchView.swift in Sources */,
 				998886992CACE78E004E9E0F /* Bookshelf.swift in Sources */,
+				9988869B2CACE807004E9E0F /* BookshelfViewModel.swift in Sources */,
+				9988869F2CACF0C5004E9E0F /* ImageLinks.swift in Sources */,
 				998886792CAAD972004E9E0F /* Item.swift in Sources */,
 				9988868D2CAAE362004E9E0F /* SearchResultsView.swift in Sources */,
-				998886932CABA181004E9E0F /* BookModels.swift in Sources */,
+				998886932CABA181004E9E0F /* BookModel.swift in Sources */,
 				9988868F2CAAE67D004E9E0F /* BookshelfBackground.swift in Sources */,
 				998886752CAAD972004E9E0F /* BookBuddiesApp.swift in Sources */,
 				998886892CAAE33B004E9E0F /* SearchBaseView.swift in Sources */,
+				998886A12CAD02D2004E9E0F /* BookPreview.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
