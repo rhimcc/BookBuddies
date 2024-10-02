@@ -8,24 +8,63 @@
 import SwiftUI
 
 struct BookPreview: View {
-    var book: Book
+    @ObservedObject var bookshelfViewModel: BookshelfViewModel
+//    @State var book: Book
     var body: some View {
-        ZStack {
-            Color.black.opacity(0.6)
-                .edgesIgnoringSafeArea(.all)
             ZStack {
                 RoundedRectangle(cornerRadius: 20)
                     .fill(.white)
-                
+                VStack {
                     HStack {
-                        BookView(book: book)
-                        VStack {
-                            Text(book.volumeInfo?.title ?? "")
-                            Text(book.getAuthorString())
-                        }
-                        
+                        Button {
+                            bookshelfViewModel.bookPreview.toggle()
+                        } label: {
+                            Image(systemName: "xmark")
+                        }.foregroundColor(.gray)
+                            .font(.system(size: 20))
+                            .padding(15)
+                        Spacer()
                     }
-            }.frame(width: 250, height: 150)
-        }
+                    Spacer()
+                    HStack {
+
+                        if let book = bookshelfViewModel.currentBookPreview {
+                            BookView(bookshelfViewModel: bookshelfViewModel, book: book)
+                                .padding(.horizontal, 10)
+                            
+                            VStack (alignment: .leading){
+                                Text(book.title ?? "")
+                                    .bold()
+                                    .lineLimit(2)
+                                    .multilineTextAlignment(.leading)
+                                    .minimumScaleFactor(0.5)
+                                Text(book.getAuthorString())
+                                    .lineLimit(2)
+                                    .multilineTextAlignment(.leading)
+                                    .minimumScaleFactor(0.5)
+                            }
+                        }
+
+                        if let book = bookshelfViewModel.currentBookPreview {
+                            
+                        Spacer()
+
+                        NavigationLink {
+                            BookDetail(book: book, bookshelfViewModel: bookshelfViewModel)
+                        } label : {
+                            Image(systemName: "greaterthan")
+                                .foregroundStyle(.gray)
+                        }
+                            Spacer()
+
+
+                    }
+                    }
+                    Spacer()
+                   
+
+                }
+            }.frame(width: 280, height: 160)
+        
     }
 }

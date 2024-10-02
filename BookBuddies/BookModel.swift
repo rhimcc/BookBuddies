@@ -57,9 +57,8 @@ class Book: Decodable, Identifiable{
         return imageURL
     }
     
-    func getAuthorString() -> String {
+    func getAuthorStringFromJSON() -> String {
         if let volumeInfo = volumeInfo, let authors = volumeInfo.authors {
-            print(authors)
             if authors.count == 1 {
                 return authors[0]
             }
@@ -69,6 +68,13 @@ class Book: Decodable, Identifiable{
             if authors.count > 2 {
                 return authors[0] + ", " + authors[1] + ", + \(authors.count - 2) more"
             }
+        }
+        return ""
+    }
+    
+    func getAuthorString() -> String {
+        if let authors = authors {
+            return authors
         }
         return ""
     }

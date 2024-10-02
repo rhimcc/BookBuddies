@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BookView: View {
-    var bookshelfViewModel: BookshelfViewModel
+    @ObservedObject var bookshelfViewModel: BookshelfViewModel
     var book: Book
     @State var image: String = ""
     var body: some View {
@@ -16,9 +16,8 @@ struct BookView: View {
             RoundedRectangle(cornerRadius: 5)
                 .frame(width: 75, height: 105)
                 .shadow(color: Color.black.opacity(0.5), radius: 2, x: 5, y: 0)
-            
     
-            AsyncImage(url: URL(string: image)) { image in
+            AsyncImage(url: URL(string: getImage())) { image in
                 image.resizable()
                     .scaledToFill()
                     .frame(width: 75, height: 105)
@@ -28,13 +27,14 @@ struct BookView: View {
             .clipShape(
                 RoundedRectangle(cornerRadius: 5)
             )
-        }.onAppear {
-            if (bookshelfViewModel.inSearch) {
-                image = book.convertURL(imageURL: book.volumeInfo?.imageLinks?.thumbnail ?? "")
-            } else {
-                image = book.convertURL(imageURL: book.image ?? "")
-            }
-            print(image)
+        }
+    }
+    
+    func getImage() -> String {
+        if (bookshelfViewModel.inSearch) {
+            return book.convertURL(imageURL: book.volumeInfo?.imageLinks?.thumbnail ?? "") ?? ""
+        } else {
+            return book.convertURL(imageURL: book.image ?? "") ?? ""
         }
     }
 }

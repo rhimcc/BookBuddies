@@ -11,6 +11,7 @@ class BookshelfViewModel: ObservableObject{
   var books: [Book] = []
     var inSearch: Bool = false
     var bookshelfOptions: [String] = ["Library, Owned"]
+    @Published var currentBookPreview: Book? = nil
     @Published var bookPreview: Bool = false
     
     func add(book: Book) -> Book{
