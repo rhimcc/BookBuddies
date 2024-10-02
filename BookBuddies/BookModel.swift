@@ -35,11 +35,15 @@ class Book: Decodable, Identifiable{
     
     func getAuthorString() -> String {
         if let volumeInfo = volumeInfo, let authors = volumeInfo.authors {
+            print(authors)
             if authors.count == 1 {
                 return authors[0]
-            } else {
-                // Handle the case for multiple authors, e.g., returning a formatted string
-                return authors.joined(separator: ", ")
+            }
+            if authors.count == 2 {
+                return authors[0] + ", " + authors[1]
+            }
+            if authors.count > 2 {
+                return authors[0] + ", " + authors[1] + ", + \(authors.count - 2) more"
             }
         }
         return ""
