@@ -24,7 +24,6 @@ class BookViewModel: ObservableObject {
     func convertURL(book: Book) -> String {
         var imageURL: String = ""
         imageURL.insert("s", at: imageURL.index(imageURL.startIndex, offsetBy: 4))
-        print(imageURL)
         return imageURL
     }
 }
