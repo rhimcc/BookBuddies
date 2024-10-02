@@ -12,32 +12,36 @@ struct Bookshelf: View {
     @Query var books: [Book]
     @State var bookInfo: Bool = false
     @State var currentBook: Book?
+    var bookshelfViewModel: BookshelfViewModel
     var body: some View {
-        
-        ZStack {
-            BookshelfBackground()
-            ForEach(books) { book in
-                Button {
-                    bookInfo.toggle()
-                    currentBook = book
-                } label : {
-                    BookView(book: book)
+        NavigationStack {
+            ZStack {
+                BookshelfBackground()
+                HStack {
+                    ForEach(books) { book in
+                        Button {
+                            bookshelfViewModel.bookPreview.toggle()
+                            currentBook = book
+                        } label : {
+                            BookView(book: book)
+                        }
+                    }
+                    
+                    
                 }
-                
-
+                if bookshelfViewModel.bookPreview { // fades the background a bit to take focus off the surrounding information
+                    if let book = currentBook {
+                        BookPreview(bookshelfViewModel: bookshelfViewModel, book: book)
+                        
+                    }
+                    
+                }
             }
-            if bookInfo { // fades the background a bit to take focus off the surrounding information
-                if let book = currentBook {
-                    BookPreview(book: book)
-
-                }
             
-            }
         }
-        
     }
 }
-
-#Preview {
-    Bookshelf()
-}
+//
+//#Preview {
+//    Bookshelf()
+//}
