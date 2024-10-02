@@ -6,10 +6,35 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct Bookshelf: View {
+    @Query var books: [Book]
+    @State var bookInfo: Bool = false
+    @State var currentBook: Book?
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        ZStack {
+            BookshelfBackground()
+            ForEach(books) { book in
+                Button {
+                    bookInfo.toggle()
+                    currentBook = book
+                } label : {
+                    BookView(book: book)
+                }
+                
+
+            }
+            if bookInfo { // fades the background a bit to take focus off the surrounding information
+                if let book = currentBook {
+                    BookPreview(book: book)
+
+                }
+            
+            }
+        }
+        
     }
 }
 
