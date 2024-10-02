@@ -19,7 +19,6 @@ struct Book: Decodable, Identifiable{
     
     func convertURL() -> String {
         var imageURL: String = volumeInfo?.imageLinks?.thumbnail ?? ""
-        print("image URL: " + imageURL)
         if (!imageURL.isEmpty) {
             imageURL.insert("s", at: imageURL.index(imageURL.startIndex, offsetBy: 4))
         }
