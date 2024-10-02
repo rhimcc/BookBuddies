@@ -9,12 +9,13 @@ import SwiftUI
 
 struct SearchBaseView: View {
     @StateObject private var searchViewModel: BookViewModel = BookViewModel()
+    @ObservedObject var bookshelfViewModel: BookshelfViewModel
     var body: some View {
         NavigationStack {
             SearchView(searchViewModel: searchViewModel) // always shows the search view (just search bar)
 
             if (searchViewModel.searchActive) {
-                SearchResultsView(viewModel: searchViewModel) // shows the results of the search if its active
+                SearchResultsView(viewModel: searchViewModel, bookshelfViewModel: bookshelfViewModel) // shows the results of the search if its active
 
             } else {
                 Text("Search not active") // shows the suggested topics if the search isnt active

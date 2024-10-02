@@ -9,11 +9,12 @@ import SwiftUI
 
 struct SearchResultsView: View {
     @ObservedObject var viewModel: BookViewModel
+    @ObservedObject var bookshelfViewModel: BookshelfViewModel
     
     var body: some View {
         ScrollView {
             ForEach(viewModel.books) { book in
-                BookRow(book: book)
+                BookRow(bookshelfViewModel: bookshelfViewModel, book: book)
             }
         }
     }
