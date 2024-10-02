@@ -26,6 +26,7 @@
 		9988869D2CACF0BD004E9E0F /* VolumeInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9988869C2CACF0BD004E9E0F /* VolumeInfoModel.swift */; };
 		9988869F2CACF0C5004E9E0F /* ImageLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9988869E2CACF0C5004E9E0F /* ImageLinks.swift */; };
 		998886A12CAD02D2004E9E0F /* BookPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998886A02CAD02D2004E9E0F /* BookPreview.swift */; };
+		998886A52CAD40A2004E9E0F /* BookDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998886A42CAD40A2004E9E0F /* BookDetail.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		9988869C2CACF0BD004E9E0F /* VolumeInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeInfoModel.swift; sourceTree = "<group>"; };
 		9988869E2CACF0C5004E9E0F /* ImageLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLinks.swift; sourceTree = "<group>"; };
 		998886A02CAD02D2004E9E0F /* BookPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookPreview.swift; sourceTree = "<group>"; };
+		998886A42CAD40A2004E9E0F /* BookDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetail.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 				998886762CAAD972004E9E0F /* ContentView.swift */,
 				998886982CACE78E004E9E0F /* Bookshelf.swift */,
 				998886A02CAD02D2004E9E0F /* BookPreview.swift */,
+				998886A42CAD40A2004E9E0F /* BookDetail.swift */,
 				9988869A2CACE807004E9E0F /* BookshelfViewModel.swift */,
 				998886842CAADB35004E9E0F /* GoogleBooksAPI.swift */,
 				998886922CABA181004E9E0F /* BookModel.swift */,
@@ -187,6 +190,7 @@
 				998886852CAADB35004E9E0F /* GoogleBooksAPI.swift in Sources */,
 				998886952CABA269004E9E0F /* BookView.swift in Sources */,
 				998886972CACDBC8004E9E0F /* ShelfView.swift in Sources */,
+				998886A52CAD40A2004E9E0F /* BookDetail.swift in Sources */,
 				9988869D2CACF0BD004E9E0F /* VolumeInfoModel.swift in Sources */,
 				998886772CAAD972004E9E0F /* ContentView.swift in Sources */,
 				9988868B2CAAE356004E9E0F /* SearchView.swift in Sources */,
