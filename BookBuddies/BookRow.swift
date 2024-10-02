@@ -41,8 +41,8 @@ struct BookRow: View {
                 }
                 Button ("Add to"){
                     print(book.volumeInfo?.imageLinks?.thumbnail ?? "")
-                    bookshelfViewModel.add(book: book)
-                    modelContext.insert(book)
+                    let newBook = bookshelfViewModel.add(book: book)
+                    modelContext.insert(newBook)
                     
                 }
                 
