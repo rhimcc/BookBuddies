@@ -13,7 +13,7 @@ class BookshelfViewModel: ObservableObject{
     @Published var bookPreview: Bool = false
     
     func add(book: Book) -> Book{
-        let savedBook = Book(id: book.id, title: book.getTitle(), authors: book.getAuthorString(), bookshelf: "", image: book.getImageThumbnail(), readStatus: "")
+        let savedBook = Book(id: book.id, title: book.getTitle(), authors: book.getAuthorString(), bookshelf: "", image: book.getImageThumbnail() ?? "https://ibb.co/j31DKnr", readStatus: "")
         books.append(savedBook)
         return savedBook
     }
