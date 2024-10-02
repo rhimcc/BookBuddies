@@ -8,30 +8,28 @@
 import SwiftUI
 
 struct BookView: View {
-    var image: String
-    var width: CGFloat
-    var height: CGFloat
+    var book: Book
+    @State var image: String = ""
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 5)
-                .frame(width: width, height: height)
+                .frame(width: 75, height: 105)
                 .shadow(color: Color.black.opacity(0.5), radius: 2, x: 5, y: 0)
             
     
             AsyncImage(url: URL(string: image)) { image in
                 image.resizable()
                     .scaledToFill()
-                    .frame(width: width, height: height)
+                    .frame(width: 75, height: 105)
                     .clipped()
             } placeholder: {
                 Text("not loaded")
             }
             .clipShape(
                 RoundedRectangle(cornerRadius: 5)
-                )
-                
-    
-           
+            )
+        }.onAppear {
+            image = book.convertURL()
         }
     }
 }

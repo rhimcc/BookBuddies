@@ -8,15 +8,17 @@
 import SwiftUI
 
 struct BookRow: View {
+    var bookshelfViewModel: BookshelfViewModel
     var book: Book
+    @Environment(\.modelContext) private var modelContext
     var body: some View {
         ZStack {
             HStack(alignment: .center) {
                 let imageURL = book.convertURL()
                 let authors = book.getAuthorString()
-                BookView(image: imageURL, width: 75, height: 105)
-                   
-                
+                BookView(book: book)
+                    .padding(5)
+                Spacer()
                 VStack(alignment: .leading) {
                     Text(book.volumeInfo?.title ?? "") // book name
                         .foregroundColor(.black)
@@ -39,9 +41,13 @@ struct BookRow: View {
                 }
                 Button ("Add to"){
                     print(book.volumeInfo?.imageLinks?.thumbnail ?? "")
+                    bookshelfViewModel.add(book: book)
+                    modelContext.insert(book)
+                    
                 }
+                
             }
-            .frame(height: 120)
+            .frame(width: UIScreen.main.bounds.width - 20, height: 120)
             .background(.peach)
             .cornerRadius(6)
             .shadow(color: .black.opacity(0.33), radius: 1, x: 2, y: 2)
