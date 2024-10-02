@@ -18,7 +18,7 @@ struct ContentView: View {
                     Text("Search")
                 
                 }.tag(0)
-            Bookshelf()
+            Bookshelf(bookshelfViewModel: viewModel)
                 .tabItem {
                     Text("Bookshelf")
                 
