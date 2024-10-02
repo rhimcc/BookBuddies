@@ -14,9 +14,8 @@ struct BookRow: View {
     var body: some View {
         ZStack {
             HStack(alignment: .center) {
-                let imageURL = book.convertURL()
                 let authors = book.getAuthorString()
-                BookView(book: book)
+                BookView(bookshelfViewModel: bookshelfViewModel, book: book)
                     .padding(5)
                 Spacer()
                 VStack(alignment: .leading) {
@@ -40,7 +39,6 @@ struct BookRow: View {
                     
                 }
                 Button ("Add to"){
-                    print(book.volumeInfo?.imageLinks?.thumbnail ?? "")
                     let newBook = bookshelfViewModel.add(book: book)
                     modelContext.insert(newBook)
                     

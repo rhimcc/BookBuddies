@@ -23,19 +23,19 @@ struct Bookshelf: View {
                             bookshelfViewModel.bookPreview.toggle()
                             currentBook = book
                         } label : {
-                            BookView(book: book)
+                            BookView(bookshelfViewModel: bookshelfViewModel, book: book)
                         }
                     }
                     
                     
                 }
-                if bookshelfViewModel.bookPreview { // fades the background a bit to take focus off the surrounding information
+                if bookshelfViewModel.bookPreview {
                     if let book = currentBook {
                         BookPreview(bookshelfViewModel: bookshelfViewModel, book: book)
-                        
                     }
-                    
                 }
+            }.onAppear {
+                bookshelfViewModel.inSearch = false
             }
             
         }

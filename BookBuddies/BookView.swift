@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct BookView: View {
+    var bookshelfViewModel: BookshelfViewModel
     var book: Book
     @State var image: String = ""
     var body: some View {
@@ -23,13 +24,17 @@ struct BookView: View {
                     .frame(width: 75, height: 105)
                     .clipped()
             } placeholder: {
-                Text("not loaded")
             }
             .clipShape(
                 RoundedRectangle(cornerRadius: 5)
             )
         }.onAppear {
-            image = book.convertURL()
+            if (bookshelfViewModel.inSearch) {
+                image = book.convertURL(imageURL: book.volumeInfo?.imageLinks?.thumbnail ?? "")
+            } else {
+                image = book.convertURL(imageURL: book.image ?? "")
+            }
+            print(image)
         }
     }
 }

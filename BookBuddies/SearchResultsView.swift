@@ -16,6 +16,8 @@ struct SearchResultsView: View {
             ForEach(viewModel.books) { book in
                 BookRow(bookshelfViewModel: bookshelfViewModel, book: book)
             }
+        }.onAppear {
+            bookshelfViewModel.inSearch.toggle()
         }
     }
 }
