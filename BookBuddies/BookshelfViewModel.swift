@@ -9,8 +9,10 @@ import Foundation
 
 class BookshelfViewModel: ObservableObject{
   var books: [Book] = []
+    var bookshelfOptions: [String] = ["Library, Owned"]
     
     func add(book: Book) {
-        books.append(book)
+        let savedBook = Book(id: book.id, title: book.getTitle(), authors: book.getAuthorString(), bookshelf: "", image: book.getImageThumbnail(), readStatus: "")
+        books.append(savedBook)
     }
 }
