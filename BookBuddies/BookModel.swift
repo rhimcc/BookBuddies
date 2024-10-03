@@ -79,14 +79,14 @@ class Book: Decodable, Identifiable{
         return ""
     }
     
-    func getTitle() -> String {
+    func getTitleFromJSON() -> String {
         if let volumeInfo = self.volumeInfo {
             return volumeInfo.title
         }
         return ""
     }
     
-    func getImageThumbnail() -> String? {
+    func getImageThumbnailFromJSON() -> String? {
         if let volumeInfo = self.volumeInfo {
             if let imageLinks = volumeInfo.imageLinks {
                 return imageLinks.thumbnail
@@ -147,6 +147,11 @@ class Book: Decodable, Identifiable{
         case selfLink
         case volumeInfo
         case desc
+    }
+    
+    func printBook() {
+        print(id, title, authors, bookshelf, readStatus)
+        
     }
     
 }

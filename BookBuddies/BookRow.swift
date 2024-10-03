@@ -10,7 +10,6 @@ import SwiftUI
 struct BookRow: View {
     var bookshelfViewModel: BookshelfViewModel
     var book: Book
-    @Environment(\.modelContext) private var modelContext
     var body: some View {
         ZStack {
             HStack(alignment: .center) {
@@ -35,15 +34,11 @@ struct BookRow: View {
                         .minimumScaleFactor(0.5)
                         .multilineTextAlignment(.leading)
                         .fixedSize(horizontal: false, vertical: true)
-            
-                    
                 }
                 Button ("Add to"){
-                    let newBook = bookshelfViewModel.add(book: book)
-                    modelContext.insert(newBook)
-                    
+                    bookshelfViewModel.bookSave.toggle()
+                    bookshelfViewModel.currentBookSave = book
                 }
-                
             }
             .frame(width: UIScreen.main.bounds.width - 20, height: 120)
             .background(.peach)

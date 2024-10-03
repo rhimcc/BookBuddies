@@ -12,12 +12,29 @@ struct SearchResultsView: View {
     @ObservedObject var bookshelfViewModel: BookshelfViewModel
     
     var body: some View {
-        ScrollView {
-            ForEach(viewModel.books) { book in
-                BookRow(bookshelfViewModel: bookshelfViewModel, book: book)
+        ZStack {
+            ScrollView {
+                ForEach(viewModel.books) { book in
+                    BookRow(bookshelfViewModel: bookshelfViewModel, book: book)
+                }
+                
+            }.onAppear {
+                bookshelfViewModel.inSearch.toggle()
             }
-        }.onAppear {
-            bookshelfViewModel.inSearch.toggle()
+            if bookshelfViewModel.bookSave {
+                Button {
+                    bookshelfViewModel.bookPreview.toggle()
+                } label : {
+                    Color.black.opacity(0.6)
+                        .edgesIgnoringSafeArea(.all)
+                }
+                if let currentBook = bookshelfViewModel.currentBookSave {
+                    SaveBookView(bookshelfViewModel: bookshelfViewModel, book: currentBook)
+                }
+            
+            }
+            
+           
         }
     }
 }
