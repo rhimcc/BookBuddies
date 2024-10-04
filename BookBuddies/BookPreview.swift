@@ -48,16 +48,16 @@ struct BookPreview: View {
                         }
                     }
                     HStack {
-                        VStack {
-                            HStack {
-                                Image(systemName: bookshelfViewModel.getBookshelfImage())
-                                Text(bookshelfViewModel.currentBookPreview?.bookshelf ?? "")
-                            }
-                            HStack {
-                                Image(systemName: bookshelfViewModel.getReadImage())
-                                Text(bookshelfViewModel.currentBookPreview?.readStatus ?? "")
-                            }
+                        VStack (alignment: .center){
+                            Image(systemName: bookshelfViewModel.getBookshelfImage())
+                            Image(systemName: bookshelfViewModel.getReadImage())
                         }
+                        VStack(alignment: .leading) {
+                            Text(bookshelfViewModel.currentBookPreview?.bookshelf ?? "")
+                            Text(bookshelfViewModel.currentBookPreview?.readStatus ?? "")
+                        }
+                     
+                       
                         Spacer()
                         NavigationLink {
                             if let book = bookshelfViewModel.currentBookPreview {
@@ -67,12 +67,12 @@ struct BookPreview: View {
                             HStack {
                                 Text("View More")
                                 Image(systemName: "greaterthan")
-                            }.foregroundStyle(.gray)
+                            }.foregroundStyle(.navy)
 
                         }
                     }.padding(10)
                         .font(.system(size: 15))
-                        .foregroundStyle(.gray)
+                        .foregroundStyle(.navy)
                     Spacer()
                 }
             }.frame(width: 280, height: 160)
