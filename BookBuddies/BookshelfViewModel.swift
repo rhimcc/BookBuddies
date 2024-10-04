@@ -24,7 +24,8 @@ class BookshelfViewModel: ObservableObject{
     var shelfOptions: [String] = ["Read", "Reading", "Unread"]
     
     func add(book: Book) -> Book{
-        let savedBook = Book(id: book.id, title: book.getTitleFromJSON(), authors: book.getAuthorStringFromJSON(), bookshelf: selectedBookshelf, image: book.getImageThumbnailFromJSON() ?? "", readStatus: selectedReadStatus)
+        print("desc", book.getDescriptionFromJSON())
+        let savedBook = Book(id: book.id, title: book.getTitleFromJSON(), authors: book.getAuthorStringFromJSON(), bookshelf: selectedBookshelf, image: book.getImageThumbnailFromJSON() ?? "", readStatus: selectedReadStatus, desc: book.getDescriptionFromJSON())
         books.append(savedBook)
         return savedBook
     }

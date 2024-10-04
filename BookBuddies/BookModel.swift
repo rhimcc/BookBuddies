@@ -45,9 +45,9 @@ class Book: Decodable, Identifiable{
     var bookshelf: String?
     let image: String?
     var readStatus: String?
-    let desc: String?
     let title: String?
     let authors: String?
+    let desc: String?
     
     func convertURL(imageURL: String) -> String? {
         var imageURL = imageURL
@@ -55,6 +55,13 @@ class Book: Decodable, Identifiable{
             imageURL.insert("s", at: imageURL.index(imageURL.startIndex, offsetBy: 4))
         }
         return imageURL
+    }
+    
+    func getDescriptionFromJSON() -> String {
+        if let volumeInfo = volumeInfo, let desc = volumeInfo.desc {
+            return desc
+        }
+        return ""
     }
     
     func getAuthorStringFromJSON() -> String {
@@ -124,13 +131,14 @@ class Book: Decodable, Identifiable{
     }
 
     
-    init(id: String?, title: String, authors: String, bookshelf: String, image: String, readStatus: String){ // initalising all values for books
+    init(id: String?, title: String, authors: String, bookshelf: String, image: String, readStatus: String, desc: String){ // initalising all values for books
         self.id = id
         self.title = title
         self.authors = authors
         self.bookshelf = bookshelf
         self.image = image
         self.readStatus = readStatus
+        self.desc = desc
     }
     
     required init(from decoder: Decoder) throws { //initialises all of the variables for JSON decoding
@@ -138,7 +146,6 @@ class Book: Decodable, Identifiable{
         self.id = try container.decodeIfPresent(String.self, forKey: .id)
         self.selfLink = try container.decodeIfPresent(String.self, forKey: .selfLink)
         self.volumeInfo = try container.decodeIfPresent(VolumeInfo.self, forKey: .volumeInfo)
-        self.desc = try container.decodeIfPresent(String.self, forKey: .desc)
         
         }
     
@@ -146,7 +153,7 @@ class Book: Decodable, Identifiable{
         case id
         case selfLink
         case volumeInfo
-        case desc
+        case description
     }
     
     func printBook() {
