@@ -20,4 +20,10 @@ class BookViewModel: ObservableObject {
     @Published var searchActive: Bool = false
 
      var bookService: BookService = BookService()
+    
+    func convertURL(book: Book) -> String {
+        var imageURL: String = ""
+        imageURL.insert("s", at: imageURL.index(imageURL.startIndex, offsetBy: 4))
+        return imageURL
+    }
 }

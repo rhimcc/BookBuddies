@@ -10,20 +10,26 @@ import SwiftData
 
 struct ContentView: View {
     @State var tabSelection: Int = 0
+    @ObservedObject var viewModel = BookshelfViewModel()
     var body: some View {
         TabView(selection: $tabSelection) {
-            SearchBaseView()
+            SearchBaseView(bookshelfViewModel: viewModel)
                 .tabItem {
-                    Text("Search")
+                    VStack {
+                        Image(systemName: "magnifyingglass")
+                        Text("Search")
+                    }
                 
                 }.tag(0)
-            Bookshelf()
+            Bookshelf(bookshelfViewModel: viewModel)
                 .tabItem {
-                    Text("Bookshelf")
-                
+                    VStack {
+                        Image(systemName: "books.vertical.fill")
+                        Text("Bookshelf")
+                    }
                 }.tag(1)
             
-        }
+        }.tint(.navy)
     }
    
 }
