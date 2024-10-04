@@ -6,35 +6,32 @@
 //
 
 import SwiftUI
-import SwiftData
+import FirebaseAuth
 
 struct ContentView: View {
-    @State var tabSelection: Int = 0
-    @ObservedObject var viewModel = BookshelfViewModel()
+    @ObservedObject var authViewModel: AuthViewModel
+//    @State private var isSignedIn: Bool = false
+    
     var body: some View {
-        TabView(selection: $tabSelection) {
-            SearchBaseView(bookshelfViewModel: viewModel)
-                .tabItem {
-                    VStack {
-                        Image(systemName: "magnifyingglass")
-                        Text("Search")
-                    }
-                
-                }.tag(0)
-            Bookshelf(bookshelfViewModel: viewModel)
-                .tabItem {
-                    VStack {
-                        Image(systemName: "books.vertical.fill")
-                        Text("Bookshelf")
-                    }
-                }.tag(1)
-            
-        }.tint(.navy)
+        VStack {
+            if authViewModel.isSignedIn {
+                MainView(authViewModel: authViewModel)
+            } else {
+                SignInView()
+            }
+        }
+        .onAppear {
+            checkUserSignInStatus()
+        }
     }
-   
-}
 
-//#Preview {
-//    ContentView()
-//        .modelContainer(for: Item.self, inMemory: true)
-//}
+    func checkUserSignInStatus() {
+        if let user = Auth.auth().currentUser {
+            print("User is signed in: \(user.email ?? "No email")")
+            authViewModel.isSignedIn = true
+        } else {
+            print("No user is signed in")
+            authViewModel.isSignedIn = false
+        }
+    }
+}
