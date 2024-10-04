@@ -71,38 +71,34 @@ struct BookPreview: View {
                                     .minimumScaleFactor(0.5)
                             }
                         }
-
-                        if let book = bookshelfViewModel.currentBookPreview {
-                            
-                        Spacer()
-
-                        NavigationLink {
-                            BookDetail(book: book, bookshelfViewModel: bookshelfViewModel)
-                        } label : {
-                            Image(systemName: "greaterthan")
-                                .foregroundStyle(.gray)
-                        }
-                            Spacer()
-                    }
                     }
                     HStack {
-                        Image(systemName: bookshelfImageName)
-                        Text(bookshelfViewModel.currentBookPreview?.bookshelf ?? "")
-                            .onAppear {
-                                print(bookshelfViewModel.currentBookPreview?.bookshelf)
+                        VStack {
+                            HStack {
+                                Image(systemName: bookshelfImageName)
+                                Text(bookshelfViewModel.currentBookPreview?.bookshelf ?? "")
                             }
-                    Spacer()
-                        Image(systemName: readImageName)
-                        Text(bookshelfViewModel.currentBookPreview?.readStatus ?? "")
-                            .onAppear {
-                                print(bookshelfViewModel.currentBookPreview?.readStatus)
+                            HStack {
+                                Image(systemName: readImageName)
+                                Text(bookshelfViewModel.currentBookPreview?.readStatus ?? "")
                             }
+                        }
+                        Spacer()
+                        NavigationLink {
+                            if let book = bookshelfViewModel.currentBookPreview {
+                                BookDetail(book: book, bookshelfViewModel: bookshelfViewModel)
+                            }
+                        } label : {
+                            HStack {
+                                Text("View More")
+                                Image(systemName: "greaterthan")
+                            }.foregroundStyle(.gray)
+
+                        }
                     }.padding(10)
                         .font(.system(size: 15))
                         .foregroundStyle(.gray)
                     Spacer()
-                   
-
                 }
             }.frame(width: 280, height: 160)
         

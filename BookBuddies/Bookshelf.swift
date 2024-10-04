@@ -76,7 +76,6 @@ struct Bookshelf: View {
                     if bookshelfViewModel.bookPreview {
                         Button {
                             bookshelfViewModel.bookPreview.toggle()
-                            print(bookshelfViewModel.bookPreview)
                         } label : {
                             Color.black.opacity(0.6)
                                 .edgesIgnoringSafeArea(.all)
