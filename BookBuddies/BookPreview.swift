@@ -56,9 +56,11 @@ struct BookPreview: View {
                                 .foregroundStyle(.gray)
                         }
                             Spacer()
-
-
                     }
+                    }
+                    if let book = bookshelfViewModel.currentBookPreview, let readStatus = book.readStatus, let bookshelf = book.bookshelf {
+                        Text(readStatus)
+                        Text(bookshelf)
                     }
                     Spacer()
                    
