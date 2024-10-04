@@ -9,31 +9,6 @@ import SwiftUI
 
 struct BookPreview: View {
     @ObservedObject var bookshelfViewModel: BookshelfViewModel
-    var readImageName: String {
-        switch (bookshelfViewModel.currentBookPreview?.readStatus) {
-        case "Unread":
-            return "book.closed"
-        case "Read":
-            return "book.closed.fill"
-        case "Reading":
-            return "book"
-        default:
-            return ""
-        }
-    }
-    
-    var bookshelfImageName: String {
-        switch (bookshelfViewModel.currentBookPreview?.bookshelf) {
-        case "Owned":
-            return "house"
-        case "Library":
-            return "building.columns"
-        case "Borrowed":
-            return "person.2"
-        default:
-            return ""
-        }
-    }
     
     var body: some View {
             ZStack {
@@ -75,11 +50,11 @@ struct BookPreview: View {
                     HStack {
                         VStack {
                             HStack {
-                                Image(systemName: bookshelfImageName)
+                                Image(systemName: bookshelfViewModel.getBookshelfImage())
                                 Text(bookshelfViewModel.currentBookPreview?.bookshelf ?? "")
                             }
                             HStack {
-                                Image(systemName: readImageName)
+                                Image(systemName: bookshelfViewModel.getReadImage())
                                 Text(bookshelfViewModel.currentBookPreview?.readStatus ?? "")
                             }
                         }

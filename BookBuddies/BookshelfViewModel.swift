@@ -28,4 +28,30 @@ class BookshelfViewModel: ObservableObject{
         books.append(savedBook)
         return savedBook
     }
+    
+    func getReadImage() -> String {
+        switch (currentBookPreview?.readStatus) {
+        case "Unread":
+            return "book.closed"
+        case "Read":
+            return "book.closed.fill"
+        case "Reading":
+            return "book"
+        default:
+            return ""
+        }
+    }
+    
+    func getBookshelfImage() -> String {
+        switch (currentBookPreview?.bookshelf) {
+        case "Owned":
+            return "house"
+        case "Library":
+            return "building.columns"
+        case "Borrowed":
+            return "person.2"
+        default:
+            return ""
+        }
+    }
 }
