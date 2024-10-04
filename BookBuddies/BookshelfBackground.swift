@@ -11,7 +11,7 @@ struct BookshelfBackground: View {
     var body: some View {
         ZStack {
             Rectangle() // top of the bookshelf
-                .fill(.darkPeach)
+                .fill(.lightPeach)
                 .frame(width: UIScreen.main.bounds.width - 40, height: 20)
                 .padding(0)
                 .offset(y: -220)
