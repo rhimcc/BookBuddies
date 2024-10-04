@@ -14,13 +14,11 @@ struct BookView: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 5)
-                .frame(width: 75, height: 105)
                 .shadow(color: Color.black.opacity(0.5), radius: 2, x: 5, y: 0)
     
             AsyncImage(url: URL(string: getImage())) { image in
                 image.resizable()
                     .scaledToFill()
-                    .frame(width: 75, height: 105)
                     .clipped()
             } placeholder: {
             }

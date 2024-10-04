@@ -42,9 +42,9 @@ class Book: Decodable, Identifiable{
     let id: String?
     let selfLink: String?
     let volumeInfo: VolumeInfo?
-    let bookshelf: String?
+    var bookshelf: String?
     let image: String?
-    let readStatus: String?
+    var readStatus: String?
     let desc: String?
     let title: String?
     let authors: String?

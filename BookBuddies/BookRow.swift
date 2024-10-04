@@ -15,6 +15,7 @@ struct BookRow: View {
             HStack(alignment: .center) {
                 let authors = book.getAuthorStringFromJSON()
                 BookView(bookshelfViewModel: bookshelfViewModel, book: book)
+                    .frame(width: 75, height: 105)
                     .padding(5)
                 Spacer()
                 VStack(alignment: .leading) {

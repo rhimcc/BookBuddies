@@ -30,6 +30,8 @@ struct BookPreview: View {
 
                         if let book = bookshelfViewModel.currentBookPreview {
                             BookView(bookshelfViewModel: bookshelfViewModel, book: book)
+                                .frame(width: 75, height: 105)
+
                                 .padding(.horizontal, 10)
                             
                             VStack (alignment: .leading){
