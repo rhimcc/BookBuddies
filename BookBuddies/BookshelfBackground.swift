@@ -9,21 +9,33 @@ import SwiftUI
 
 struct BookshelfBackground: View {
     var body: some View {
-        VStack {
-            Text("Your books")
+        ZStack {
+            Rectangle() // top of the bookshelf
+                .fill(.darkPeach)
+                .frame(width: UIScreen.main.bounds.width - 40, height: 20)
+                .padding(0)
+                .position(x: UIScreen.main.bounds.width/2, y: 160)
             VStack (spacing: 0) {
-                ForEach(0..<5) { i in
-                    ZStack {
-                        Rectangle()
-                            .fill(.darkPeach)
-                            .frame(width: UIScreen.main.bounds.width - 40, height: 140)
-                        ShelfView(totalWidth: UIScreen.main.bounds.width - 60, totalHeight: 120)
-                    }
-                    .padding(0)
+                ForEach(0..<3) { i in
+                    ShelfView(totalWidth: UIScreen.main.bounds.width - 60, totalHeight: 120, text: getText(i: i))
                 }
             }
         }
     }
+    
+    func getText(i: Int) -> String{
+        switch(i) {
+        case 0:
+            return "Reading"
+        case 1:
+            return "Unread"
+        case 2:
+            return "Read"
+        default:
+            return ""
+        }
+    }
+    
 }
 
 
