@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 class BookshelfViewModel: ObservableObject{
   var books: [Book] = []
@@ -14,8 +15,11 @@ class BookshelfViewModel: ObservableObject{
     @Published var bookPreview: Bool = false
     @Published var bookSave: Bool = false
     @Published var currentBookSave: Book? = nil
-    @Published var selectedReadStatus: String = ""
-    @Published var selectedBookshelf: String = ""
+    @Published var selectedReadStatus: String = "Read"
+    @Published var selectedBookshelf: String = "Owned"
+    @Published var currentBookshelf: String = "Owned"
+    @Published var bookColors: [String: Color] = [:] // Dictionary to hold colors for each book
+
     var bookshelfOptions: [String] = ["Owned", "Library", "Borrowed"]
     var shelfOptions: [String] = ["Read", "Reading", "Unread"]
     
