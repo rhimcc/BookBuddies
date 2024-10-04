@@ -9,7 +9,32 @@ import SwiftUI
 
 struct BookPreview: View {
     @ObservedObject var bookshelfViewModel: BookshelfViewModel
-//    @State var book: Book
+    var readImageName: String {
+        switch (bookshelfViewModel.currentBookPreview?.readStatus) {
+        case "Unread":
+            return "book.closed"
+        case "Read":
+            return "book.closed.fill"
+        case "Reading":
+            return "book"
+        default:
+            return ""
+        }
+    }
+    
+    var bookshelfImageName: String {
+        switch (bookshelfViewModel.currentBookPreview?.bookshelf) {
+        case "Owned":
+            return "house"
+        case "Library":
+            return "building.columns"
+        case "Borrowed":
+            return "person.2"
+        default:
+            return ""
+        }
+    }
+    
     var body: some View {
             ZStack {
                 RoundedRectangle(cornerRadius: 20)
@@ -60,10 +85,21 @@ struct BookPreview: View {
                             Spacer()
                     }
                     }
-                    if let book = bookshelfViewModel.currentBookPreview, let readStatus = book.readStatus, let bookshelf = book.bookshelf {
-                        Text(readStatus)
-                        Text(bookshelf)
-                    }
+                    HStack {
+                        Image(systemName: bookshelfImageName)
+                        Text(bookshelfViewModel.currentBookPreview?.bookshelf ?? "")
+                            .onAppear {
+                                print(bookshelfViewModel.currentBookPreview?.bookshelf)
+                            }
+                    Spacer()
+                        Image(systemName: readImageName)
+                        Text(bookshelfViewModel.currentBookPreview?.readStatus ?? "")
+                            .onAppear {
+                                print(bookshelfViewModel.currentBookPreview?.readStatus)
+                            }
+                    }.padding(10)
+                        .font(.system(size: 15))
+                        .foregroundStyle(.gray)
                     Spacer()
                    
 
