@@ -69,6 +69,7 @@ struct SaveBookView: View {
                         let newBook = bookshelfViewModel.add(book: book)
                         modelContext.insert(newBook)
                         newBook.printBook()
+                        bookshelfViewModel.bookSave.toggle()
                     }
                 }
                 Spacer()
