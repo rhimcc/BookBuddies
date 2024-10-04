@@ -28,6 +28,7 @@
 		998886A12CAD02D2004E9E0F /* BookPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998886A02CAD02D2004E9E0F /* BookPreview.swift */; };
 		998886A52CAD40A2004E9E0F /* BookDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998886A42CAD40A2004E9E0F /* BookDetail.swift */; };
 		998886AB2CAE2EE6004E9E0F /* SaveBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998886AA2CAE2EE6004E9E0F /* SaveBookView.swift */; };
+		998886AD2CAE42DD004E9E0F /* BookSpineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998886AC2CAE42DD004E9E0F /* BookSpineView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		998886A02CAD02D2004E9E0F /* BookPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookPreview.swift; sourceTree = "<group>"; };
 		998886A42CAD40A2004E9E0F /* BookDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetail.swift; sourceTree = "<group>"; };
 		998886AA2CAE2EE6004E9E0F /* SaveBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveBookView.swift; sourceTree = "<group>"; };
+		998886AC2CAE42DD004E9E0F /* BookSpineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSpineView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 				998886902CAB7A23004E9E0F /* BookRow.swift */,
 				998886762CAAD972004E9E0F /* ContentView.swift */,
 				998886982CACE78E004E9E0F /* Bookshelf.swift */,
+				998886AC2CAE42DD004E9E0F /* BookSpineView.swift */,
 				998886A02CAD02D2004E9E0F /* BookPreview.swift */,
 				998886A42CAD40A2004E9E0F /* BookDetail.swift */,
 				9988869A2CACE807004E9E0F /* BookshelfViewModel.swift */,
@@ -195,6 +198,7 @@
 				998886972CACDBC8004E9E0F /* ShelfView.swift in Sources */,
 				998886A52CAD40A2004E9E0F /* BookDetail.swift in Sources */,
 				9988869D2CACF0BD004E9E0F /* VolumeInfoModel.swift in Sources */,
+				998886AD2CAE42DD004E9E0F /* BookSpineView.swift in Sources */,
 				998886772CAAD972004E9E0F /* ContentView.swift in Sources */,
 				9988868B2CAAE356004E9E0F /* SearchView.swift in Sources */,
 				998886992CACE78E004E9E0F /* Bookshelf.swift in Sources */,
