@@ -14,7 +14,7 @@ struct BookshelfBackground: View {
                 .fill(.darkPeach)
                 .frame(width: UIScreen.main.bounds.width - 40, height: 20)
                 .padding(0)
-                .position(x: UIScreen.main.bounds.width/2, y: 160)
+                .offset(y: -220)
             VStack (spacing: 0) {
                 ForEach(0..<3) { i in
                     ShelfView(totalWidth: UIScreen.main.bounds.width - 60, totalHeight: 120, text: getText(i: i))
