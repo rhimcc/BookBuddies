@@ -15,16 +15,21 @@ struct ContentView: View {
         TabView(selection: $tabSelection) {
             SearchBaseView(bookshelfViewModel: viewModel)
                 .tabItem {
-                    Text("Search")
+                    VStack {
+                        Image(systemName: "magnifyingglass")
+                        Text("Search")
+                    }
                 
                 }.tag(0)
             Bookshelf(bookshelfViewModel: viewModel)
                 .tabItem {
-                    Text("Bookshelf")
-                
+                    VStack {
+                        Image(systemName: "books.vertical.fill")
+                        Text("Bookshelf")
+                    }
                 }.tag(1)
             
-        }
+        }.tint(.navy)
     }
    
 }
