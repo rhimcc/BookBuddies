@@ -25,4 +25,27 @@ class UserViewModel: ObservableObject {
             print("Error encoding book: \(error.localizedDescription)")
         }
     }
+    
+    static func loadUsers(completion: @escaping ([User]) -> Void) {
+        let db = Firestore.firestore()
+        db.collection("users").getDocuments { (snapshot, error) in
+            if let error = error {
+                print("Error loading users: \(error.localizedDescription)")
+                completion([])
+                return
+            }
+            
+            var users: [User] = []
+            for document in snapshot!.documents {
+                let data = document.data()
+                
+                if let id = data["id"] as? String, let email = data["email"] as? String, let displayName = data["displayName"] as? String {
+                    
+                    let user = User(id: id, email: email, displayName: displayName)
+                    users.append(user)
+                }
+            }
+            completion(users)
+        }
+    }
 }

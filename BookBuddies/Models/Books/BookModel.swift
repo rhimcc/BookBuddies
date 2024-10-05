@@ -215,7 +215,6 @@ extension Book {
                     books.append(book)
                 }
             }
-            print(books)
             completion(books)
         }
     }

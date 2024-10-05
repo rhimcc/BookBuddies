@@ -31,6 +31,14 @@ struct MainView: View {
                         Text("Bookshelf")
                     }
                 }.tag(1)
+            FriendView()
+                .tabItem {
+                    VStack {
+                        Image(systemName: "person.3")
+                        Text("Friends")
+                    }
+                
+                }.tag(0)
             
         }.tint(.navy)
     }

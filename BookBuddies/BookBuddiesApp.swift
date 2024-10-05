@@ -6,29 +6,36 @@
 //
 
 import SwiftUI
-import SwiftData
 import FirebaseCore
 import FirebaseFirestore
 
 class AppDelegate: NSObject, UIApplicationDelegate {
+  var authViewModel: AuthViewModel?
+
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
     FirebaseApp.configure()
-      let db = Firestore.firestore()
+    let db = Firestore.firestore()
+    authViewModel = AuthViewModel()
+    
     return true
   }
 }
 
-
 @main
 struct BookBuddiesApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    @ObservedObject var authViewModel: AuthViewModel = AuthViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            NavigationView {
-                ContentView(authViewModel: authViewModel)
+            if let authViewModel = delegate.authViewModel {
+                NavigationView {
+                    ContentView(authViewModel: authViewModel)
+                }
+            } else {
+                Text("Loading...") // Show a loading state while Firebase is initializing
             }
         }
         .modelContainer(for: Book.self)
     }
 }
+
