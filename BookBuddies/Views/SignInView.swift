@@ -9,7 +9,7 @@ import SwiftUI
 import FirebaseAuth
 
 struct SignInView: View {
-    @StateObject private var authViewModel = AuthViewModel()
+    @StateObject var authViewModel: AuthViewModel
     @State var username: String = ""
     @State var password: String = ""
     var body: some View {
@@ -17,24 +17,38 @@ struct SignInView: View {
             MainView(authViewModel: authViewModel)
         } else {
             VStack {
+                Image("NameLong")
+                    .resizable()
+                    .frame(width: 300, height: 60)
+                    .padding(.bottom, 50)
                 Text("Sign In")
                     .font(.title)
+                    .bold()
                 TextField("Email", text: $username)
+                    .textFieldStyle(.roundedBorder)
                 SecureField("Password", text: $password)
+                    .textFieldStyle(.roundedBorder)
                 Button("SIGN IN") {
                     authViewModel.signIn(withEmail: username, password: password)
                 }.buttonStyle(.borderedProminent)
-                NavigationLink {
-                    SignUpView(authViewModel: authViewModel)
-                } label: {
-                    Text("SIGN UP")
-                        .buttonStyle(.borderedProminent)
+                    .tint(.navy)
+                    .padding(.vertical, 10)
+                
+                HStack {
+                    Text("Don't have an account?")
+                    NavigationLink {
+                        SignUpView(authViewModel: authViewModel)
+                    } label: {
+                        Text("Sign Up!")
+                    }.tint(.navy)
                 }
+                
                 
                 if let error = authViewModel.errorMessage {
                     Text(error)
                 }
-            }.onAppear {
+            }.padding(.horizontal, 10)
+            .onAppear {
                 username = ""
                 password = ""
             }
@@ -42,6 +56,6 @@ struct SignInView: View {
     }
 }
 
-//#Preview {
-//    SignInView()
-//}
+#Preview {
+    SignInView(authViewModel: AuthViewModel())
+}

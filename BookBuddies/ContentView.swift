@@ -17,7 +17,7 @@ struct ContentView: View {
             if authViewModel.isSignedIn {
                 MainView(authViewModel: authViewModel)
             } else {
-                SignInView()
+                StartView()
             }
         }
         .onAppear {
@@ -35,3 +35,8 @@ struct ContentView: View {
         }
     }
 }
+
+#Preview {
+    ContentView(authViewModel: AuthViewModel())
+}
+
