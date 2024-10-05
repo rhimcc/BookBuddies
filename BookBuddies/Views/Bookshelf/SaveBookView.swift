@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 
 struct SaveBookView: View {
     @ObservedObject var bookshelfViewModel: BookshelfViewModel
+    @ObservedObject var userViewModel: UserViewModel = UserViewModel()
     @Environment(\.modelContext) private var modelContext
 
     
@@ -67,9 +69,9 @@ struct SaveBookView: View {
                         }
                     }
                     Button ("Save") {
+//                        let db = Firestore.firestore()
                         let newBook = bookshelfViewModel.add(book: book)
-                        modelContext.insert(newBook)
-                        newBook.printBook()
+                        userViewModel.addBookToFirestore(book: newBook)
                         bookshelfViewModel.bookSave.toggle()
                     }
                 }

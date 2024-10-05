@@ -59,6 +59,7 @@
 		998886EF2CB00535004E9E0F /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998886EE2CB00535004E9E0F /* SignInView.swift */; };
 		998886F12CB0080A004E9E0F /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998886F02CB0080A004E9E0F /* AuthViewModel.swift */; };
 		998886F32CB00AAE004E9E0F /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998886F22CB00AAE004E9E0F /* SignUpView.swift */; };
+		998886F52CB0EBE1004E9E0F /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998886F42CB0EBE1004E9E0F /* UserModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -91,6 +92,7 @@
 		998886EE2CB00535004E9E0F /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		998886F02CB0080A004E9E0F /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		998886F22CB00AAE004E9E0F /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		998886F42CB0EBE1004E9E0F /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +187,7 @@
 			children = (
 				998886842CAADB35004E9E0F /* GoogleBooksAPI.swift */,
 				998886B22CAFFBF4004E9E0F /* Books */,
+				998886F42CB0EBE1004E9E0F /* UserModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 				998886EF2CB00535004E9E0F /* SignInView.swift in Sources */,
 				998886F32CB00AAE004E9E0F /* SignUpView.swift in Sources */,
 				998886932CABA181004E9E0F /* BookModel.swift in Sources */,
+				998886F52CB0EBE1004E9E0F /* UserModel.swift in Sources */,
 				9988868F2CAAE67D004E9E0F /* BookshelfBackground.swift in Sources */,
 				998886752CAAD972004E9E0F /* BookBuddiesApp.swift in Sources */,
 				998886892CAAE33B004E9E0F /* SearchBaseView.swift in Sources */,

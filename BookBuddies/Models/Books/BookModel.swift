@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 import SwiftData
 import UIKit
+import FirebaseFirestore
 
 extension UIImage {
     func getPixelColor(at point: CGPoint) -> UIColor? {
@@ -38,7 +39,7 @@ struct Books: Decodable {
 
 
 @Model
-class Book: Decodable, Identifiable{
+class Book: Codable, Identifiable{
     let id: String?
     let selfLink: String?
     let volumeInfo: VolumeInfo?
@@ -156,12 +157,70 @@ class Book: Decodable, Identifiable{
         case description
     }
     
+    enum EncodingKeys: String, CodingKey {
+        case id
+        case selfLink
+        case bookshelf
+        case image
+        case readStatus
+        case title
+        case authors
+        case description
+    }
+    
     func printBook() {
         print(id, title, authors, bookshelf, readStatus)
         
     }
     
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: EncodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encodeIfPresent(selfLink, forKey: .selfLink)
+        try container.encodeIfPresent(bookshelf, forKey: .bookshelf)
+        try container.encodeIfPresent(image, forKey: .image)
+        try container.encodeIfPresent(readStatus, forKey: .readStatus)
+        try container.encodeIfPresent(title, forKey: .title)
+        try container.encodeIfPresent(authors, forKey: .authors)
+        try container.encodeIfPresent(desc, forKey: .description)
+    }
+    
+    
+    
 }
+extension Book {
+    static func loadBooksFromFirestore(completion: @escaping ([Book]) -> Void) {
+        let db = Firestore.firestore()
+        db.collection("users").document(User.getCurrentUser() ?? "").collection("books").getDocuments { (snapshot, error) in
+            if let error = error {
+                print("Error loading books: \(error.localizedDescription)")
+                completion([])
+                return
+            }
+            
+            var books: [Book] = []
+            for document in snapshot!.documents {
+                let data = document.data()
+                
+                // Decode the book properties
+                if let id = data["id"] as? String,
+                   let title = data["title"] as? String,
+                   let authors = data["authors"] as? String,
+                   let bookshelf = data["bookshelf"] as? String,
+                   let image = data["image"] as? String,
+                   let readStatus = data["readStatus"] as? String,
+                   let desc = data["description"] as? String {
+                    
+                    let book = Book(id: id, title: title, authors: authors, bookshelf: bookshelf, image: image, readStatus: readStatus, desc: desc)
+                    books.append(book)
+                }
+            }
+            print(books)
+            completion(books)
+        }
+    }
+}
+
 
 
 

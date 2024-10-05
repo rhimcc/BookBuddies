@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 class BookshelfViewModel: ObservableObject{
-  var books: [Book] = []
+    static var books: [Book] = []
     var inSearch: Bool = false
     @Published var currentBookPreview: Book? = nil
     @Published var bookPreview: Bool = false
@@ -25,7 +25,7 @@ class BookshelfViewModel: ObservableObject{
     
     func add(book: Book) -> Book{
         let savedBook = Book(id: book.id, title: book.getTitleFromJSON(), authors: book.getAuthorStringFromJSON(), bookshelf: selectedBookshelf, image: book.getImageThumbnailFromJSON() ?? "", readStatus: selectedReadStatus, desc: book.getDescriptionFromJSON())
-        books.append(savedBook)
+        BookshelfViewModel.books.append(savedBook)
         return savedBook
     }
     
@@ -53,5 +53,9 @@ class BookshelfViewModel: ObservableObject{
         default:
             return ""
         }
+    }
+    
+    static func getBooks() -> [Book] {
+        return books
     }
 }

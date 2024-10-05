@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct Bookshelf: View {
-    @Query var books: [Book]
+    @State var books: [Book] = []
     @State var bookInfo: Bool = false
     @State var currentBook: Book?
     @ObservedObject var bookshelfViewModel: BookshelfViewModel
@@ -115,6 +115,8 @@ struct Bookshelf: View {
                     bookshelfViewModel.inSearch = false
                     
                 }
+            }.onAppear {
+               loadBooks()
             }
         }
     }
@@ -133,6 +135,14 @@ struct Bookshelf: View {
             return 500
         }
     }
+    
+    func loadBooks() {
+        Book.loadBooksFromFirestore() { fetchedBooks in
+              DispatchQueue.main.async {
+                  self.books = fetchedBooks // Update the published books
+              }
+          }
+      }
     
 }
 
