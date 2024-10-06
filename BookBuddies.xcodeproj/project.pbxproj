@@ -63,6 +63,11 @@
 		998886F72CB14929004E9E0F /* FriendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998886F62CB14929004E9E0F /* FriendView.swift */; };
 		998886F92CB166B8004E9E0F /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998886F82CB166B8004E9E0F /* StartView.swift */; };
 		998886FB2CB251FB004E9E0F /* FriendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998886FA2CB251FB004E9E0F /* FriendModel.swift */; };
+		998886FD2CB26DBA004E9E0F /* AddFriendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998886FC2CB26DBA004E9E0F /* AddFriendView.swift */; };
+		998886FF2CB26E2E004E9E0F /* FriendSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998886FE2CB26E2E004E9E0F /* FriendSearchView.swift */; };
+		998887012CB26E37004E9E0F /* FriendSearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998887002CB26E37004E9E0F /* FriendSearchResultsView.swift */; };
+		998887032CB26EC8004E9E0F /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998887022CB26EC8004E9E0F /* SearchViewModel.swift */; };
+		998887052CB27683004E9E0F /* FriendRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998887042CB27683004E9E0F /* FriendRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -99,6 +104,11 @@
 		998886F62CB14929004E9E0F /* FriendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendView.swift; sourceTree = "<group>"; };
 		998886F82CB166B8004E9E0F /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		998886FA2CB251FB004E9E0F /* FriendModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendModel.swift; sourceTree = "<group>"; };
+		998886FC2CB26DBA004E9E0F /* AddFriendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendView.swift; sourceTree = "<group>"; };
+		998886FE2CB26E2E004E9E0F /* FriendSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSearchView.swift; sourceTree = "<group>"; };
+		998887002CB26E37004E9E0F /* FriendSearchResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSearchResultsView.swift; sourceTree = "<group>"; };
+		998887022CB26EC8004E9E0F /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		998887042CB27683004E9E0F /* FriendRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +196,10 @@
 				998886F82CB166B8004E9E0F /* StartView.swift */,
 				998886F22CB00AAE004E9E0F /* SignUpView.swift */,
 				998886F62CB14929004E9E0F /* FriendView.swift */,
+				998886FC2CB26DBA004E9E0F /* AddFriendView.swift */,
+				998886FE2CB26E2E004E9E0F /* FriendSearchView.swift */,
+				998887002CB26E37004E9E0F /* FriendSearchResultsView.swift */,
+				998887042CB27683004E9E0F /* FriendRow.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -208,6 +222,7 @@
 				998886862CAAE2DF004E9E0F /* BookViewModel.swift */,
 				998886C42CB00223004E9E0F /* UserViewModel.swift */,
 				998886F02CB0080A004E9E0F /* AuthViewModel.swift */,
+				998887022CB26EC8004E9E0F /* SearchViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -355,7 +370,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				998887032CB26EC8004E9E0F /* SearchViewModel.swift in Sources */,
 				998886FB2CB251FB004E9E0F /* FriendModel.swift in Sources */,
+				998887052CB27683004E9E0F /* FriendRow.swift in Sources */,
 				998886872CAAE2DF004E9E0F /* BookViewModel.swift in Sources */,
 				998886912CAB7A23004E9E0F /* BookRow.swift in Sources */,
 				998886852CAADB35004E9E0F /* GoogleBooksAPI.swift in Sources */,
@@ -371,8 +388,11 @@
 				9988869B2CACE807004E9E0F /* BookshelfViewModel.swift in Sources */,
 				9988869F2CACF0C5004E9E0F /* ImageLinks.swift in Sources */,
 				9988868D2CAAE362004E9E0F /* SearchResultsView.swift in Sources */,
+				998886FF2CB26E2E004E9E0F /* FriendSearchView.swift in Sources */,
 				998886EF2CB00535004E9E0F /* SignInView.swift in Sources */,
 				998886F32CB00AAE004E9E0F /* SignUpView.swift in Sources */,
+				998887012CB26E37004E9E0F /* FriendSearchResultsView.swift in Sources */,
+				998886FD2CB26DBA004E9E0F /* AddFriendView.swift in Sources */,
 				998886932CABA181004E9E0F /* BookModel.swift in Sources */,
 				998886F52CB0EBE1004E9E0F /* UserModel.swift in Sources */,
 				998886F72CB14929004E9E0F /* FriendView.swift in Sources */,

@@ -54,19 +54,55 @@ class UserViewModel: ObservableObject {
             print("User not authenticated or invalid user ID.")
             return
         }
-        
-        do {
-            let jsonData = try JSONEncoder().encode(user)
-            let jsonDict = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any]
-            db.collection("users").document(userId).collection("friends").addDocument(data: jsonDict ?? [:]) { error in
-                if let error = error {
-                    print("Error adding user: \(error.localizedDescription)")
-                } else {
-                    print("User successfully added")
+        let userToCheck = user
+        isFriend(user: userToCheck) { isFriend in
+            if isFriend {
+                print("User is a friend.")
+            } else {
+                do {
+                    let jsonData = try JSONEncoder().encode(user)
+                    let jsonDict = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any]
+                    self.db.collection("users").document(userId).collection("friends").addDocument(data: jsonDict ?? [:]) { error in
+                        if let error = error {
+                            print("Error adding user: \(error.localizedDescription)")
+                        } else {
+                            print("User successfully added")
+                        }
+                    }
+                } catch {
+                    print("Error encoding user: \(error.localizedDescription)")
                 }
             }
-        } catch {
-            print("Error encoding user: \(error.localizedDescription)")
+        }
+        
+        
+    }
+    
+    func isFriend(user: User, completion: @escaping (Bool) -> Void) {
+        guard let userId = Auth.auth().currentUser?.uid, !userId.isEmpty else {
+            print("User not authenticated or invalid user ID.")
+            completion(false)
+            return
+        }
+        
+        let collectionRef = db.collection("users").document(userId).collection("friends")
+        collectionRef.whereField("id", isEqualTo: user.id).getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error checking if friend exists: \(error.localizedDescription)")
+                completion(false)
+                return
+            }
+            
+            // If querySnapshot is not empty, the friend already exists
+            if let snapshot = querySnapshot, !snapshot.isEmpty {
+                print("Friend already exists in Firestore.")
+                completion(true)
+                return
+            } else {
+                completion(false) // Return false if friend does not exist
+            }
         }
     }
+    
+    
 }
