@@ -10,6 +10,7 @@ import SwiftUI
 struct SearchResultsView: View {
     @ObservedObject var viewModel: BookViewModel
     @ObservedObject var bookshelfViewModel: BookshelfViewModel
+    @ObservedObject var userViewModel: UserViewModel
     
     var body: some View {
         ZStack {
@@ -29,7 +30,7 @@ struct SearchResultsView: View {
                         .edgesIgnoringSafeArea(.all)
                 }
                 if let currentBook = bookshelfViewModel.currentBookSave {
-                    SaveBookView(bookshelfViewModel: bookshelfViewModel, book: currentBook)
+                    SaveBookView(bookshelfViewModel: bookshelfViewModel, userViewModel: userViewModel, book: currentBook)
                 }
             
             }

@@ -48,4 +48,25 @@ class UserViewModel: ObservableObject {
             completion(users)
         }
     }
+    
+    func addFriendToFirestore(user: User) {
+        guard let userId = Auth.auth().currentUser?.uid, !userId.isEmpty else {
+            print("User not authenticated or invalid user ID.")
+            return
+        }
+        
+        do {
+            let jsonData = try JSONEncoder().encode(user)
+            let jsonDict = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any]
+            db.collection("users").document(userId).collection("friends").addDocument(data: jsonDict ?? [:]) { error in
+                if let error = error {
+                    print("Error adding user: \(error.localizedDescription)")
+                } else {
+                    print("User successfully added")
+                }
+            }
+        } catch {
+            print("Error encoding user: \(error.localizedDescription)")
+        }
+    }
 }

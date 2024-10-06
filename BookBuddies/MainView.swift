@@ -11,12 +11,13 @@ struct MainView: View {
     @State var tabSelection: Int = 0
     @ObservedObject var viewModel = BookshelfViewModel()
     @ObservedObject var authViewModel: AuthViewModel
+    @ObservedObject var userViewModel: UserViewModel = UserViewModel()
     var body: some View {
         Button ("Sign out") {
             authViewModel.signOut()
         }
         TabView(selection: $tabSelection) {
-            SearchBaseView(bookshelfViewModel: viewModel)
+            SearchBaseView(bookshelfViewModel: viewModel, userViewModel: userViewModel)
                 .tabItem {
                     VStack {
                         Image(systemName: "magnifyingglass")
@@ -31,7 +32,7 @@ struct MainView: View {
                         Text("Bookshelf")
                     }
                 }.tag(1)
-            FriendView()
+            FriendView(userViewModel: userViewModel)
                 .tabItem {
                     VStack {
                         Image(systemName: "person.3")
