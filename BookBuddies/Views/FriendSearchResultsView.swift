@@ -14,7 +14,7 @@ struct FriendSearchResultsView: View {
     var body: some View {
         ScrollView {
             ForEach(users.filter {$0.displayName.lowercased().contains(searchViewModel.searchQuery.lowercased()) && $0.id != User.getCurrentUser()}) { user in
-                FriendRow(friend: user, userViewModel: userViewModel)
+                FriendRow(friend: user, userViewModel: userViewModel, friendsList: false)
             }
         }.onAppear {
             loadUsers()

@@ -68,6 +68,7 @@
 		998887012CB26E37004E9E0F /* FriendSearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998887002CB26E37004E9E0F /* FriendSearchResultsView.swift */; };
 		998887032CB26EC8004E9E0F /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998887022CB26EC8004E9E0F /* SearchViewModel.swift */; };
 		998887052CB27683004E9E0F /* FriendRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998887042CB27683004E9E0F /* FriendRow.swift */; };
+		998887072CB28016004E9E0F /* FriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998887062CB28016004E9E0F /* FriendViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -109,6 +110,7 @@
 		998887002CB26E37004E9E0F /* FriendSearchResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSearchResultsView.swift; sourceTree = "<group>"; };
 		998887022CB26EC8004E9E0F /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		998887042CB27683004E9E0F /* FriendRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRow.swift; sourceTree = "<group>"; };
+		998887062CB28016004E9E0F /* FriendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,6 +223,7 @@
 				9988869A2CACE807004E9E0F /* BookshelfViewModel.swift */,
 				998886862CAAE2DF004E9E0F /* BookViewModel.swift */,
 				998886C42CB00223004E9E0F /* UserViewModel.swift */,
+				998887062CB28016004E9E0F /* FriendViewModel.swift */,
 				998886F02CB0080A004E9E0F /* AuthViewModel.swift */,
 				998887022CB26EC8004E9E0F /* SearchViewModel.swift */,
 			);
@@ -400,6 +403,7 @@
 				998886752CAAD972004E9E0F /* BookBuddiesApp.swift in Sources */,
 				998886892CAAE33B004E9E0F /* SearchBaseView.swift in Sources */,
 				998886F12CB0080A004E9E0F /* AuthViewModel.swift in Sources */,
+				998887072CB28016004E9E0F /* FriendViewModel.swift in Sources */,
 				998886A12CAD02D2004E9E0F /* BookPreview.swift in Sources */,
 				998886C52CB00223004E9E0F /* UserViewModel.swift in Sources */,
 				998886AB2CAE2EE6004E9E0F /* SaveBookView.swift in Sources */,

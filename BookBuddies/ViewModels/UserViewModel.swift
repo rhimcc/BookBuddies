@@ -49,6 +49,34 @@ class UserViewModel: ObservableObject {
         }
     }
     
+    static func loadFriends(completion: @escaping ([User]) -> Void) {
+        guard let userId = Auth.auth().currentUser?.uid, !userId.isEmpty else {
+            print("User not authenticated or invalid user ID.")
+            return
+        }
+        let db = Firestore.firestore()
+        db.collection("users").document(userId).collection("friends").getDocuments { (snapshot, error) in
+            if let error = error {
+                print("Error loading users: \(error.localizedDescription)")
+                completion([])
+                return
+            }
+            
+            var users: [User] = []
+            for document in snapshot!.documents {
+                let data = document.data()
+                
+                if let id = data["id"] as? String, let email = data["email"] as? String, let displayName = data["displayName"] as? String {
+                    
+                    let user = User(id: id, email: email, displayName: displayName)
+                    print(user.displayName)
+                    users.append(user)
+                }
+            }
+            completion(users)
+        }
+    }
+    
     func addFriendToFirestore(user: User) {
         guard let userId = Auth.auth().currentUser?.uid, !userId.isEmpty else {
             print("User not authenticated or invalid user ID.")
