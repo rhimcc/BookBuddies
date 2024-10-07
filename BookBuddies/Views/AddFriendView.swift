@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AddFriendView: View {
     @ObservedObject var userViewModel: UserViewModel
-    @ObservedObject var searchViewModel: SearchViewModel = SearchViewModel()
+    @StateObject var searchViewModel: SearchViewModel = SearchViewModel()
     var body: some View {
         VStack {
             Text("Add Friends")

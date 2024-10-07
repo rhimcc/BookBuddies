@@ -13,42 +13,36 @@ struct FriendView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                Spacer()
-                Text("Friends")
-                    .font(.title)
-                    .bold()
-                Spacer()
-                NavigationLink {
-                    AddFriendView(userViewModel: userViewModel)
-                } label : {
-                    ZStack {
-                        Circle()
-                            .fill(.navy)
-                            .frame(width: 30, height: 30)
-                        Text("+")
-                            .foregroundStyle(.white)
-                            .font(.system(size: 20))
-                    }
+            ZStack {
+                HStack {
+                    Spacer()
+                    Text("Friends")
+                        .font(.title)
+                        .bold()
+                    Spacer()
                 }
-                
+                HStack (alignment: .center) {
+                    Spacer()
+                    NavigationLink {
+                        AddFriendView(userViewModel: userViewModel)
+                    } label : {
+                        Image(systemName: "plus.circle.fill")
+                            .foregroundStyle(.navy)
+                            .font(.system(size: 40))
+    
+                    }
+                    
+                }.padding(.horizontal, 10)
             }
-            Spacer()
-            ForEach(friends) { friend in
-                FriendRow(friend: friend, userViewModel: userViewModel, friendsList: true)
+       
+            ScrollView {
+                ForEach(userViewModel.friends) { friend in
+                    FriendRow(friend: friend, userViewModel: userViewModel, friendsList: true)
+                }
             }
-        }.onAppear {
-            loadFriends()
         }
     }
     
-    func loadFriends() {
-        UserViewModel.loadFriends() { users in
-            DispatchQueue.main.async {
-                self.friends = users
-            }
-        }
-    }
 }
 
 

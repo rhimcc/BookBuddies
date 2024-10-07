@@ -4,6 +4,14 @@ import FirebaseAuth // Import FirebaseAuth to access the user's ID
 
 class UserViewModel: ObservableObject {
     let db = Firestore.firestore()
+    @Published var friends: [User] = []
+    @Published var allUsers: [User] = []
+    
+    init() {
+        loadFriendsToArray()
+        loadUsersToArray()
+    }
+
 
     func addBookToFirestore(book: Book) {
         guard let userId = Auth.auth().currentUser?.uid else {
@@ -23,6 +31,22 @@ class UserViewModel: ObservableObject {
             }
         } catch {
             print("Error encoding book: \(error.localizedDescription)")
+        }
+    }
+    
+    func loadFriendsToArray(){
+        UserViewModel.loadFriends() { users in
+            DispatchQueue.main.async {
+                self.friends = users
+            }
+        }
+    }
+    
+    func loadUsersToArray() {
+        UserViewModel.loadUsers() { users in
+            DispatchQueue.main.async {
+                self.allUsers = users
+            }
         }
     }
     
@@ -77,6 +101,21 @@ class UserViewModel: ObservableObject {
         }
     }
     
+    func removeFriendFromFirestore(user: User) {
+        guard let userId = Auth.auth().currentUser?.uid, !userId.isEmpty else {
+            print("User not authenticated or invalid user ID.")
+            return
+        }
+        do {
+            try db.collection("users").document(userId).collection("friends").document(user.id).delete()
+          print("Document successfully removed!")
+        } catch {
+          print("Error removing document: \(error)")
+        }
+   
+       
+        }
+    
     func addFriendToFirestore(user: User) {
         guard let userId = Auth.auth().currentUser?.uid, !userId.isEmpty else {
             print("User not authenticated or invalid user ID.")
@@ -90,7 +129,7 @@ class UserViewModel: ObservableObject {
                 do {
                     let jsonData = try JSONEncoder().encode(user)
                     let jsonDict = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any]
-                    self.db.collection("users").document(userId).collection("friends").addDocument(data: jsonDict ?? [:]) { error in
+                    self.db.collection("users").document(userId).collection("friends").document(user.id).setData(jsonDict ?? [:]) { error in
                         if let error = error {
                             print("Error adding user: \(error.localizedDescription)")
                         } else {
@@ -131,6 +170,6 @@ class UserViewModel: ObservableObject {
             }
         }
     }
-    
-    
 }
+    
+

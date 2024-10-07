@@ -15,6 +15,17 @@ struct FriendRow: View {
             }
             Spacer()
             HStack {
+                if (friendsList) {
+                    Button {
+                        userViewModel.friends.remove(at: getIndex(of: friend))
+                        userViewModel.removeFriendFromFirestore(user: friend)
+                        self.existingFriend.toggle()
+
+                    } label: {
+                        Text("Remove")
+                        Image(systemName: "person.badge.minus")
+                    }
+                }
                 if (!friendsList) {
                     if existingFriend {
                         Text("ADDED")
@@ -22,6 +33,7 @@ struct FriendRow: View {
                     } else {
                         Button {
                             userViewModel.addFriendToFirestore(user: friend)
+                            userViewModel.friends.append(friend)
                             self.existingFriend.toggle()
                         } label : {
                             Text("ADD")
@@ -50,8 +62,15 @@ struct FriendRow: View {
             existingFriend = isFriend
         }
     }
+    
+    func getIndex(of user: User) -> Int {
+        for i in userViewModel.friends.indices {
+            print(i)
+            if userViewModel.friends[i].id == user.id {
+                return i
+            }
+            
+        }
+        return 0
+    }
 }
-
-//#Preview {
-//    FriendRow(friend: User(id: "123", email: "nejnbe", displayName: "ABCD"), userViewModel: UserViewModel())
-//}
