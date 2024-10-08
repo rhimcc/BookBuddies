@@ -16,6 +16,7 @@ struct Bookshelf: View {
     @State private var bookColor: Color = .gray
     @State private var currentIndex: Int = 0
     @State private var currentBookshelfIndex: Int = 0
+    @State var bookshelfOwner: User
 
     var body: some View {
         NavigationStack {
@@ -137,7 +138,7 @@ struct Bookshelf: View {
     }
     
     func loadBooks() {
-        Book.loadBooksFromFirestore() { fetchedBooks in
+        Book.loadBooksFromFirestore(user: bookshelfOwner) { fetchedBooks in
               DispatchQueue.main.async {
                   self.books = fetchedBooks // Update the published books
               }

@@ -12,9 +12,11 @@ struct FriendSearchResultsView: View {
     @ObservedObject var userViewModel: UserViewModel
     @State var users: [User] = []
     var body: some View {
-        ScrollView {
-            ForEach(userViewModel.allUsers.filter {$0.displayName.lowercased().contains(searchViewModel.searchQuery.lowercased()) && $0.id != User.getCurrentUser()}) { user in
-                FriendRow(friend: user, userViewModel: userViewModel, friendsList: false)
+        NavigationStack {
+            ScrollView {
+                ForEach(userViewModel.allUsers.filter {$0.displayName.lowercased().contains(searchViewModel.searchQuery.lowercased()) && $0.id != User.getCurrentUser()}) { user in
+                    FriendRow(friend: user, userViewModel: userViewModel, friendsList: false)
+                }
             }
         }
     }

@@ -189,9 +189,9 @@ class Book: Codable, Identifiable{
     
 }
 extension Book {
-    static func loadBooksFromFirestore(completion: @escaping ([Book]) -> Void) {
+    static func loadBooksFromFirestore(user: User, completion: @escaping ([Book]) -> Void) {
         let db = Firestore.firestore()
-        db.collection("users").document(User.getCurrentUser() ?? "").collection("books").getDocuments { (snapshot, error) in
+        db.collection("users").document(user.id).collection("books").getDocuments { (snapshot, error) in
             if let error = error {
                 print("Error loading books: \(error.localizedDescription)")
                 completion([])

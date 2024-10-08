@@ -16,6 +16,15 @@ struct FriendRow: View {
             Spacer()
             HStack {
                 if (friendsList) {
+                    NavigationLink {
+                        Bookshelf(bookshelfViewModel: BookshelfViewModel(), bookshelfOwner: friend)
+                    } label: {
+                        Image("BookshelfNavy")
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                            .clipShape(Circle())
+                    }
+                    
                     Button {
                         userViewModel.friends.remove(at: getIndex(of: friend))
                         userViewModel.removeFriendFromFirestore(user: friend)

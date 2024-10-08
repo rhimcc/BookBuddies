@@ -6,10 +6,12 @@ class UserViewModel: ObservableObject {
     let db = Firestore.firestore()
     @Published var friends: [User] = []
     @Published var allUsers: [User] = []
+    @Published var currentUser: User = User(id: "", email: "", displayName: "")
     
     init() {
         loadFriendsToArray()
         loadUsersToArray()
+        getUser()
     }
 
 
@@ -167,6 +169,50 @@ class UserViewModel: ObservableObject {
                 return
             } else {
                 completion(false) // Return false if friend does not exist
+            }
+        }
+    }
+    
+    static func getCurrentUser(completion: @escaping (User?) -> Void) {
+        let db = Firestore.firestore()
+        guard let userId = Auth.auth().currentUser?.uid else {
+            print("User not authenticated.")
+            completion(nil)
+            return
+        }
+        
+        let docRef = db.collection("users").document(userId)
+        docRef.getDocument { (document, error) in
+            if let error = error {
+                print("Error getting document: \(error)")
+                completion(nil)
+                return
+            }
+            
+            guard let document = document, document.exists else {
+                print("Document does not exist")
+                completion(nil)
+                return
+            }
+            
+            let data = document.data()
+            if let name = data?["displayName"] as? String,
+               let email = data?["email"] as? String {
+                let user = User(id: userId, email: email, displayName: name)
+                completion(user)
+            } else {
+                print("Failed to parse user data")
+                completion(nil)
+            }
+        }
+    }
+    
+    func getUser() {
+        UserViewModel.getCurrentUser() { user in
+            DispatchQueue.main.async {
+                if let user = user {
+                    self.currentUser = user
+                }
             }
         }
     }
