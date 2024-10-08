@@ -38,7 +38,7 @@ class AuthViewModel: ObservableObject {
             }
             strongSelf.isSignedIn = true
             strongSelf.errorMessage = "Sign in successful"
-            let newUser = User(id: Auth.auth().currentUser?.uid ?? "", email: email, displayName: displayName)
+            let newUser = User(id: Auth.auth().currentUser?.uid ?? "", email: email, displayName: displayName, status: nil)
             self?.addAccountToFirestore(user: newUser)
         }
         

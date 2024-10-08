@@ -6,7 +6,7 @@ class UserViewModel: ObservableObject {
     let db = Firestore.firestore()
     @Published var friends: [User] = []
     @Published var allUsers: [User] = []
-    @Published var currentUser: User = User(id: "", email: "", displayName: "")
+    @Published var currentUser: User = User(id: "", email: "", displayName: "", status: "")
     
     init() {
         loadFriendsToArray()
@@ -33,6 +33,16 @@ class UserViewModel: ObservableObject {
             }
         } catch {
             print("Error encoding book: \(error.localizedDescription)")
+        }
+    }
+    
+    func approveFriend(friend: User) {
+        db.collection("users").document(friend.id).collection("friends").document(currentUser.id).setData([ "status": "Approved" ], merge: true)
+        addFriendToFirestore(from: friend, to: currentUser, status: "Approved")
+        for currentFriend in friends {
+            if currentFriend.id == friend.id {
+                currentFriend.status = "Approved"
+            }
         }
     }
     
@@ -67,7 +77,7 @@ class UserViewModel: ObservableObject {
                 
                 if let id = data["id"] as? String, let email = data["email"] as? String, let displayName = data["displayName"] as? String {
                     
-                    let user = User(id: id, email: email, displayName: displayName)
+                    let user = User(id: id, email: email, displayName: displayName, status: nil)
                     users.append(user)
                 }
             }
@@ -92,9 +102,9 @@ class UserViewModel: ObservableObject {
             for document in snapshot!.documents {
                 let data = document.data()
                 
-                if let id = data["id"] as? String, let email = data["email"] as? String, let displayName = data["displayName"] as? String {
+                if let id = data["id"] as? String, let email = data["email"] as? String, let displayName = data["displayName"] as? String, let status = data["status"] as? String  {
                     
-                    let user = User(id: id, email: email, displayName: displayName)
+                    let user = User(id: id, email: email, displayName: displayName, status: status)
                     print(user.displayName)
                     users.append(user)
                 }
@@ -118,20 +128,21 @@ class UserViewModel: ObservableObject {
        
         }
     
-    func addFriendToFirestore(user: User) {
+    func addFriendToFirestore(from user1: User, to user2: User, status: String) {
         guard let userId = Auth.auth().currentUser?.uid, !userId.isEmpty else {
             print("User not authenticated or invalid user ID.")
             return
         }
-        let userToCheck = user
+        let userToCheck = user2
         isFriend(user: userToCheck) { isFriend in
             if isFriend {
                 print("User is a friend.")
             } else {
                 do {
-                    let jsonData = try JSONEncoder().encode(user)
-                    let jsonDict = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any]
-                    self.db.collection("users").document(userId).collection("friends").document(user.id).setData(jsonDict ?? [:]) { error in
+                    let jsonData = try JSONEncoder().encode(user1)
+                    var jsonDict = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any]
+                    jsonDict?["status"] = status
+                    self.db.collection("users").document(user2.id).collection("friends").document(user1.id).setData(jsonDict ?? [:]) { error in
                         if let error = error {
                             print("Error adding user: \(error.localizedDescription)")
                         } else {
@@ -141,10 +152,9 @@ class UserViewModel: ObservableObject {
                 } catch {
                     print("Error encoding user: \(error.localizedDescription)")
                 }
+                
             }
         }
-        
-        
     }
     
     func isFriend(user: User, completion: @escaping (Bool) -> Void) {
@@ -198,7 +208,7 @@ class UserViewModel: ObservableObject {
             let data = document.data()
             if let name = data?["displayName"] as? String,
                let email = data?["email"] as? String {
-                let user = User(id: userId, email: email, displayName: name)
+                let user = User(id: userId, email: email, displayName: name, status: nil)
                 completion(user)
             } else {
                 print("Failed to parse user data")

@@ -30,14 +30,17 @@ struct FriendView: View {
                             Image(systemName: "plus.circle.fill")
                                 .foregroundStyle(.navy)
                                 .font(.system(size: 40))
-                            
                         }
-                        
                     }.padding(.horizontal, 10)
                 }
                 
                 ScrollView {
-                    ForEach(userViewModel.friends) { friend in
+                    Text("Pending")
+                    ForEach(userViewModel.friends.filter {$0.status == "Pending"}) { friend in
+                        FriendRow(friend: friend, userViewModel: userViewModel, friendsList: true)
+                    }
+                    Text("Friends")
+                    ForEach(userViewModel.friends.filter {$0.status == "Approved"}) { friend in
                         FriendRow(friend: friend, userViewModel: userViewModel, friendsList: true)
                     }
                 }

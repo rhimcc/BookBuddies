@@ -16,6 +16,11 @@ struct FriendRow: View {
             Spacer()
             HStack {
                 if (friendsList) {
+                    if (friend.status == "Pending") {
+                        Button ("Approve") {
+                            userViewModel.approveFriend(friend: friend)
+                        }
+                    }
                     NavigationLink {
                         Bookshelf(bookshelfViewModel: BookshelfViewModel(), bookshelfOwner: friend)
                     } label: {
@@ -36,12 +41,14 @@ struct FriendRow: View {
                     }
                 }
                 if (!friendsList) {
+                   
+                
                     if existingFriend {
                         Text("ADDED")
                         Image(systemName: "person.fill.checkmark")
                     } else {
                         Button {
-                            userViewModel.addFriendToFirestore(user: friend)
+                            userViewModel.addFriendToFirestore(from: userViewModel.currentUser, to: friend, status: "Pending")
                             userViewModel.friends.append(friend)
                             self.existingFriend.toggle()
                         } label : {
