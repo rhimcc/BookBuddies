@@ -55,7 +55,7 @@ struct Bookshelf: View {
                 }
                 ZStack { // adding books
                     BookshelfBackground()
-                        .position(x: UIScreen.main.bounds.width/2, y: (UIScreen.main.bounds.height - 50) / 2)
+                        .position(x: UIScreen.main.bounds.width/2, y: (UIScreen.main.bounds.height - 100) / 2)
                     ForEach(Array(bookshelfViewModel.shelfOptions.enumerated()), id: \.element) { index, option in
                         let bookArray = books.filter {$0.readStatus == option && $0.bookshelf == bookshelfViewModel.bookshelfOptions[currentBookshelfIndex]}
                         HStack (spacing: 0) {
@@ -117,9 +117,8 @@ struct Bookshelf: View {
                             
                         }
                     }
-                }.onAppear {
+                }.onAppear { // ZStack
                     bookshelfViewModel.inSearch = false
-                    
                 }
                 Spacer()
             }.onAppear {
@@ -135,14 +134,14 @@ struct Bookshelf: View {
     
     func getY(option: String) -> CGFloat {
         let screenHeight = UIScreen.main.bounds.height - 50
-        let middleY = screenHeight / 2
+        let middleY = (screenHeight - 250) / 2
         switch option {
         case "Reading":
-            return middleY - 150 - 100
+            return middleY - 150
         case "Unread":
-            return middleY - 100
+            return middleY
         case "Read":
-            return middleY + 150 - 100
+            return middleY + 150
         default:
             return 500
         }
