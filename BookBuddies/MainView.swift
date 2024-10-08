@@ -37,7 +37,7 @@ struct MainView: View {
                         Text("Friends")
                     }
                 
-                }.tag(0)
+                }.tag(2)
             
             SettingsView(userViewModel: userViewModel, bookshelfViewModel: viewModel, authViewModel: authViewModel)
                 .tabItem {
@@ -45,7 +45,7 @@ struct MainView: View {
                         Image(systemName: "gearshape.fill")
                         Text("Settings")
                     }
-                }
+                }.tag(3)
             
         }.tint(.navy)
     }

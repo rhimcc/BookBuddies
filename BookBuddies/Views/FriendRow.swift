@@ -42,13 +42,16 @@ struct FriendRow: View {
                 }
                 if (!friendsList) {
                    
-                
+                    if let status = friend.status {
+                        Text(status)
+                    }
+         
                     if existingFriend {
                         Text("ADDED")
                         Image(systemName: "person.fill.checkmark")
                     } else {
                         Button {
-                            userViewModel.addFriendToFirestore(from: userViewModel.currentUser, to: friend, status: "Pending")
+                            userViewModel.addFriendToFirestore(friend: userViewModel.currentUser, to: friend, status: "Pending")
                             userViewModel.friends.append(friend)
                             self.existingFriend.toggle()
                         } label : {

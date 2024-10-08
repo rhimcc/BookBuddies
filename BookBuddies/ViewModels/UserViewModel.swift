@@ -37,11 +37,11 @@ class UserViewModel: ObservableObject {
     }
     
     func approveFriend(friend: User) {
-        db.collection("users").document(friend.id).collection("friends").document(currentUser.id).setData([ "status": "Approved" ], merge: true)
-        addFriendToFirestore(from: friend, to: currentUser, status: "Approved")
+        addFriendToFirestore(friend: currentUser, to: friend, status: "Friends")
+        db.collection("users").document(currentUser.id).collection("friends").document(friend.id).setData([ "status": "Friends" ], merge: true)
         for currentFriend in friends {
             if currentFriend.id == friend.id {
-                currentFriend.status = "Approved"
+                currentFriend.status = "Friends"
             }
         }
     }
@@ -128,34 +128,28 @@ class UserViewModel: ObservableObject {
        
         }
     
-    func addFriendToFirestore(from user1: User, to user2: User, status: String) {
+    func addFriendToFirestore(friend user1: User, to user2: User, status: String) {
         guard let userId = Auth.auth().currentUser?.uid, !userId.isEmpty else {
             print("User not authenticated or invalid user ID.")
             return
         }
-        let userToCheck = user2
-        isFriend(user: userToCheck) { isFriend in
-            if isFriend {
-                print("User is a friend.")
-            } else {
-                do {
-                    let jsonData = try JSONEncoder().encode(user1)
-                    var jsonDict = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any]
-                    jsonDict?["status"] = status
-                    self.db.collection("users").document(user2.id).collection("friends").document(user1.id).setData(jsonDict ?? [:]) { error in
-                        if let error = error {
-                            print("Error adding user: \(error.localizedDescription)")
-                        } else {
-                            print("User successfully added")
-                        }
-                    }
-                } catch {
-                    print("Error encoding user: \(error.localizedDescription)")
+        do {
+            let jsonData = try JSONEncoder().encode(user1)
+            var jsonDict = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any]
+            jsonDict?["status"] = status
+            self.db.collection("users").document(user2.id).collection("friends").document(user1.id).setData(jsonDict ?? [:]) { error in
+                if let error = error {
+                    print("Error adding user: \(error.localizedDescription)")
+                } else {
+                    print("User successfully added")
                 }
-                
             }
+        } catch {
+            print("Error encoding user: \(error.localizedDescription)")
         }
+        
     }
+    
     
     func isFriend(user: User, completion: @escaping (Bool) -> Void) {
         guard let userId = Auth.auth().currentUser?.uid, !userId.isEmpty else {

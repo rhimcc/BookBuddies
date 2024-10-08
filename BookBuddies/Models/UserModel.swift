@@ -48,10 +48,12 @@ class User: Identifiable, Codable {
         try container.encode(email, forKey: .email)
         try container.encode(displayName, forKey: .displayName)
         try container.encodeIfPresent(status, forKey: .status)
-
-
-
+    }
     
+    func printFriend() {
+        print("name", displayName)
+        print("friend status", status ?? "")
+
     }
     
     

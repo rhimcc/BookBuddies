@@ -17,6 +17,8 @@ struct SettingsView: View {
                 HStack {
                     Text("User id:")
                     Text(userViewModel.currentUser.id)
+                    Text("User name:")
+                    Text(userViewModel.currentUser.displayName)
                 }
                 Button ("Sign out") {
                     authViewModel.signOut()

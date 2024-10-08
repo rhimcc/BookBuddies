@@ -40,7 +40,7 @@ struct FriendView: View {
                         FriendRow(friend: friend, userViewModel: userViewModel, friendsList: true)
                     }
                     Text("Friends")
-                    ForEach(userViewModel.friends.filter {$0.status == "Approved"}) { friend in
+                    ForEach(userViewModel.friends.filter {$0.status == "Friends"}) { friend in
                         FriendRow(friend: friend, userViewModel: userViewModel, friendsList: true)
                     }
                 }
