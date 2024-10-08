@@ -12,32 +12,34 @@ struct FriendView: View {
     @ObservedObject var userViewModel: UserViewModel
     
     var body: some View {
-        VStack {
-            ZStack {
-                HStack {
-                    Spacer()
-                    Text("Friends")
-                        .font(.title)
-                        .bold()
-                    Spacer()
-                }
-                HStack (alignment: .center) {
-                    Spacer()
-                    NavigationLink {
-                        AddFriendView(userViewModel: userViewModel)
-                    } label : {
-                        Image(systemName: "plus.circle.fill")
-                            .foregroundStyle(.navy)
-                            .font(.system(size: 40))
-    
+        NavigationStack {
+            VStack {
+                ZStack {
+                    HStack {
+                        Spacer()
+                        Text("Friends")
+                            .font(.title)
+                            .bold()
+                        Spacer()
                     }
-                    
-                }.padding(.horizontal, 10)
-            }
-       
-            ScrollView {
-                ForEach(userViewModel.friends) { friend in
-                    FriendRow(friend: friend, userViewModel: userViewModel, friendsList: true)
+                    HStack (alignment: .center) {
+                        Spacer()
+                        NavigationLink {
+                            AddFriendView(userViewModel: userViewModel)
+                        } label : {
+                            Image(systemName: "plus.circle.fill")
+                                .foregroundStyle(.navy)
+                                .font(.system(size: 40))
+                            
+                        }
+                        
+                    }.padding(.horizontal, 10)
+                }
+                
+                ScrollView {
+                    ForEach(userViewModel.friends) { friend in
+                        FriendRow(friend: friend, userViewModel: userViewModel, friendsList: true)
+                    }
                 }
             }
         }

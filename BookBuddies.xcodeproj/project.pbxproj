@@ -69,6 +69,7 @@
 		998887032CB26EC8004E9E0F /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998887022CB26EC8004E9E0F /* SearchViewModel.swift */; };
 		998887052CB27683004E9E0F /* FriendRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998887042CB27683004E9E0F /* FriendRow.swift */; };
 		998887072CB28016004E9E0F /* FriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998887062CB28016004E9E0F /* FriendViewModel.swift */; };
+		99DE58142CB50F4E003A615B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE58132CB50F4E003A615B /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -111,6 +112,7 @@
 		998887022CB26EC8004E9E0F /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		998887042CB27683004E9E0F /* FriendRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRow.swift; sourceTree = "<group>"; };
 		998887062CB28016004E9E0F /* FriendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewModel.swift; sourceTree = "<group>"; };
+		99DE58132CB50F4E003A615B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +204,7 @@
 				998886FE2CB26E2E004E9E0F /* FriendSearchView.swift */,
 				998887002CB26E37004E9E0F /* FriendSearchResultsView.swift */,
 				998887042CB27683004E9E0F /* FriendRow.swift */,
+				99DE58132CB50F4E003A615B /* SettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 				998886FF2CB26E2E004E9E0F /* FriendSearchView.swift in Sources */,
 				998886EF2CB00535004E9E0F /* SignInView.swift in Sources */,
 				998886F32CB00AAE004E9E0F /* SignUpView.swift in Sources */,
+				99DE58142CB50F4E003A615B /* SettingsView.swift in Sources */,
 				998887012CB26E37004E9E0F /* FriendSearchResultsView.swift in Sources */,
 				998886FD2CB26DBA004E9E0F /* AddFriendView.swift in Sources */,
 				998886932CABA181004E9E0F /* BookModel.swift in Sources */,

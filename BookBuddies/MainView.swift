@@ -13,9 +13,7 @@ struct MainView: View {
     @ObservedObject var authViewModel: AuthViewModel
     @ObservedObject var userViewModel: UserViewModel = UserViewModel()
     var body: some View {
-        Button ("Sign out") {
-            authViewModel.signOut()
-        }
+       
         TabView(selection: $tabSelection) {
             SearchBaseView(bookshelfViewModel: viewModel, userViewModel: userViewModel)
                 .tabItem {
@@ -40,6 +38,14 @@ struct MainView: View {
                     }
                 
                 }.tag(0)
+            
+            SettingsView(userViewModel: userViewModel, bookshelfViewModel: viewModel, authViewModel: authViewModel)
+                .tabItem {
+                    VStack {
+                        Image(systemName: "gearshape.fill")
+                        Text("Settings")
+                    }
+                }
             
         }.tint(.navy)
     }
