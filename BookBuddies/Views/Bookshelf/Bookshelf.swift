@@ -17,12 +17,14 @@ struct Bookshelf: View {
     @State private var currentIndex: Int = 0
     @State private var currentBookshelfIndex: Int = 0
     @State var bookshelfOwner: User
+    @State var bookshelfText: String = ""
 
     var body: some View {
         NavigationStack {
             VStack {
-                Spacer()
-               
+                Text(bookshelfText)
+                    .font(.title)
+
                 if (bookshelfOwner.id == User.getCurrentUser()) {
                     HStack { // Changing the bookshelf
                         Button {
@@ -122,6 +124,11 @@ struct Bookshelf: View {
                 Spacer()
             }.onAppear {
                loadBooks()
+                if (bookshelfOwner.id == User.getCurrentUser()) {
+                    bookshelfText = "Your Bookshelf"
+                } else {
+                    bookshelfText = bookshelfOwner.displayName + "'s Bookshelf"
+                }
             }
         }
     }
