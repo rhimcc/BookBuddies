@@ -21,30 +21,34 @@ struct Bookshelf: View {
     var body: some View {
         NavigationStack {
             VStack {
-                HStack { // Changing the bookshelf
-                    Button {
-                        if (currentBookshelfIndex == 0) {
-                            currentBookshelfIndex = 2
-                        } else {
-                            currentBookshelfIndex -= 1
+                Spacer()
+               
+                if (bookshelfOwner.id == User.getCurrentUser()) {
+                    HStack { // Changing the bookshelf
+                        Button {
+                            if (currentBookshelfIndex == 0) {
+                                currentBookshelfIndex = 2
+                            } else {
+                                currentBookshelfIndex -= 1
+                            }
+                            bookshelfViewModel.currentBookshelf = bookshelfViewModel.bookshelfOptions[currentBookshelfIndex]
+                            
+                        } label : {
+                            Image(systemName: "lessthan")
                         }
-                        bookshelfViewModel.currentBookshelf = bookshelfViewModel.bookshelfOptions[currentBookshelfIndex]
-                        
-                    } label : {
-                        Image(systemName: "lessthan")
-                    }
-                    Text(bookshelfViewModel.currentBookshelf)
-                    Button {
-                        if (currentBookshelfIndex == 2) {
-                            currentBookshelfIndex = 0
-                        } else {
-                            currentBookshelfIndex += 1
+                        Text(bookshelfViewModel.currentBookshelf)
+                        Button {
+                            if (currentBookshelfIndex == 2) {
+                                currentBookshelfIndex = 0
+                            } else {
+                                currentBookshelfIndex += 1
+                            }
+                            bookshelfViewModel.currentBookshelf = bookshelfViewModel.bookshelfOptions[currentBookshelfIndex]
+                            
+                        } label : {
+                            Image(systemName: "greaterthan")
+                            
                         }
-                        bookshelfViewModel.currentBookshelf = bookshelfViewModel.bookshelfOptions[currentBookshelfIndex]
-                        
-                    } label : {
-                        Image(systemName: "greaterthan")
-                        
                     }
                 }
                 ZStack { // adding books
@@ -110,12 +114,12 @@ struct Bookshelf: View {
                             }
                             
                         }
-                        
                     }
                 }.onAppear {
                     bookshelfViewModel.inSearch = false
                     
                 }
+                Spacer()
             }.onAppear {
                loadBooks()
             }
@@ -127,11 +131,11 @@ struct Bookshelf: View {
         let middleY = screenHeight / 2
         switch option {
         case "Reading":
-            return middleY - 150
+            return middleY - 150 - 100
         case "Unread":
-            return middleY
+            return middleY - 100
         case "Read":
-            return middleY + 150
+            return middleY + 150 - 100
         default:
             return 500
         }

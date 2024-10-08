@@ -20,7 +20,7 @@ struct BookshelfBackground: View {
                     ShelfView(totalWidth: UIScreen.main.bounds.width - 60, totalHeight: 120, text: getText(i: i))
                 }
             }
-        }
+        }.offset(y: -100)
     }
     
     func getText(i: Int) -> String{
