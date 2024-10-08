@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FriendView: View {
-    @State var friends: [User] = []
+//    @State var friends: [User] = []
     @ObservedObject var userViewModel: UserViewModel
     
     var body: some View {
@@ -35,11 +35,11 @@ struct FriendView: View {
                 }
                 
                 ScrollView {
-                    Text("Pending")
+                    Text("Pending (\(userViewModel.friends.filter {$0.status == "Pending"}.count))")
                     ForEach(userViewModel.friends.filter {$0.status == "Pending"}) { friend in
                         FriendRow(friend: friend, userViewModel: userViewModel, friendsList: true)
                     }
-                    Text("Friends")
+                    Text("Friends (\(userViewModel.friends.filter {$0.status == "Friends"}.count))")
                     ForEach(userViewModel.friends.filter {$0.status == "Friends"}) { friend in
                         FriendRow(friend: friend, userViewModel: userViewModel, friendsList: true)
                     }

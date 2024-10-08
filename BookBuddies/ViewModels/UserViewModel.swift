@@ -39,11 +39,11 @@ class UserViewModel: ObservableObject {
     func approveFriend(friend: User) {
         addFriendToFirestore(friend: currentUser, to: friend, status: "Friends")
         db.collection("users").document(currentUser.id).collection("friends").document(friend.id).setData([ "status": "Friends" ], merge: true)
-        for currentFriend in friends {
-            if currentFriend.id == friend.id {
-                currentFriend.status = "Friends"
-            }
-        }
+        if let index = friends.firstIndex(where: { $0.id == friend.id }) {
+              friends[index].status = "Friends"
+              friends = friends.map { $0 }
+          }
+       
     }
     
     func loadFriendsToArray(){
@@ -113,19 +113,17 @@ class UserViewModel: ObservableObject {
         }
     }
     
-    func removeFriendFromFirestore(user: User) {
+    func removeFriendFromFirestore(friend: User, from user: User) {
         guard let userId = Auth.auth().currentUser?.uid, !userId.isEmpty else {
             print("User not authenticated or invalid user ID.")
             return
         }
         do {
-            try db.collection("users").document(userId).collection("friends").document(user.id).delete()
+            try db.collection("users").document(user.id).collection("friends").document(friend.id).delete()
           print("Document successfully removed!")
         } catch {
           print("Error removing document: \(error)")
         }
-   
-       
         }
     
     func addFriendToFirestore(friend user1: User, to user2: User, status: String) {
@@ -207,6 +205,19 @@ class UserViewModel: ObservableObject {
             } else {
                 print("Failed to parse user data")
                 completion(nil)
+            }
+        }
+    }
+    
+    func hasPendingRequest(from currentUser: User, to friend: User, completion: @escaping (Bool) -> Void) {
+        let docRef = db.collection("users").document(friend.id).collection("friends").document(currentUser.id)
+        
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let status = document.data()?["status"] as? String
+                completion(status == "Pending")
+            } else {
+                completion(false)
             }
         }
     }
