@@ -70,6 +70,11 @@
 		998887052CB27683004E9E0F /* FriendRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998887042CB27683004E9E0F /* FriendRow.swift */; };
 		998887072CB28016004E9E0F /* FriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998887062CB28016004E9E0F /* FriendViewModel.swift */; };
 		99DE58142CB50F4E003A615B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE58132CB50F4E003A615B /* SettingsView.swift */; };
+		99DE58162CB68DB9003A615B /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE58152CB68DB9003A615B /* MessageModel.swift */; };
+		99DE58182CB6902E003A615B /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE58172CB6902E003A615B /* ChatView.swift */; };
+		99DE581A2CB6977B003A615B /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE58192CB6977B003A615B /* Date.swift */; };
+		99DE581C2CB69D06003A615B /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE581B2CB69D06003A615B /* ChatViewModel.swift */; };
+		99DE581E2CB6A5D9003A615B /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE581D2CB6A5D9003A615B /* MessageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -113,6 +118,11 @@
 		998887042CB27683004E9E0F /* FriendRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRow.swift; sourceTree = "<group>"; };
 		998887062CB28016004E9E0F /* FriendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewModel.swift; sourceTree = "<group>"; };
 		99DE58132CB50F4E003A615B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		99DE58152CB68DB9003A615B /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
+		99DE58172CB6902E003A615B /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		99DE58192CB6977B003A615B /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		99DE581B2CB69D06003A615B /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
+		99DE581D2CB6A5D9003A615B /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,8 +223,10 @@
 			isa = PBXGroup;
 			children = (
 				998886842CAADB35004E9E0F /* GoogleBooksAPI.swift */,
+				99DE58192CB6977B003A615B /* Date.swift */,
 				998886B22CAFFBF4004E9E0F /* Books */,
 				998886F42CB0EBE1004E9E0F /* UserModel.swift */,
+				99DE58152CB68DB9003A615B /* MessageModel.swift */,
 				998886FA2CB251FB004E9E0F /* FriendModel.swift */,
 			);
 			path = Models;
@@ -226,6 +238,7 @@
 				9988869A2CACE807004E9E0F /* BookshelfViewModel.swift */,
 				998886862CAAE2DF004E9E0F /* BookViewModel.swift */,
 				998886C42CB00223004E9E0F /* UserViewModel.swift */,
+				99DE581B2CB69D06003A615B /* ChatViewModel.swift */,
 				998887062CB28016004E9E0F /* FriendViewModel.swift */,
 				998886F02CB0080A004E9E0F /* AuthViewModel.swift */,
 				998887022CB26EC8004E9E0F /* SearchViewModel.swift */,
@@ -240,6 +253,8 @@
 				998886A02CAD02D2004E9E0F /* BookPreview.swift */,
 				998886A42CAD40A2004E9E0F /* BookDetail.swift */,
 				998886942CABA269004E9E0F /* BookView.swift */,
+				99DE58172CB6902E003A615B /* ChatView.swift */,
+				99DE581D2CB6A5D9003A615B /* MessageView.swift */,
 			);
 			path = Books;
 			sourceTree = "<group>";
@@ -376,8 +391,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99DE58182CB6902E003A615B /* ChatView.swift in Sources */,
 				998887032CB26EC8004E9E0F /* SearchViewModel.swift in Sources */,
 				998886FB2CB251FB004E9E0F /* FriendModel.swift in Sources */,
+				99DE581E2CB6A5D9003A615B /* MessageView.swift in Sources */,
 				998887052CB27683004E9E0F /* FriendRow.swift in Sources */,
 				998886872CAAE2DF004E9E0F /* BookViewModel.swift in Sources */,
 				998886912CAB7A23004E9E0F /* BookRow.swift in Sources */,
@@ -393,6 +410,7 @@
 				998886992CACE78E004E9E0F /* Bookshelf.swift in Sources */,
 				9988869B2CACE807004E9E0F /* BookshelfViewModel.swift in Sources */,
 				9988869F2CACF0C5004E9E0F /* ImageLinks.swift in Sources */,
+				99DE581C2CB69D06003A615B /* ChatViewModel.swift in Sources */,
 				9988868D2CAAE362004E9E0F /* SearchResultsView.swift in Sources */,
 				998886FF2CB26E2E004E9E0F /* FriendSearchView.swift in Sources */,
 				998886EF2CB00535004E9E0F /* SignInView.swift in Sources */,
@@ -408,9 +426,11 @@
 				998886892CAAE33B004E9E0F /* SearchBaseView.swift in Sources */,
 				998886F12CB0080A004E9E0F /* AuthViewModel.swift in Sources */,
 				998887072CB28016004E9E0F /* FriendViewModel.swift in Sources */,
+				99DE58162CB68DB9003A615B /* MessageModel.swift in Sources */,
 				998886A12CAD02D2004E9E0F /* BookPreview.swift in Sources */,
 				998886C52CB00223004E9E0F /* UserViewModel.swift in Sources */,
 				998886AB2CAE2EE6004E9E0F /* SaveBookView.swift in Sources */,
+				99DE581A2CB6977B003A615B /* Date.swift in Sources */,
 				998886F92CB166B8004E9E0F /* StartView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

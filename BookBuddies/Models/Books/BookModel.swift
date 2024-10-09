@@ -39,7 +39,7 @@ struct Books: Decodable {
 
 
 @Model
-class Book: Codable, Identifiable{
+class Book: Codable, Identifiable, Equatable {
     let id: String?
     let selfLink: String?
     let volumeInfo: VolumeInfo?

@@ -43,6 +43,18 @@ struct FriendRow: View {
                                 .clipShape(Circle())
                         }.padding(.trailing, 10)
                         
+                        NavigationLink {
+                            ChatView(userViewModel: userViewModel, friend: friend)
+                        } label: {
+                            ZStack {
+                                Circle()
+                                    .fill(.navy)
+                                Image(systemName: "message")
+                                    .foregroundStyle(.white)
+                                    .font(.system(size: 25))
+                            }.frame(width: 45, height: 45)
+                        }
+                        
                         Button {
                             userViewModel.friends.remove(at: getIndex(of: friend))
                             userViewModel.removeFriendFromFirestore(friend: friend, from: userViewModel.currentUser)

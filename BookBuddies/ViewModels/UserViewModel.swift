@@ -231,6 +231,28 @@ class UserViewModel: ObservableObject {
             }
         }
     }
+    
+    func storeMessage(user1: User, user2: User, message: Message) {
+        guard let userId = Auth.auth().currentUser?.uid else {
+            print("User not authenticated.")
+            return
+        }
+        
+        do {
+            let jsonData = try JSONEncoder().encode(message)
+            let jsonDict = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any]
+            db.collection("users").document(user1.id).collection("friends").document(user2.id).collection("messages")
+                .addDocument(data: jsonDict ?? [:]) { error in
+                if let error = error {
+                    print("Error adding document: \(error.localizedDescription)")
+                } else {
+                    print("Document successfully added")
+                }
+            }
+        } catch {
+            print("Error encoding message: \(error.localizedDescription)")
+        }
+    }
 }
     
 

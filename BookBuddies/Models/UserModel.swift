@@ -14,8 +14,8 @@ class User: Identifiable, Codable {
     var displayName: String
     var status: String?
     
-    static func getCurrentUser() -> String? {
-        return Auth.auth().currentUser?.uid
+    static func getCurrentUser() -> String {
+        return Auth.auth().currentUser?.uid ?? ""
     }
         
     init(id: String, email: String, displayName: String, status: String?) {
