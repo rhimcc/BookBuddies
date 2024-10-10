@@ -75,6 +75,8 @@
 		99DE581A2CB6977B003A615B /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE58192CB6977B003A615B /* Date.swift */; };
 		99DE581C2CB69D06003A615B /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE581B2CB69D06003A615B /* ChatViewModel.swift */; };
 		99DE581E2CB6A5D9003A615B /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE581D2CB6A5D9003A615B /* MessageView.swift */; };
+		99DE58202CB77BF0003A615B /* BookSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE581F2CB77BF0003A615B /* BookSearchView.swift */; };
+		99DE58222CB791BA003A615B /* BookForChatRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE58212CB791BA003A615B /* BookForChatRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -123,6 +125,8 @@
 		99DE58192CB6977B003A615B /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		99DE581B2CB69D06003A615B /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		99DE581D2CB6A5D9003A615B /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
+		99DE581F2CB77BF0003A615B /* BookSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchView.swift; sourceTree = "<group>"; };
+		99DE58212CB791BA003A615B /* BookForChatRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookForChatRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -254,6 +258,8 @@
 				998886A42CAD40A2004E9E0F /* BookDetail.swift */,
 				998886942CABA269004E9E0F /* BookView.swift */,
 				99DE58172CB6902E003A615B /* ChatView.swift */,
+				99DE581F2CB77BF0003A615B /* BookSearchView.swift */,
+				99DE58212CB791BA003A615B /* BookForChatRow.swift */,
 				99DE581D2CB6A5D9003A615B /* MessageView.swift */,
 			);
 			path = Books;
@@ -412,6 +418,7 @@
 				9988869F2CACF0C5004E9E0F /* ImageLinks.swift in Sources */,
 				99DE581C2CB69D06003A615B /* ChatViewModel.swift in Sources */,
 				9988868D2CAAE362004E9E0F /* SearchResultsView.swift in Sources */,
+				99DE58202CB77BF0003A615B /* BookSearchView.swift in Sources */,
 				998886FF2CB26E2E004E9E0F /* FriendSearchView.swift in Sources */,
 				998886EF2CB00535004E9E0F /* SignInView.swift in Sources */,
 				998886F32CB00AAE004E9E0F /* SignUpView.swift in Sources */,
@@ -429,6 +436,7 @@
 				99DE58162CB68DB9003A615B /* MessageModel.swift in Sources */,
 				998886A12CAD02D2004E9E0F /* BookPreview.swift in Sources */,
 				998886C52CB00223004E9E0F /* UserViewModel.swift in Sources */,
+				99DE58222CB791BA003A615B /* BookForChatRow.swift in Sources */,
 				998886AB2CAE2EE6004E9E0F /* SaveBookView.swift in Sources */,
 				99DE581A2CB6977B003A615B /* Date.swift in Sources */,
 				998886F92CB166B8004E9E0F /* StartView.swift in Sources */,
