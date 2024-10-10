@@ -42,8 +42,9 @@ struct ChatView: View {
         
         
         HStack {
-            TextField("Message...", text: $message)
+            TextField("Message...", text: $message, axis: .vertical)
                 .textFieldStyle(.roundedBorder)
+                .lineLimit(20)
             Button {
                 let newMessage = Message(id: UUID(), senderId: User.getCurrentUser(), receiverId: friend.id, messageContent: message, book: nil, time: Date().formatted(as: "YYYY-MM-dd HH:mm:ss"))
                 userViewModel.storeMessage(user1: friend, user2: userViewModel.currentUser, message: newMessage)
@@ -53,7 +54,9 @@ struct ChatView: View {
             } label: {
                 Image(systemName: "paperplane.fill")
                     .foregroundStyle(.white)
-                    .padding(10)
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 5)
+
                     .background(RoundedRectangle(cornerRadius: 25.0).fill(.navy))
             }.disabled(message.isEmpty)
         }.padding(10)
