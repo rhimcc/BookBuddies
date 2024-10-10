@@ -34,7 +34,7 @@ struct SaveBookView: View {
                 HStack {
 
                     if let book = bookshelfViewModel.currentBookSave {
-                        BookView(bookshelfViewModel: bookshelfViewModel, book: book)
+                        BookView(book: book, inSearch: true)
                             .frame(width: 75, height: 105)
                             .padding(.horizontal, 10)
                         

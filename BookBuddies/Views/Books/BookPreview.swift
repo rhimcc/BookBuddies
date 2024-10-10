@@ -29,7 +29,7 @@ struct BookPreview: View {
                     HStack {
 
                         if let book = bookshelfViewModel.currentBookPreview {
-                            BookView(bookshelfViewModel: bookshelfViewModel, book: book)
+                            BookView(book: book, inSearch: false)
                                 .frame(width: 75, height: 105)
 
                                 .padding(.horizontal, 10)

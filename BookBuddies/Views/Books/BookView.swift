@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct BookView: View {
-    @ObservedObject var bookshelfViewModel: BookshelfViewModel
+//    @ObservedObject var bookshelfViewModel: BookshelfViewModel
     var book: Book
-    @State var image: String = ""
+    @State var inSearch: Bool
+    var image: String = ""
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 5)
@@ -25,11 +26,13 @@ struct BookView: View {
             .clipShape(
                 RoundedRectangle(cornerRadius: 5)
             )
+        }.onAppear {
+            print(book.image ?? "")
         }
     }
     
     func getImage() -> String {
-        if (bookshelfViewModel.inSearch) {
+        if (inSearch) {
             return book.convertURL(imageURL: book.volumeInfo?.imageLinks?.thumbnail ?? "") ?? ""
         } else {
             return book.convertURL(imageURL: book.image ?? "") ?? ""

@@ -16,6 +16,7 @@ struct ChatView: View {
     @ObservedObject var searchViewModel: BookViewModel = BookViewModel()
     @State var bookTitle: String = ""
     @State var books: [Book] = []
+    @State var newMessage: Message? = nil
     var body: some View {
         VStack {
             Text(friend.displayName)
@@ -47,34 +48,70 @@ struct ChatView: View {
             }
         }
         
+        VStack {
+            if let book = chatViewModel.book {
+                HStack {
+                    BookView(book: book, inSearch: false)
+                        .frame(height: 25)
+                        .aspectRatio(contentMode: .fit)
+                    
+                    Text(book.title ?? "")
+                        .foregroundStyle(.veryLightPeach)
+                        .bold()
+                        .lineLimit(1) // Limit to one line
+                        .truncationMode(.tail) // Use tail truncation
+                        .fixedSize(horizontal: false, vertical: true) // Prevent stretching
+                    Spacer()
+                    Button {
+                        chatViewModel.book = nil
+                    } label : {
+                        Image(systemName: "xmark")
+                            .foregroundStyle(.white)
+                    }.padding(.trailing, 10)
+                }.background(RoundedRectangle(cornerRadius: 20)
+                    .fill(Color.navy)
+                    .frame(height: 40)
+                    )
+                .frame(height: 40)
+            }
         
-        HStack {
-            TextField("Message...", text: $message, axis: .vertical)
+            HStack {
+                TextField("Message...", text: $message, axis: .vertical)
                 .textFieldStyle(.roundedBorder)
                 .lineLimit(20)
-            
-            Button {
-                chatViewModel.isShowingSheet = true
-            } label : {
-                Image(systemName: "book")
-                    .foregroundStyle(.navy)
-                    .padding(10)
-                    .background(RoundedRectangle(cornerRadius: 25.0).fill(.lightPeach))
+                
+                Button {
+                    chatViewModel.isShowingSheet = true
+                } label : {
+                    Image(systemName: "book")
+                        .foregroundStyle(.navy)
+                        .padding(10)
+                        .background(RoundedRectangle(cornerRadius: 25.0).fill(.lightPeach))
+                }
+                Button {
+                    if let book = chatViewModel.book {
+                        newMessage = Message(id: UUID(), senderId: User.getCurrentUser(), receiverId: friend.id, messageContent: message, book: book, time: Date().formatted(as: "YYYY-MM-dd HH:mm:ss"))
+                    } else {
+                        newMessage = Message(id: UUID(), senderId: User.getCurrentUser(), receiverId: friend.id, messageContent: message, book: nil, time: Date().formatted(as: "YYYY-MM-dd HH:mm:ss"))
+                    }
+                    if let message = newMessage {
+                        userViewModel.storeMessage(user1: friend, user2: userViewModel.currentUser, message: message)
+                        userViewModel.storeMessage(user1: userViewModel.currentUser, user2: friend, message: message)
+                    }
+                    message = ""
+                    chatViewModel.book = nil
+                    
+                } label: {
+                    Image(systemName: "paperplane.fill")
+                        .foregroundStyle(.white)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 5)
+                    
+                        .background(RoundedRectangle(cornerRadius: 25.0).fill(.navy))
+                }.disabled(message.isEmpty)
             }
-            Button {
-                let newMessage = Message(id: UUID(), senderId: User.getCurrentUser(), receiverId: friend.id, messageContent: message, book: nil, time: Date().formatted(as: "YYYY-MM-dd HH:mm:ss"))
-                userViewModel.storeMessage(user1: friend, user2: userViewModel.currentUser, message: newMessage)
-                userViewModel.storeMessage(user1: userViewModel.currentUser, user2: friend, message: newMessage)
-                message = ""
-                
-            } label: {
-                Image(systemName: "paperplane.fill")
-                    .foregroundStyle(.white)
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 5)
-                
-                    .background(RoundedRectangle(cornerRadius: 25.0).fill(.navy))
-            }.disabled(message.isEmpty)
+            
+            
         }.padding(10)
             .sheet(isPresented: $chatViewModel.isShowingSheet,
                    onDismiss: dismiss) {

@@ -18,7 +18,7 @@ struct BookDetail: View {
                 .edgesIgnoringSafeArea(.all)
             
             ScrollView {
-                BookView(bookshelfViewModel: bookshelfViewModel, book: book)
+                BookView(book: book, inSearch: false)
                     .frame(width: 150, height: 250)
                 Rectangle()
                     .frame(width: UIScreen.main.bounds.width - 40, height: 1)

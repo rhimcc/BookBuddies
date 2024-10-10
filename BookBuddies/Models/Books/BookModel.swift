@@ -147,7 +147,10 @@ class Book: Codable, Identifiable, Equatable {
         self.id = try container.decodeIfPresent(String.self, forKey: .id)
         self.selfLink = try container.decodeIfPresent(String.self, forKey: .selfLink)
         self.volumeInfo = try container.decodeIfPresent(VolumeInfo.self, forKey: .volumeInfo)
-        
+        self.title = try container.decodeIfPresent(String.self, forKey: .title)
+        self.desc = try container.decodeIfPresent(String.self, forKey: .description)
+        self.authors = try container.decodeIfPresent(String.self, forKey: .authors)
+        self.image = try container.decodeIfPresent(String.self, forKey: .image)
         }
     
     enum CodingKeys: String, CodingKey {
@@ -155,26 +158,31 @@ class Book: Codable, Identifiable, Equatable {
         case selfLink
         case volumeInfo
         case description
-    }
-    
-    enum EncodingKeys: String, CodingKey {
-        case id
-        case selfLink
         case bookshelf
         case image
         case readStatus
         case title
         case authors
-        case description
     }
     
+//    enum EncodingKeys: String, CodingKey {
+//        case id
+//        case selfLink
+//        case bookshelf
+//        case image
+//        case readStatus
+//        case title
+//        case authors
+//        case description
+//    }
+    
     func printBook() {
-        print(id, title, authors, bookshelf, readStatus)
+        print(id, title, authors, bookshelf, readStatus, image)
         
     }
     
     func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: EncodingKeys.self)
+        var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
         try container.encodeIfPresent(selfLink, forKey: .selfLink)
         try container.encodeIfPresent(bookshelf, forKey: .bookshelf)

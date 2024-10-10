@@ -17,6 +17,10 @@ struct MessageView: View {
                     Spacer()
                 }
                 VStack (alignment: currentUserSender ? .trailing : .leading){
+                    if let book = message.book {
+                        BookView(book: book, inSearch: false)
+                            .frame(width: 100, height: 100)
+                    }
                     Text(String(message.time[message.time.index(message.time.startIndex, offsetBy: 11)...message.time.index(message.time.startIndex, offsetBy: 15)]))
                         .font(.system(size: 12))
                         .foregroundStyle(.gray)
