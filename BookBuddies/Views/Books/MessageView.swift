@@ -17,20 +17,40 @@ struct MessageView: View {
                     Spacer()
                 }
                 VStack (alignment: currentUserSender ? .trailing : .leading){
-                    if let book = message.book {
-                        BookView(book: book, inSearch: false)
-                            .frame(width: 100, height: 100)
-                    }
+                   
                     Text(String(message.time[message.time.index(message.time.startIndex, offsetBy: 11)...message.time.index(message.time.startIndex, offsetBy: 15)]))
                         .font(.system(size: 12))
                         .foregroundStyle(.gray)
                         .frame(alignment: currentUserSender ? .trailing : .leading)
-                    Text(message.messageContent)
-                        .padding(10)
-                        .background(currentUserSender ? .navy : .lightPeach)
-                        .cornerRadius(20)
-                        .foregroundStyle(currentUserSender ? .veryLightPeach : .navy)
-                        .frame(maxWidth: .infinity, alignment: currentUserSender ? .trailing : .leading) // Fill width
+                    VStack {
+                        if let book = message.book {
+                            NavigationLink {
+                                BookDetail(book: book, bookshelfViewModel: BookshelfViewModel())
+                            } label : {
+                                VStack {
+                                    BookView(book: book, inSearch: false)
+                                        .frame(height: 100)
+                                        .aspectRatio(contentMode: .fit)
+                                    if let title = book.title {
+                                        Text(title)
+                                            .foregroundStyle(currentUserSender ? .navy : .veryLightPeach)
+                                            .underline()
+                                            .bold()
+                                            .padding(.bottom, 5)
+                                            .padding(.horizontal, 5)
+                                    }
+                                }.background(currentUserSender ? .veryLightPeach : .navy)
+                                    .cornerRadius(5)
+                            }
+                        }
+                            
+                        Text(message.messageContent)
+                            .cornerRadius(20)
+                            .foregroundStyle(currentUserSender ? .veryLightPeach : .navy)
+                            .frame(alignment: currentUserSender ? .trailing : .leading)
+                    }.padding()
+                    .background(currentUserSender ? .navy : .lightPeach)
+                    .cornerRadius(20)
                 }
                 .frame(maxWidth: 250, alignment: currentUserSender ? .trailing : .leading) // Constrain message width
                 
