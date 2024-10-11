@@ -26,7 +26,7 @@ struct MessageView: View {
                     VStack {
                         if let book = message.book {
                             NavigationLink {
-                                BookDetail(book: book, bookshelfViewModel: BookshelfViewModel(), userViewModel: userViewModel)
+                                BookDetail(book: book, bookshelfViewModel: BookshelfViewModel(), userViewModel: userViewModel, source: "other")
                             } label : {
                                 VStack {
                                     BookView(book: book, inSearch: false)

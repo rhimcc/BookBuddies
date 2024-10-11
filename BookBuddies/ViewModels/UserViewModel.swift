@@ -7,6 +7,7 @@ class UserViewModel: ObservableObject {
     @Published var friends: [User] = []
     @Published var allUsers: [User] = []
     @Published var currentUser: User = User(id: "", email: "", displayName: "", status: "")
+    @Published var shareSheet: Bool = false
     
     init() {
         loadFriendsToArray()
@@ -105,7 +106,6 @@ class UserViewModel: ObservableObject {
                 if let id = data["id"] as? String, let email = data["email"] as? String, let displayName = data["displayName"] as? String, let status = data["status"] as? String  {
                     
                     let user = User(id: id, email: email, displayName: displayName, status: status)
-                    print(user.displayName)
                     users.append(user)
                 }
             }

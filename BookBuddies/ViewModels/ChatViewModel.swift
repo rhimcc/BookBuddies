@@ -16,13 +16,9 @@ class ChatViewModel: ObservableObject {
     var currentUser: User? = nil
     var friend: User? = nil
     @Published var book: Book? = nil
+    
 
     private var listener: ListenerRegistration?
-    
-//    init(){
-//        loadCurrentUser()
-//        loadOtherUser()
-//    }
 
     
     func startListening(user1Id: String, user2Id: String) {

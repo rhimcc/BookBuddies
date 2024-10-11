@@ -26,8 +26,6 @@ struct BookView: View {
             .clipShape(
                 RoundedRectangle(cornerRadius: 5)
             )
-        }.onAppear {
-            print(book.image ?? "")
         }
     }
     

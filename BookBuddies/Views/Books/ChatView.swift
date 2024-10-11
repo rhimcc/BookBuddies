@@ -11,8 +11,7 @@ struct ChatView: View {
     var userViewModel: UserViewModel
     var friend: User
     @State var message: String = ""
-    @State var chatId: String = ""
-    @ObservedObject var chatViewModel: ChatViewModel = ChatViewModel()
+    @ObservedObject var chatViewModel: ChatViewModel
     @ObservedObject var searchViewModel: BookViewModel = BookViewModel()
     @State var bookTitle: String = ""
     @State var books: [Book] = []
@@ -27,7 +26,8 @@ struct ChatView: View {
                         MessageView(message: message, currentUserSender: message.senderId == User.getCurrentUser())
                     }
                 }.onAppear {
-                    chatViewModel.startListening(user1Id: User.getCurrentUser(), user2Id: friend.id) // Start listening to messages when the view appears
+                    chatViewModel.startListening(user1Id: User.getCurrentUser(), user2Id: friend.id)
+                   
                     if let lastMessage = chatViewModel.messages.last {
                         proxy.scrollTo(lastMessage.id, anchor: .bottom)
                     }
@@ -46,6 +46,9 @@ struct ChatView: View {
             }.onDisappear {
                 chatViewModel.stopListening() // Stop listening when the view disappears
             }
+        }.onAppear {
+            print("MESSAGES:")
+            print(chatViewModel.messages)
         }
         
         VStack {

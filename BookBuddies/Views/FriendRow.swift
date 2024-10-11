@@ -44,7 +44,7 @@ struct FriendRow: View {
                         }.padding(.trailing, 10)
                         
                         NavigationLink {
-                            ChatView(userViewModel: userViewModel, friend: friend)
+                            ChatView(userViewModel: userViewModel, friend: friend, chatViewModel: ChatViewModel())
                         } label: {
                             ZStack {
                                 Circle()

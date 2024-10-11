@@ -56,18 +56,22 @@ struct BookPreview: View {
                     }
                     HStack {
                         VStack (alignment: .center){
-                            Image(systemName: bookshelfViewModel.getBookshelfImage())
-                            Image(systemName: bookshelfViewModel.getReadImage())
+                            if let book = bookshelfViewModel.currentBookPreview, let bookshelf = book.bookshelf, let readStatus = book.readStatus {
+                                Image(systemName: BookshelfViewModel.getBookshelfImage(bookshelf: bookshelf))
+                                Image(systemName: BookshelfViewModel.getReadImage(readStatus: readStatus))
+                            }
                         }
                         if (source == "self") {
                             VStack(alignment: .leading) {
-                                Text(bookshelfViewModel.currentBookPreview?.bookshelf ?? "")
-                                Text(bookshelfViewModel.currentBookPreview?.readStatus ?? "")
+                                if let book = bookshelfViewModel.currentBookPreview, let bookshelf = book.bookshelf, let readStatus = book.readStatus {
+                                    Text(bookshelf)
+                                    Text(readStatus)
+                                }
                             }
                         } else {
                             VStack (alignment: .leading) {
-                                Text(bookshelfViewModel.currentOwnerStatus ?? "")
-                                Text(bookshelfViewModel.currentReadStatus ?? "")
+                                Text(bookshelfViewModel.currentOwnerStatus)
+                                Text(bookshelfViewModel.currentReadStatus)
                             }
                         }
                      
@@ -75,7 +79,7 @@ struct BookPreview: View {
                         Spacer()
                         NavigationLink {
                             if let book = bookshelfViewModel.currentBookPreview {
-                                BookDetail(currentUser: currentUser, book: book, bookshelfViewModel: bookshelfViewModel, userViewModel: userViewModel)
+                                BookDetail(currentUser: currentUser, book: book, bookshelfViewModel: bookshelfViewModel, userViewModel: userViewModel, source: source)
                             }
                         } label : {
                             HStack {

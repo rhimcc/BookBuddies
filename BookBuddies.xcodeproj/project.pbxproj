@@ -78,6 +78,8 @@
 		99DE58202CB77BF0003A615B /* BookSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE581F2CB77BF0003A615B /* BookSearchView.swift */; };
 		99DE58222CB791BA003A615B /* BookForChatRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE58212CB791BA003A615B /* BookForChatRow.swift */; };
 		99DE58242CB911E1003A615B /* LineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE58232CB911E1003A615B /* LineView.swift */; };
+		99DE58262CB92626003A615B /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE58252CB92626003A615B /* ShareView.swift */; };
+		99DE58282CB926EA003A615B /* ShareToFriendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE58272CB926EA003A615B /* ShareToFriendView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -129,6 +131,8 @@
 		99DE581F2CB77BF0003A615B /* BookSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchView.swift; sourceTree = "<group>"; };
 		99DE58212CB791BA003A615B /* BookForChatRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookForChatRow.swift; sourceTree = "<group>"; };
 		99DE58232CB911E1003A615B /* LineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineView.swift; sourceTree = "<group>"; };
+		99DE58252CB92626003A615B /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
+		99DE58272CB926EA003A615B /* ShareToFriendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareToFriendView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,6 +218,8 @@
 				998886B12CAFFBDB004E9E0F /* Books */,
 				998886EE2CB00535004E9E0F /* SignInView.swift */,
 				998886F82CB166B8004E9E0F /* StartView.swift */,
+				99DE58252CB92626003A615B /* ShareView.swift */,
+				99DE58272CB926EA003A615B /* ShareToFriendView.swift */,
 				998886F22CB00AAE004E9E0F /* SignUpView.swift */,
 				998886F62CB14929004E9E0F /* FriendView.swift */,
 				998886FC2CB26DBA004E9E0F /* AddFriendView.swift */,
@@ -415,6 +421,7 @@
 				998886C72CB002A2004E9E0F /* MainView.swift in Sources */,
 				998886AD2CAE42DD004E9E0F /* BookSpineView.swift in Sources */,
 				998886772CAAD972004E9E0F /* ContentView.swift in Sources */,
+				99DE58262CB92626003A615B /* ShareView.swift in Sources */,
 				9988868B2CAAE356004E9E0F /* SearchView.swift in Sources */,
 				99DE58242CB911E1003A615B /* LineView.swift in Sources */,
 				998886992CACE78E004E9E0F /* Bookshelf.swift in Sources */,
@@ -434,6 +441,7 @@
 				998886F72CB14929004E9E0F /* FriendView.swift in Sources */,
 				9988868F2CAAE67D004E9E0F /* BookshelfBackground.swift in Sources */,
 				998886752CAAD972004E9E0F /* BookBuddiesApp.swift in Sources */,
+				99DE58282CB926EA003A615B /* ShareToFriendView.swift in Sources */,
 				998886892CAAE33B004E9E0F /* SearchBaseView.swift in Sources */,
 				998886F12CB0080A004E9E0F /* AuthViewModel.swift in Sources */,
 				998887072CB28016004E9E0F /* FriendViewModel.swift in Sources */,

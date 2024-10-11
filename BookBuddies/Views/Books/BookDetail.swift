@@ -16,6 +16,11 @@ struct BookDetail: View {
     @State private var selectedBookshelf: String = ""
     @ObservedObject var userViewModel: UserViewModel
     @State var userStatuses: [String: [String]] = [:]
+    @State private var navigateToChat = false
+       @State private var selectedFriend: User?
+    @StateObject private var chatViewModel = ChatViewModel()
+
+    var source: String
     var body: some View {
         ZStack {
             Color.veryLightPeach
@@ -40,60 +45,65 @@ struct BookDetail: View {
                             .foregroundStyle(.navy)
                     }
                     LineView()
-                    if let book = bookshelfViewModel.currentBookPreview {
-                        VStack {
-                            HStack (alignment: .center) {
-                                Image(systemName: bookshelfViewModel.getBookshelfImage())
-                                Picker("Bookshelf", selection: $selectedBookshelf) {
-                                    ForEach(bookshelfViewModel.bookshelfOptions, id: \.self) { shelf in
-                                        Text(shelf).tag(shelf)
-                                            .bold()
+                    if source == "self" {
+                        if let book = bookshelfViewModel.currentBookPreview {
+                            VStack {
+                                HStack (alignment: .center) {
+                                    Image(systemName: BookshelfViewModel.getBookshelfImage(bookshelf: bookshelfViewModel.currentBookPreview?.bookshelf ?? ""))
+                                    Picker("Bookshelf", selection: $selectedBookshelf) {
+                                        ForEach(bookshelfViewModel.bookshelfOptions, id: \.self) { shelf in
+                                            Text(shelf).tag(shelf)
+                                                .bold()
+                                        }
                                     }
-                                }
-                                .onChange(of: selectedBookshelf) { newValue in
-                                    book.bookshelf = newValue
-                                }
-                                Spacer()
-                                Image(systemName: bookshelfViewModel.getReadImage())
-                                Picker("Read Status", selection: $selectedReadStatus) {
-                                    ForEach(bookshelfViewModel.shelfOptions, id: \.self) { status in
-                                        Text(status).tag(status)
+                                    .onChange(of: selectedBookshelf) { newValue in
+                                        book.bookshelf = newValue
                                     }
-                                }
-                                .onChange(of: selectedReadStatus) { newValue in
-                                    book.readStatus = newValue
-                                }
-                            }.padding(.horizontal, 30)
-                            
-                            LineView()
-                        } .padding(.top, 20)
-                            .onAppear {
-                                bookshelfViewModel.bookPreview.toggle()
-                                if let book = bookshelfViewModel.currentBookPreview, let bookshelf = book.bookshelf, let shelf = book.readStatus {
-                                    selectedBookshelf = bookshelf
-                                    selectedReadStatus = shelf
-                                }
+                                    Spacer()
+                                    Image(systemName: BookshelfViewModel.getReadImage(readStatus: bookshelfViewModel.currentBookPreview?.readStatus ?? ""))
+                                    Picker("Read Status", selection: $selectedReadStatus) {
+                                        ForEach(bookshelfViewModel.shelfOptions, id: \.self) { status in
+                                            Text(status).tag(status)
+                                        }
+                                    }
+                                    .onChange(of: selectedReadStatus) { newValue in
+                                        book.readStatus = newValue
+                                    }
+                                }.padding(.horizontal, 30)
                                 
-                            }
+                                LineView()
+                            } .padding(.top, 20)
+                                .onAppear {
+                                    bookshelfViewModel.bookPreview.toggle()
+                                    if let book = bookshelfViewModel.currentBookPreview, let bookshelf = book.bookshelf, let shelf = book.readStatus {
+                                        selectedBookshelf = bookshelf
+                                        selectedReadStatus = shelf
+                                    }
+                                    
+                                }
+                        }
+                    } else {
+                        if let statusArray = userStatuses[userViewModel.currentUser.id] {
+                            HStack (alignment: .center) {
+                                Image(systemName: BookshelfViewModel.getReadImage(readStatus: statusArray[1]))
+                                Text(statusArray[1])
+                                
+                                Spacer()
+                                Image(systemName: BookshelfViewModel.getBookshelfImage(bookshelf: statusArray[0]))
+                                Text(statusArray[0])
+                                
+                            }.padding(.horizontal, 30)
+                                .foregroundStyle(.navy)
+                        }
+                        LineView()
                     }
-//                        if let book = bookshelfViewModel.currentBookPreview {
-//                            HStack (alignment: .center) {
-//                                Image(systemName: bookshelfViewModel.getBookshelfImage())
-//                                Text(book.readStatus ?? "")
-//                                
-//                                Spacer()
-//                                Image(systemName: bookshelfViewModel.getReadImage())
-//                                Text(book.bookshelf ?? "")
-//                                
-//                            }.padding(.horizontal, 30)
-//                        }
-//                    }
                     
                     VStack {
-                        Text("Book Description")
-                            .bold()
-                            .padding(.vertical, 5)
+                        
                         if let desc = book.desc {
+                            Text("Book Description")
+                                .bold()
+                                .padding(.vertical, 5)
                             Text(desc)
                                 .frame(alignment: .center)
                         }
@@ -117,10 +127,10 @@ struct BookDetail: View {
                                         Text(array[0])
                                         Text(array[1])
                                     }
-                                        VStack (alignment: .center){
-                                            Image(systemName: bookshelfViewModel.getBookshelfImage())
-                                            Image(systemName: bookshelfViewModel.getReadImage())
-                                        }.padding(.trailing, 5)
+                                    VStack (alignment: .center){
+                                        Image(systemName: BookshelfViewModel.getBookshelfImage(bookshelf: array[0]))
+                                        Image(systemName: BookshelfViewModel.getReadImage(readStatus: array[1]))
+                                    }.padding(.trailing, 5)
                                 }
                             }.padding(10)
                                 .background(.lightPeach)
@@ -129,11 +139,10 @@ struct BookDetail: View {
                         }
                     }
                 }
-                    
+                
             }
         }.onAppear {
             for user in userViewModel.friends {
-                print(user.displayName)
                 var books: [Book] = []
                 Book.loadBooksFromFirestore(user: user) { fetchedBooks in
                     DispatchQueue.main.async {
@@ -141,19 +150,47 @@ struct BookDetail: View {
                         if let matchBook = books.first(where: { $0.id == book.id }), let readStatus = matchBook.readStatus, let ownerStatus = matchBook.bookshelf {
                             let array = [ownerStatus, readStatus]
                             userStatuses[user.id] = array
-
+                            
                         } else {
                             userStatuses[user.id] = ["Not Owned", "--"]
                         }
                     }
                 }
-                }
-            bookshelfViewModel.getCurrentUserStatus()
-
             }
-                    
+            
+            Book.loadBooksFromFirestore(user: userViewModel.currentUser) { fetchedBooks in
+                DispatchQueue.main.async {
+                    if let matchBook = fetchedBooks.first(where: { $0.id == book.id }), let readStatus = matchBook.readStatus, let ownerStatus = matchBook.bookshelf {
+                        let array = [ownerStatus, readStatus]
+                        userStatuses[userViewModel.currentUser.id] = array
+                        
+                    } else {
+                        userStatuses[userViewModel.currentUser.id] = ["Not Owned", "--"]
+                    }
+                }
+                bookshelfViewModel.getCurrentUserStatus()
+                
+            }
+            
+        }.toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    userViewModel.shareSheet.toggle()
+                }) {
+                    Image(systemName: "square.and.arrow.up")
+                }
+            }
+        }
+        .sheet(isPresented: $userViewModel.shareSheet) {
+            ShareView(
+                book: book,
+                userStatuses: userStatuses,
+                userViewModel: userViewModel,
+                chatViewModel: chatViewModel
+            )
         }
     }
+}
 
 
 //#Preview {

@@ -47,8 +47,8 @@ class BookshelfViewModel: ObservableObject{
         return savedBook
     }
     
-    func getReadImage() -> String {
-        switch (currentBookPreview?.readStatus) {
+    static func getReadImage(readStatus: String) -> String {
+        switch (readStatus) {
         case "Unread":
             return "book.closed"
         case "Read":
@@ -56,12 +56,12 @@ class BookshelfViewModel: ObservableObject{
         case "Reading":
             return "book"
         default:
-            return ""
+            return "book.closed"
         }
     }
     
-    func getBookshelfImage() -> String {
-        switch (currentBookPreview?.bookshelf) {
+    static func getBookshelfImage(bookshelf: String) -> String {
+        switch (bookshelf) {
         case "Owned":
             return "house"
         case "Library":
@@ -69,7 +69,7 @@ class BookshelfViewModel: ObservableObject{
         case "Borrowed":
             return "person.2"
         default:
-            return ""
+            return "house"
         }
     }
     
