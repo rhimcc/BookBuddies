@@ -35,11 +35,24 @@ struct FriendView: View {
                 }
                 
                 ScrollView {
-                    Text("Pending (\(userViewModel.friends.filter {$0.status == "Pending"}.count))")
-                    ForEach(userViewModel.friends.filter {$0.status == "Pending"}) { friend in
-                        FriendRow(friend: friend, userViewModel: userViewModel, friendsList: true)
+                    if (userViewModel.friends.filter {$0.status == "Pending"}.count > 0) {
+                        Text("Pending (\(userViewModel.friends.filter {$0.status == "Pending"}.count))")
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.leading, 20)
+                            .bold()
+                            .foregroundStyle(.navy)
+
+                        ForEach(userViewModel.friends.filter {$0.status == "Pending"}) { friend in
+                            FriendRow(friend: friend, userViewModel: userViewModel, friendsList: true)
+                        }
                     }
+                    
                     Text("Friends (\(userViewModel.friends.filter {$0.status == "Friends"}.count))")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.leading, 20)
+                        .bold()
+                        .foregroundStyle(.navy)
+
                     ForEach(userViewModel.friends.filter {$0.status == "Friends"}) { friend in
                         FriendRow(friend: friend, userViewModel: userViewModel, friendsList: true)
                     }

@@ -14,6 +14,7 @@ struct FriendRow: View {
                     .bold()
                 Text(friend.id)
                     .italic()
+                    .font(.system(size: 15))
             }
             Spacer()
             HStack {
@@ -39,9 +40,9 @@ struct FriendRow: View {
                         } label: {
                             Image("BookshelfNavy")
                                 .resizable()
-                                .frame(width: 45, height: 45)
+                                .frame(width: 35, height: 35)
                                 .clipShape(Circle())
-                        }.padding(.trailing, 10)
+                        }
                         
                         NavigationLink {
                             ChatView(userViewModel: userViewModel, friend: friend, chatViewModel: ChatViewModel())
@@ -51,16 +52,14 @@ struct FriendRow: View {
                                     .fill(.navy)
                                 Image(systemName: "message")
                                     .foregroundStyle(.white)
-                                    .font(.system(size: 25))
-                            }.frame(width: 45, height: 45)
+                                    .font(.system(size: 20))
+                            }.frame(width: 35, height: 35)
                         }
                         
                         Button {
                             userViewModel.friends.remove(at: getIndex(of: friend))
                             userViewModel.removeFriendFromFirestore(friend: friend, from: userViewModel.currentUser)
                             userViewModel.removeFriendFromFirestore(friend: userViewModel.currentUser, from: friend)
-
-//                            self.existingFriend.toggle()
                             
                         } label: {
                             ZStack {
@@ -68,9 +67,9 @@ struct FriendRow: View {
                                     .fill(.navy)
                                    
                                 Image(systemName: "person.badge.minus")
-                                    .font(.system(size: 25))
+                                    .font(.system(size: 20))
                                     .foregroundStyle(.white)
-                            } .frame(width: 45, height: 45)
+                            } .frame(width: 35, height: 35)
                             
                         }
                     }
