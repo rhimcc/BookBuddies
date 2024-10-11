@@ -13,8 +13,10 @@ struct BookPreview: View {
     @State var currentUserBooks: [Book]
     @State var currentReadStatus: String = ""
     @State var currentOwnerStatus: String = ""
-
+    @ObservedObject var userViewModel: UserViewModel
     var source: String
+    var bookshelfOwner: User
+
     var body: some View {
             ZStack {
                 RoundedRectangle(cornerRadius: 20)
@@ -73,7 +75,7 @@ struct BookPreview: View {
                         Spacer()
                         NavigationLink {
                             if let book = bookshelfViewModel.currentBookPreview {
-                                BookDetail(book: book, bookshelfViewModel: bookshelfViewModel)
+                                BookDetail(currentUser: currentUser, book: book, bookshelfViewModel: bookshelfViewModel, userViewModel: userViewModel)
                             }
                         } label : {
                             HStack {

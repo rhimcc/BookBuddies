@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MessageView: View {
+    @ObservedObject var userViewModel: UserViewModel = UserViewModel()
     var message: Message
     @State var currentUserSender: Bool
     var body: some View {
@@ -25,7 +26,7 @@ struct MessageView: View {
                     VStack {
                         if let book = message.book {
                             NavigationLink {
-                                BookDetail(book: book, bookshelfViewModel: BookshelfViewModel())
+                                BookDetail(book: book, bookshelfViewModel: BookshelfViewModel(), userViewModel: userViewModel)
                             } label : {
                                 VStack {
                                     BookView(book: book, inSearch: false)

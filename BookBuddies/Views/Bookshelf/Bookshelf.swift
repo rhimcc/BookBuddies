@@ -105,7 +105,7 @@ struct Bookshelf: View {
                                     .foregroundStyle(.gray)
                                     .font(.system(size: 30))
                             }
-                            BookPreview(bookshelfViewModel: bookshelfViewModel, currentUser: userViewModel.currentUser, currentUserBooks: currentUserBooks, source: bookshelfOwner.id == userViewModel.currentUser.id ? "self" : "other")
+                            BookPreview(bookshelfViewModel: bookshelfViewModel, currentUser: userViewModel.currentUser, currentUserBooks: currentUserBooks, userViewModel: userViewModel, source: bookshelfOwner.id == userViewModel.currentUser.id ? "self" : "other", bookshelfOwner: bookshelfOwner)
                             Button {
                                 currentIndex += 1
                                 if (currentIndex >= books.count) {
@@ -167,8 +167,8 @@ struct Bookshelf: View {
               DispatchQueue.main.async {
                   bookshelfViewModel.currentUserBooks = fetchedBooks // Update the published books
               }
-          }
-      }
+        }
+    }
     
 }
 
