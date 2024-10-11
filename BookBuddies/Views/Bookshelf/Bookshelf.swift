@@ -10,6 +10,7 @@ import SwiftData
 
 struct Bookshelf: View {
     @State var books: [Book] = []
+    @State var currentUserBooks: [Book] = []
     @State var bookInfo: Bool = false
     @State var currentBook: Book?
     @ObservedObject var bookshelfViewModel: BookshelfViewModel
@@ -18,6 +19,7 @@ struct Bookshelf: View {
     @State private var currentBookshelfIndex: Int = 0
     @State var bookshelfOwner: User
     @State var bookshelfText: String = ""
+    var userViewModel: UserViewModel
 
     var body: some View {
         NavigationStack {
@@ -65,6 +67,7 @@ struct Bookshelf: View {
                                     currentBook = book
                                     currentIndex = index2
                                     bookshelfViewModel.currentBookPreview = book
+                                    bookshelfViewModel.getCurrentUserStatus()
                                 } label : {
                                     BookSpineView(book: book, bookshelfViewModel: bookshelfViewModel)
                                         .frame(width: 20, height: 100) // Adjust width and height according to your design
@@ -95,18 +98,21 @@ struct Bookshelf: View {
                                     currentIndex = books.count - 1
                                 }
                                 bookshelfViewModel.currentBookPreview = books[currentIndex]
+                                bookshelfViewModel.getCurrentUserStatus()
+
                             } label : {
                                 Image(systemName: "lessthan.square.fill")
                                     .foregroundStyle(.gray)
                                     .font(.system(size: 30))
                             }
-                            BookPreview(bookshelfViewModel: bookshelfViewModel)
+                            BookPreview(bookshelfViewModel: bookshelfViewModel, currentUser: userViewModel.currentUser, currentUserBooks: currentUserBooks, source: bookshelfOwner.id == userViewModel.currentUser.id ? "self" : "other")
                             Button {
                                 currentIndex += 1
                                 if (currentIndex >= books.count) {
                                     currentIndex = 0
                                 }
                                 bookshelfViewModel.currentBookPreview = books[currentIndex]
+                                bookshelfViewModel.getCurrentUserStatus()
                                 
                             } label : {
                                 Image(systemName: "greaterthan.square.fill")
@@ -123,6 +129,7 @@ struct Bookshelf: View {
                 Spacer()
             }.onAppear {
                loadBooks()
+                loadCurrentUserBooks()
                 if (bookshelfOwner.id == User.getCurrentUser()) {
                     bookshelfText = "Your Bookshelf"
                 } else {
@@ -151,6 +158,14 @@ struct Bookshelf: View {
         Book.loadBooksFromFirestore(user: bookshelfOwner) { fetchedBooks in
               DispatchQueue.main.async {
                   self.books = fetchedBooks // Update the published books
+              }
+          }
+      }
+    
+    func loadCurrentUserBooks() {
+        Book.loadBooksFromFirestore(user: userViewModel.currentUser) { fetchedBooks in
+              DispatchQueue.main.async {
+                  bookshelfViewModel.currentUserBooks = fetchedBooks // Update the published books
               }
           }
       }

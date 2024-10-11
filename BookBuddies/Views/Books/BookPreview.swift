@@ -9,7 +9,12 @@ import SwiftUI
 
 struct BookPreview: View {
     @ObservedObject var bookshelfViewModel: BookshelfViewModel
-    
+    @State var currentUser: User
+    @State var currentUserBooks: [Book]
+    @State var currentReadStatus: String = ""
+    @State var currentOwnerStatus: String = ""
+
+    var source: String
     var body: some View {
             ZStack {
                 RoundedRectangle(cornerRadius: 20)
@@ -52,9 +57,16 @@ struct BookPreview: View {
                             Image(systemName: bookshelfViewModel.getBookshelfImage())
                             Image(systemName: bookshelfViewModel.getReadImage())
                         }
-                        VStack(alignment: .leading) {
-                            Text(bookshelfViewModel.currentBookPreview?.bookshelf ?? "")
-                            Text(bookshelfViewModel.currentBookPreview?.readStatus ?? "")
+                        if (source == "self") {
+                            VStack(alignment: .leading) {
+                                Text(bookshelfViewModel.currentBookPreview?.bookshelf ?? "")
+                                Text(bookshelfViewModel.currentBookPreview?.readStatus ?? "")
+                            }
+                        } else {
+                            VStack (alignment: .leading) {
+                                Text(bookshelfViewModel.currentOwnerStatus ?? "")
+                                Text(bookshelfViewModel.currentReadStatus ?? "")
+                            }
                         }
                      
                        
@@ -76,6 +88,32 @@ struct BookPreview: View {
                     Spacer()
                 }
             }.frame(width: 280, height: 160)
+            .onAppear {
+                if (source != "self") {
+                    loadBooks()
+//                    getCurrentUserStatus()
+                }
+            }
         
+    }
+    
+//    func getCurrentUserStatus() {
+//        if let bookPreview = bookshelfViewModel.currentBookPreview {
+//            if let matchingBook = currentUserBooks.first(where: { $0.id == bookPreview.id }), let readStatus = matchingBook.readStatus, let ownerStatus = matchingBook.bookshelf {
+//                   currentReadStatus = readStatus
+//                   currentOwnerStatus = ownerStatus
+//
+//               } else {
+//                   print("Book not found in user's current books.")
+//               }
+//           }
+//       
+//    }
+    func loadBooks() {
+            Book.loadBooksFromFirestore(user: currentUser) { fetchedBooks in
+                DispatchQueue.main.async {
+                    self.currentUserBooks = fetchedBooks
+                }
+            }
     }
 }

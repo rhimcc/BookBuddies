@@ -19,9 +19,27 @@ class BookshelfViewModel: ObservableObject{
     @Published var selectedBookshelf: String = "Owned"
     @Published var currentBookshelf: String = "Owned"
     @Published var bookColors: [String: Color] = [:] // Dictionary to hold colors for each book
+    @Published var currentUserBooks: [Book] = []
+    @Published var currentReadStatus: String = ""
+    @Published var currentOwnerStatus: String = ""
+
 
     var bookshelfOptions: [String] = ["Owned", "Library", "Borrowed"]
     var shelfOptions: [String] = ["Read", "Reading", "Unread"]
+    
+    func getCurrentUserStatus() {
+        if let bookPreview = currentBookPreview {
+            if let matchingBook = currentUserBooks.first(where: { $0.id == bookPreview.id }), let readStatus = matchingBook.readStatus, let ownerStatus = matchingBook.bookshelf {
+                   currentReadStatus = readStatus
+                   currentOwnerStatus = ownerStatus + " by You"
+
+               } else {
+                   currentReadStatus = "--"
+                   currentOwnerStatus = "Not Owned by You"
+               }
+           }
+       
+    }
     
     func add(book: Book) -> Book{
         let savedBook = Book(id: book.id, title: book.getTitleFromJSON(), authors: book.getAuthorStringFromJSON(), bookshelf: selectedBookshelf, image: book.getImageThumbnailFromJSON() ?? "", readStatus: selectedReadStatus, desc: book.getDescriptionFromJSON())

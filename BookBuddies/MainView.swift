@@ -23,7 +23,7 @@ struct MainView: View {
                     }
                 
                 }.tag(0)
-            Bookshelf(bookshelfViewModel: viewModel, bookshelfOwner: userViewModel.currentUser)
+            Bookshelf(bookshelfViewModel: viewModel, bookshelfOwner: userViewModel.currentUser, userViewModel: userViewModel)
                 .tabItem {
                     VStack {
                         Image(systemName: "books.vertical.fill")

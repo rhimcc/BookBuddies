@@ -35,7 +35,7 @@ struct FriendRow: View {
                         }
                     } else {
                         NavigationLink {
-                            Bookshelf(bookshelfViewModel: BookshelfViewModel(), bookshelfOwner: friend)
+                            Bookshelf(bookshelfViewModel: BookshelfViewModel(), bookshelfOwner: friend, userViewModel: userViewModel)
                         } label: {
                             Image("BookshelfNavy")
                                 .resizable()
