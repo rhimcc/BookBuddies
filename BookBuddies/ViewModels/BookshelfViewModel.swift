@@ -76,4 +76,14 @@ class BookshelfViewModel: ObservableObject{
     static func getBooks() -> [Book] {
         return books
     }
+    
+    func getBookTotal() -> Int {
+        return currentUserBooks.count
+    }
+    
+    func getBooksRead() -> Int {
+        let newArray = currentUserBooks.filter{$0.readStatus == "Read"}
+        return newArray.count
+    }
 }
+

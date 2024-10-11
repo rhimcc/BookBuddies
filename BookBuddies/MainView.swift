@@ -39,15 +39,20 @@ struct MainView: View {
                 
                 }.tag(2)
             
-            SettingsView(userViewModel: userViewModel, bookshelfViewModel: viewModel, authViewModel: authViewModel)
-                .tabItem {
-                    VStack {
-                        Image(systemName: "gearshape.fill")
-                        Text("Settings")
-                    }
-                }.tag(3)
             
         }.tint(.navy)
+            .toolbar {
+                ToolbarItem (placement: .topBarLeading) {
+                    NavigationLink {
+                        SettingsView(userViewModel: userViewModel, bookshelfViewModel: viewModel, authViewModel: authViewModel)
+                    } label : {
+                        VStack {
+                            Image(systemName: "person.crop.circle")
+                                .foregroundStyle(.navy)
+                        }
+                    }
+                }
+            }
     }
 }
 
