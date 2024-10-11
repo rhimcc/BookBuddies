@@ -25,7 +25,7 @@ class BookshelfViewModel: ObservableObject{
 
 
     var bookshelfOptions: [String] = ["Owned", "Library", "Borrowed"]
-    var shelfOptions: [String] = ["Read", "Reading", "Unread"]
+    var shelfOptions: [String] = ["Reading", "Unread", "Read"]
     
     func getCurrentUserStatus() {
         if let bookPreview = currentBookPreview {

@@ -41,6 +41,7 @@ struct ShelfView: View {
                 .shadow(color: .black.opacity(0.2), radius: 10)
             Text(text)
                 .offset(y: 75)
+                .bold()
             
         }.frame(width: totalWidth + 20, height: totalHeight + 30)
     }

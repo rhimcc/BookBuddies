@@ -57,6 +57,9 @@ class Book: Codable, Identifiable, Equatable {
         }
         return imageURL
     }
+    static func == (lhs: Book, rhs: Book) -> Bool {
+            return lhs.id == rhs.id // Ensure you're comparing by a unique identifier
+        }
     
     func getDescriptionFromJSON() -> String {
         if let volumeInfo = volumeInfo, let desc = volumeInfo.desc {
