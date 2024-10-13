@@ -292,33 +292,57 @@ class UserViewModel: ObservableObject {
     }
     func loadBooksFromFirestore(user: User, completion: @escaping ([Book]) -> Void) {
         let db = Firestore.firestore() // connecting to database
-        db.collection("users").document(user.id).collection("books").getDocuments { (snapshot, error) in // gets the book documents from the specified collection
-            if let error = error {
-                print("Error loading books: \(error.localizedDescription)")
-                completion([])
-                return
-            }
-            
-            var books: [Book] = [] // initialising array to store books
-            for document in snapshot!.documents { // iterates through the array to get each individual book document
-                let data = document.data()
-                
-                // Decode the book properties
-                if let id = data["id"] as? String,
-                   let title = data["title"] as? String,
-                   let authors = data["authors"] as? String,
-                   let bookshelf = data["bookshelf"] as? String,
-                   let image = data["image"] as? String,
-                   let readStatus = data["readStatus"] as? String,
-                   let desc = data["description"] as? String,
-                   let pageCount = data["pageCount"] as? Int,
-                   let userPage = data["userPage"] as? Int
-                {
-                    let book = Book(id: id, title: title, authors: authors, bookshelf: bookshelf, image: image, readStatus: readStatus, desc: desc, pageCount: Int(pageCount), userPage: Int(userPage)) // creates the book
-                    books.append(book) // appends book to the array
+        
+        let collectionRef = "db.collection(\"users\")"
+        checkIfDocumentExists(collection: collectionRef, documentID: user.id) { exists in
+            DispatchQueue.main.async {
+                if (exists) {
+                    db.collection("users").document(user.id).collection("books").getDocuments { (snapshot, error) in // gets the book documents from the specified collection
+                        if let error = error {
+                            print("Error loading books: \(error.localizedDescription)")
+                            completion([])
+                            return
+                        }
+                        
+                        var books: [Book] = [] // initialising array to store books
+                        for document in snapshot!.documents { // iterates through the array to get each individual book document
+                            let data = document.data()
+                            
+                            // Decode the book properties
+                            if let id = data["id"] as? String,
+                               let title = data["title"] as? String,
+                               let authors = data["authors"] as? String,
+                               let bookshelf = data["bookshelf"] as? String,
+                               let image = data["image"] as? String,
+                               let readStatus = data["readStatus"] as? String,
+                               let desc = data["description"] as? String,
+                               let pageCount = data["pageCount"] as? Int,
+                               let userPage = data["userPage"] as? Int
+                            {
+                                let book = Book(id: id, title: title, authors: authors, bookshelf: bookshelf, image: image, readStatus: readStatus, desc: desc, pageCount: Int(pageCount), userPage: Int(userPage)) // creates the book
+                                books.append(book) // appends book to the array
+                            }
+                        }
+                        completion(books) // returns the books on completion
+                    }
                 }
             }
-            completion(books) // returns the books on completion
+        }
+       
+    }
+    
+    func checkIfDocumentExists(collection: String, documentID: String, completion: @escaping (Bool) -> Void) {
+        let db = Firestore.firestore()
+        let docRef = db.collection(collection).document(documentID)
+
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                // Document exists
+                completion(true)
+            } else {
+                // Document does not exist
+                completion(false)
+            }
         }
     }
     

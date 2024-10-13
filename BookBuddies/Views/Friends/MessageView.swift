@@ -44,12 +44,11 @@ struct MessageView: View {
                                             .padding(.horizontal, 5)
                                     }
                                 }.background(currentUserSender ? .veryLightPeach : .navy)
-                                    .cornerRadius(5)
+                                .cornerRadius(5)
                             }
                         }
                             
                         Text(message.messageContent)
-                            .cornerRadius(20)
                             .foregroundStyle(currentUserSender ? .veryLightPeach : .navy) // set colours based on reader/sender
                             .frame(alignment: currentUserSender ? .trailing : .leading) // set alignment based on reader/sender
                     }.padding()
