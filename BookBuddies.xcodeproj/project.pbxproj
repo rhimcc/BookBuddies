@@ -68,7 +68,6 @@
 		998887012CB26E37004E9E0F /* FriendSearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998887002CB26E37004E9E0F /* FriendSearchResultsView.swift */; };
 		998887032CB26EC8004E9E0F /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998887022CB26EC8004E9E0F /* SearchViewModel.swift */; };
 		998887052CB27683004E9E0F /* FriendRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998887042CB27683004E9E0F /* FriendRow.swift */; };
-		998887072CB28016004E9E0F /* FriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998887062CB28016004E9E0F /* FriendViewModel.swift */; };
 		99DE58142CB50F4E003A615B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE58132CB50F4E003A615B /* SettingsView.swift */; };
 		99DE58162CB68DB9003A615B /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE58152CB68DB9003A615B /* MessageModel.swift */; };
 		99DE58182CB6902E003A615B /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE58172CB6902E003A615B /* ChatView.swift */; };
@@ -123,7 +122,6 @@
 		998887002CB26E37004E9E0F /* FriendSearchResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSearchResultsView.swift; sourceTree = "<group>"; };
 		998887022CB26EC8004E9E0F /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		998887042CB27683004E9E0F /* FriendRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRow.swift; sourceTree = "<group>"; };
-		998887062CB28016004E9E0F /* FriendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewModel.swift; sourceTree = "<group>"; };
 		99DE58132CB50F4E003A615B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		99DE58152CB68DB9003A615B /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
 		99DE58172CB6902E003A615B /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
@@ -194,8 +192,6 @@
 			isa = PBXGroup;
 			children = (
 				998886742CAAD972004E9E0F /* BookBuddiesApp.swift */,
-				998886762CAAD972004E9E0F /* ContentView.swift */,
-				998886C62CB002A2004E9E0F /* MainView.swift */,
 				998886AE2CAFFBB7004E9E0F /* Views */,
 				998886AF2CAFFBC6004E9E0F /* Models */,
 				998886B02CAFFBCD004E9E0F /* ViewModels */,
@@ -217,20 +213,15 @@
 		998886AE2CAFFBB7004E9E0F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				998886762CAAD972004E9E0F /* ContentView.swift */,
+				998886C62CB002A2004E9E0F /* MainView.swift */,
+				99DE58232CB911E1003A615B /* LineView.swift */,
+				99DE58132CB50F4E003A615B /* SettingsView.swift */,
+				99DE582E2CBBA4FA003A615B /* Authentication */,
 				998886B42CAFFCA9004E9E0F /* Search */,
 				998886B32CAFFC78004E9E0F /* Bookshelf */,
 				998886B12CAFFBDB004E9E0F /* Books */,
-				998886EE2CB00535004E9E0F /* SignInView.swift */,
-				998886F82CB166B8004E9E0F /* StartView.swift */,
-				99DE58252CB92626003A615B /* ShareView.swift */,
-				99DE58272CB926EA003A615B /* ShareToFriendView.swift */,
-				998886F22CB00AAE004E9E0F /* SignUpView.swift */,
-				998886F62CB14929004E9E0F /* FriendView.swift */,
-				998886FC2CB26DBA004E9E0F /* AddFriendView.swift */,
-				998886FE2CB26E2E004E9E0F /* FriendSearchView.swift */,
-				998887002CB26E37004E9E0F /* FriendSearchResultsView.swift */,
-				998887042CB27683004E9E0F /* FriendRow.swift */,
-				99DE58132CB50F4E003A615B /* SettingsView.swift */,
+				99DE582D2CBBA4C1003A615B /* Friends */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -255,7 +246,6 @@
 				998886862CAAE2DF004E9E0F /* BookViewModel.swift */,
 				998886C42CB00223004E9E0F /* UserViewModel.swift */,
 				99DE581B2CB69D06003A615B /* ChatViewModel.swift */,
-				998887062CB28016004E9E0F /* FriendViewModel.swift */,
 				998886F02CB0080A004E9E0F /* AuthViewModel.swift */,
 				998887022CB26EC8004E9E0F /* SearchViewModel.swift */,
 			);
@@ -267,13 +257,9 @@
 			children = (
 				998886902CAB7A23004E9E0F /* BookRow.swift */,
 				998886A02CAD02D2004E9E0F /* BookPreview.swift */,
-				99DE58232CB911E1003A615B /* LineView.swift */,
 				998886A42CAD40A2004E9E0F /* BookDetail.swift */,
 				998886942CABA269004E9E0F /* BookView.swift */,
-				99DE58172CB6902E003A615B /* ChatView.swift */,
 				99DE581F2CB77BF0003A615B /* BookSearchView.swift */,
-				99DE58212CB791BA003A615B /* BookForChatRow.swift */,
-				99DE581D2CB6A5D9003A615B /* MessageView.swift */,
 				99DE58292CBB5AD8003A615B /* BookSuggestionView.swift */,
 				99DE582B2CBB6DDE003A615B /* BookThumbnail.swift */,
 			);
@@ -310,6 +296,33 @@
 				9988868C2CAAE362004E9E0F /* SearchResultsView.swift */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		99DE582D2CBBA4C1003A615B /* Friends */ = {
+			isa = PBXGroup;
+			children = (
+				99DE581D2CB6A5D9003A615B /* MessageView.swift */,
+				99DE58212CB791BA003A615B /* BookForChatRow.swift */,
+				99DE58172CB6902E003A615B /* ChatView.swift */,
+				99DE58252CB92626003A615B /* ShareView.swift */,
+				99DE58272CB926EA003A615B /* ShareToFriendView.swift */,
+				998886F62CB14929004E9E0F /* FriendView.swift */,
+				998886FC2CB26DBA004E9E0F /* AddFriendView.swift */,
+				998886FE2CB26E2E004E9E0F /* FriendSearchView.swift */,
+				998887042CB27683004E9E0F /* FriendRow.swift */,
+				998887002CB26E37004E9E0F /* FriendSearchResultsView.swift */,
+			);
+			path = Friends;
+			sourceTree = "<group>";
+		};
+		99DE582E2CBBA4FA003A615B /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				998886F82CB166B8004E9E0F /* StartView.swift */,
+				998886EE2CB00535004E9E0F /* SignInView.swift */,
+				998886F22CB00AAE004E9E0F /* SignUpView.swift */,
+			);
+			path = Authentication;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -451,7 +464,6 @@
 				99DE58282CB926EA003A615B /* ShareToFriendView.swift in Sources */,
 				998886892CAAE33B004E9E0F /* SearchBaseView.swift in Sources */,
 				998886F12CB0080A004E9E0F /* AuthViewModel.swift in Sources */,
-				998887072CB28016004E9E0F /* FriendViewModel.swift in Sources */,
 				99DE58162CB68DB9003A615B /* MessageModel.swift in Sources */,
 				998886A12CAD02D2004E9E0F /* BookPreview.swift in Sources */,
 				998886C52CB00223004E9E0F /* UserViewModel.swift in Sources */,

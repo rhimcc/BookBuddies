@@ -23,15 +23,11 @@ class UserViewModel: ObservableObject {
             print("User not authenticated or invalid user ID.")
             return
         }
-        do {
-            if let id = book.id {
-                try db.collection("users").document(userId).collection("books").document(id).delete()
-            }
-          print("Document successfully removed!")
-        } catch {
-          print("Error removing document: \(error)")
+        if let id = book.id {
+            db.collection("users").document(userId).collection("books").document(id).delete()
         }
     }
+    
 
     func addBookToFirestore(book: Book) {
         guard let userId = Auth.auth().currentUser?.uid else {
@@ -148,12 +144,8 @@ class UserViewModel: ObservableObject {
             print("User not authenticated or invalid user ID.")
             return
         }
-        do {
-            try db.collection("users").document(user.id).collection("friends").document(friend.id).delete()
+        db.collection("users").document(user.id).collection("friends").document(friend.id).delete()
           print("Document successfully removed!")
-        } catch {
-          print("Error removing document: \(error)")
-        }
         }
     
     func addFriendToFirestore(friend user1: User, to user2: User, status: String) {
@@ -298,8 +290,10 @@ class UserViewModel: ObservableObject {
                     db.collection("users").document(userId).collection("books").document(id).setData([ "userPage": 0 ], merge: true)
                     book.userPage = 0
                 } else {
-                    db.collection("users").document(userId).collection("books").document(id).setData([ "userPage": book.pageCount], merge: true)
-                    book.userPage = book.pageCount
+                    if let pageCount = book.pageCount {
+                        db.collection("users").document(userId).collection("books").document(id).setData([ "userPage": pageCount], merge: true)
+                        book.userPage = pageCount
+                    }
                 }
             }
         }

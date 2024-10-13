@@ -36,7 +36,7 @@ struct ChatView: View {
                     chatViewModel.loadCurrentUser()
                     chatViewModel.loadOtherUser()
                 }
-                .onChange(of: chatViewModel.messages) { _ in
+                .onChange(of: chatViewModel.messages) { _, _ in
                     if let lastMessage = chatViewModel.messages.last {
                         withAnimation {
                             proxy.scrollTo(lastMessage.id, anchor: .bottom)

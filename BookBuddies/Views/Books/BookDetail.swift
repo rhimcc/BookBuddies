@@ -63,7 +63,7 @@ struct BookDetail: View {
                                                 .bold()
                                         }
                                     }
-                                    .onChange(of: selectedBookshelf) { newValue in
+                                    .onChange(of: selectedBookshelf) { _, newValue in
                                         updateBookStatus(readStatus: book.readStatus ?? "", bookshelf: newValue)
                                     }
                                     Spacer()
@@ -73,7 +73,7 @@ struct BookDetail: View {
                                             Text(status).tag(status)
                                         }
                                     }
-                                    .onChange(of: selectedReadStatus) { newValue in
+                                    .onChange(of: selectedReadStatus) { _, newValue in
                                         updateBookStatus(readStatus: newValue, bookshelf: book.bookshelf ?? "")
                                     }
                                   

@@ -191,11 +191,6 @@ class Book: Codable, Identifiable, Equatable {
         case userPage
     }
     
-    func printBook() {
-        print(id, title, authors, bookshelf, readStatus, image)
-        
-    }
-    
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
@@ -241,7 +236,7 @@ extension Book {
                    let userPage = data["userPage"] as? Int,
                    let category = data["category"] as? String
                 {
-                    let book = Book(id: id, title: title, authors: authors, bookshelf: bookshelf, image: image, readStatus: readStatus, desc: desc, pageCount: Int(pageCount) ?? 0, category: category, userPage: Int(userPage) ?? 0)
+                    let book = Book(id: id, title: title, authors: authors, bookshelf: bookshelf, image: image, readStatus: readStatus, desc: desc, pageCount: Int(pageCount), category: category, userPage: Int(userPage))
                     books.append(book)
                 }
             }

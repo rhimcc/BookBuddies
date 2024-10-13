@@ -29,7 +29,7 @@ struct ShareToFriendView: View {
                 }.frame(alignment: .trailing)
             }
             NavigationLink {
-                var chatViewModel: ChatViewModel = ChatViewModel()
+                let chatViewModel: ChatViewModel = ChatViewModel()
                 ChatView(userViewModel: userViewModel, friend: friend, chatViewModel: chatViewModel)
                     .onAppear {
                         chatViewModel.book = book
