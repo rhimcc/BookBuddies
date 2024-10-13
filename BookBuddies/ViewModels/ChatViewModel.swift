@@ -16,12 +16,13 @@ class ChatViewModel: ObservableObject {
     var currentUser: User? = nil
     var friend: User? = nil
     @Published var book: Book? = nil
+    let userViewModel = UserViewModel()
     
 
     private var listener: ListenerRegistration?
 
     
-    func startListening(user1Id: String, user2Id: String) {
+    func startListening(user1Id: String, user2Id: String) { // listens to the chat, so that the view can update if the user receives a new message
         listener = Firestore.firestore().collection("users").document(user1Id).collection("friends").document(user2Id).collection("messages")
             .order(by: "time")
             .addSnapshotListener { [weak self] snapshot, error in
@@ -35,26 +36,23 @@ class ChatViewModel: ObservableObject {
             }
     }
     
-    func generateChatId(user1Id: String, user2Id: String) -> String {
-        return [user1Id, user2Id].sorted().joined(separator: "_")
-    }
     
-    func stopListening() {
+    func stopListening() { // removes the listener, to stop listening
         listener?.remove()
     }
     
-    func loadCurrentUser() {
+    func loadCurrentUser() { // loads the current users books
         if let user = currentUser {
-            Book.loadBooksFromFirestore(user: user) { fetchedBooks in
+            userViewModel.loadBooksFromFirestore(user: user) { fetchedBooks in
                 DispatchQueue.main.async {
                     self.currentUserBooks = fetchedBooks
                 }
             }
         }
     }
-    func loadOtherUser() {
+    func loadOtherUser() { // loads the friends books
         if let user = friend {
-            Book.loadBooksFromFirestore(user: user) { fetchedBooks in
+            userViewModel.loadBooksFromFirestore(user: user) { fetchedBooks in
                 DispatchQueue.main.async {
                     self.otherUserBooks = fetchedBooks
                 }

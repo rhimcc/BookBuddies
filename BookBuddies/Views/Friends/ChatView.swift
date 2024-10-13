@@ -127,29 +127,6 @@ struct ChatView: View {
         chatViewModel.isShowingSheet = false
     }
     
-    func loadBothUserBookshelves() {
-        var bookshelf1: [Book] = []
-        var bookshelf2: [Book] = []
-        
-        let dispatchGroup = DispatchGroup()
-        dispatchGroup.enter()
-        Book.loadBooksFromFirestore(user: friend) { fetchedBooks in
-            DispatchQueue.main.async {
-                bookshelf1 = fetchedBooks
-                dispatchGroup.leave()
-            }
-        }
-        dispatchGroup.enter()
-        Book.loadBooksFromFirestore(user: userViewModel.currentUser) { fetchedBooks in
-            DispatchQueue.main.async {
-                bookshelf2 = fetchedBooks
-                dispatchGroup.leave()
-            }
-        }
-        dispatchGroup.notify(queue: .main) {
-            self.books = bookshelf1 + bookshelf2
-        }
-    }
 }
 
 //#Preview {

@@ -16,7 +16,7 @@ class Message: Codable, Identifiable, Equatable {
     var book: Book?
     var time: String
     
-    init(id: UUID, senderId: String, receiverId: String, messageContent: String, book: Book?, time: String) {
+    init(id: UUID, senderId: String, receiverId: String, messageContent: String, book: Book?, time: String) { // initialising messages
         self.id = id
         self.senderId = senderId
         self.receiverId = receiverId
@@ -25,7 +25,7 @@ class Message: Codable, Identifiable, Equatable {
         self.time = time
     }
     
-    required init(from decoder: any Decoder) throws {
+    required init(from decoder: any Decoder) throws { // decoding messages from JSON
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(UUID.self, forKey: .id)
         self.senderId = try container.decode(String.self, forKey: .senderId)
@@ -35,7 +35,7 @@ class Message: Codable, Identifiable, Equatable {
         self.time = try container.decode(String.self, forKey: .time)
     }
     
-    enum CodingKeys: CodingKey {
+    enum CodingKeys: CodingKey { // coding keys for encoding and decoding data
         case id
         case senderId
         case receiverId
@@ -44,7 +44,7 @@ class Message: Codable, Identifiable, Equatable {
         case time
     }
     
-    func encode(to encoder: Encoder) throws {
+    func encode(to encoder: Encoder) throws { // encoding the messages
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
         try container.encode(senderId, forKey: .senderId)
@@ -55,7 +55,7 @@ class Message: Codable, Identifiable, Equatable {
 
     }
     
-    static func ==(lhs: Message, rhs: Message) -> Bool {
+    static func ==(lhs: Message, rhs: Message) -> Bool { // equating messages, ensuring that they are the same via each variable
           return lhs.id == rhs.id &&
                  lhs.senderId == rhs.senderId &&
                  lhs.receiverId == rhs.receiverId &&

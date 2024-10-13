@@ -157,7 +157,7 @@ struct Bookshelf: View {
     }
     
     func loadBooks() {
-        Book.loadBooksFromFirestore(user: bookshelfOwner) { fetchedBooks in
+        userViewModel.loadBooksFromFirestore(user: bookshelfOwner) { fetchedBooks in
             DispatchQueue.main.async {
                 self.books = fetchedBooks // Update the published books
             }
@@ -165,7 +165,7 @@ struct Bookshelf: View {
     }
     
     func loadCurrentUserBooks() {
-        Book.loadBooksFromFirestore(user: userViewModel.currentUser) { fetchedBooks in
+        userViewModel.loadBooksFromFirestore(user: userViewModel.currentUser) { fetchedBooks in
             DispatchQueue.main.async {
                 bookshelfViewModel.currentUserBooks = fetchedBooks // Update the published books
             }

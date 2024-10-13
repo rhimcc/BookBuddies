@@ -8,6 +8,6 @@
 import Foundation
 
 class SearchViewModel: ObservableObject {
-    @Published var searchQuery: String = ""
-    @Published var isActive: Bool = false
+    @Published var searchQuery: String = "" // stores the search query
+    @Published var isActive: Bool = false // stores the active status of the search
 }

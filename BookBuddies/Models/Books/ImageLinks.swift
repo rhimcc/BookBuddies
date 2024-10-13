@@ -12,12 +12,12 @@ struct ImageLinks: Codable {
     let smallThumbnail: String
     let thumbnail: String
     
-    init(smallThumbnail: String, thumbnail: String) {
+    init(smallThumbnail: String, thumbnail: String) { // initialising images
         self.smallThumbnail = smallThumbnail
         self.thumbnail = thumbnail
     }
     
-    init(from decoder: Decoder) throws { //initialises all of the variables for JSON decoding
+    init(from decoder: Decoder) throws { // initialises all of the variables from JSON decoding
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.smallThumbnail = try container.decode(String.self, forKey: .smallThumbnail)
         self.thumbnail = try container.decode(String.self, forKey: .thumbnail)
@@ -28,7 +28,7 @@ struct ImageLinks: Codable {
         case thumbnail
     }
     
-    func encode(to encoder: Encoder) throws {
+    func encode(to encoder: Encoder) throws { // encoding for JSON
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(smallThumbnail, forKey: .smallThumbnail)
         try container.encode(thumbnail, forKey: .thumbnail)

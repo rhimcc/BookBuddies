@@ -12,24 +12,24 @@ import UIKit
 import FirebaseFirestore
 
 extension UIImage {
-    func getPixelColor(at point: CGPoint) -> UIColor? {
+    func getPixelColor(at point: CGPoint) -> UIColor? { // gets the pixel colour for book spines
         guard let cgImage = self.cgImage,
               let dataProvider = cgImage.dataProvider,
               let pixelData = dataProvider.data else {
             return nil
         }
-        
+        // converts pixel point into a byte pointer
         let data = CFDataGetBytePtr(pixelData)
-        let bytesPerPixel = 4
-        let width = cgImage.width
-        let pixelInfo = ((Int(width) * Int(point.y)) + Int(point.x)) * bytesPerPixel
+        let bytesPerPixel = 4 // specifies the size of byte
+        let width = cgImage.width // gets width of image
+        let pixelInfo = ((Int(width) * Int(point.y)) + Int(point.x)) * bytesPerPixel // calculates the index of the pixel
 
-        let r = CGFloat(data![pixelInfo]) / 255.0
-        let g = CGFloat(data![pixelInfo + 1]) / 255.0
-        let b = CGFloat(data![pixelInfo + 2]) / 255.0
-        let a = CGFloat(1)
+        let r = CGFloat(data![pixelInfo]) / 255.0 // red value
+        let g = CGFloat(data![pixelInfo + 1]) / 255.0 // green value
+        let b = CGFloat(data![pixelInfo + 2]) / 255.0 // blue value
+        let a = CGFloat(1) // sets alpha to 1 for full opacity
 
-        return UIColor(red: r, green: g, blue: b, alpha: a)
+        return UIColor(red: r, green: g, blue: b, alpha: a) // returns colour
     }
 }
 
@@ -56,27 +56,27 @@ class Book: Codable, Identifiable, Equatable {
         if (!imageURL.isEmpty) {
             imageURL.insert("s", at: imageURL.index(imageURL.startIndex, offsetBy: 4))
         }
-        return imageURL
+        return imageURL // adds an s to the link to allow for secure connection
     }
     static func == (lhs: Book, rhs: Book) -> Bool {
-            return lhs.id == rhs.id // Ensure you're comparing by a unique identifier
+            return lhs.id == rhs.id // allows for equating the books by their unique identifier
         }
     
-    func getDescriptionFromJSON() -> String {
+    func getDescriptionFromJSON() -> String { // gets the book description from the JSON
         if let volumeInfo = volumeInfo, let desc = volumeInfo.desc {
             return desc
         }
         return ""
     }
     
-    func getPageCount() -> Int {
+    func getPageCount() -> Int { // gets the page count from the JSON
         if let volumeInfo = volumeInfo, let pageCount = volumeInfo.pageCount{
             return pageCount
         }
         return 0
     }
     
-    func getAuthorStringFromJSON() -> String {
+    func getAuthorStringFromJSON() -> String { // gets the authors from the JSON, and returns them as a formatted string
         if let volumeInfo = volumeInfo, let authors = volumeInfo.authors {
             if authors.count == 1 {
                 return authors[0]
@@ -91,21 +91,21 @@ class Book: Codable, Identifiable, Equatable {
         return ""
     }
     
-    func getAuthorString() -> String {
+    func getAuthorString() -> String { // gets author string after it has been stored in a book
         if let authors = authors {
             return authors
         }
         return ""
     }
     
-    func getTitleFromJSON() -> String {
+    func getTitleFromJSON() -> String { // gets title from the JSON
         if let volumeInfo = self.volumeInfo {
             return volumeInfo.title
         }
         return ""
     }
     
-    func getImageThumbnailFromJSON() -> String? {
+    func getImageThumbnailFromJSON() -> String? { // gets the image thumbnail from the JSON
         if let volumeInfo = self.volumeInfo {
             if let imageLinks = volumeInfo.imageLinks {
                 return imageLinks.thumbnail
@@ -118,23 +118,23 @@ class Book: Codable, Identifiable, Equatable {
         guard let image = image,
               let urlString = convertURL(imageURL: image),
               let url = URL(string: urlString) else {
-            completion(Color.gray) // Return a default color if URL conversion fails
+            completion(Color.gray) // Returns a default colour if URL conversion fails
             return
         }
         
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            guard error == nil, let data = data, let loadedImage = UIImage(data: data) else {
+            guard error == nil, let data = data, let loadedImage = UIImage(data: data) else { // gets the data from the image
                 print("Failed to load image from URL: \(urlString)")
-                completion(Color.gray) // Return a default color if fetching fails
+                completion(Color.gray) // Return a default colour if fetching fails
                 return
             }
             
-            let point = CGPoint(x: 0, y: loadedImage.size.height / 2)
+            let point = CGPoint(x: 0, y: loadedImage.size.height / 2) // defines the point for the pixel
             
-            if let uiColor = loadedImage.getPixelColor(at: point) {
+            if let uiColor = loadedImage.getPixelColor(at: point) { // calls the function to retrieve the colour of the pixel
                 completion(Color(uiColor))
             } else {
-                completion(Color.gray) // Return a default color if color extraction fails
+                completion(Color.gray) // Return a default colour if colour extraction fails
             }
         }
         
@@ -169,7 +169,7 @@ class Book: Codable, Identifiable, Equatable {
         self.pageCount = try container.decodeIfPresent(Int.self, forKey: .pageCount)
         }
     
-    enum CodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey { // specifying the coding keys to encode/decode books
         case id
         case selfLink
         case volumeInfo
@@ -184,7 +184,7 @@ class Book: Codable, Identifiable, Equatable {
         case userPage
     }
     
-    func encode(to encoder: Encoder) throws {
+    func encode(to encoder: Encoder) throws { // encoding the variables to store
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
         try container.encodeIfPresent(selfLink, forKey: .selfLink)
@@ -201,39 +201,6 @@ class Book: Codable, Identifiable, Equatable {
     
     
     
-}
-extension Book {
-    static func loadBooksFromFirestore(user: User, completion: @escaping ([Book]) -> Void) {
-        let db = Firestore.firestore()
-        db.collection("users").document(user.id).collection("books").getDocuments { (snapshot, error) in
-            if let error = error {
-                print("Error loading books: \(error.localizedDescription)")
-                completion([])
-                return
-            }
-            
-            var books: [Book] = []
-            for document in snapshot!.documents {
-                let data = document.data()
-                
-                // Decode the book properties
-                if let id = data["id"] as? String,
-                   let title = data["title"] as? String,
-                   let authors = data["authors"] as? String,
-                   let bookshelf = data["bookshelf"] as? String,
-                   let image = data["image"] as? String,
-                   let readStatus = data["readStatus"] as? String,
-                   let desc = data["description"] as? String,
-                   let pageCount = data["pageCount"] as? Int,
-                   let userPage = data["userPage"] as? Int
-                {
-                    let book = Book(id: id, title: title, authors: authors, bookshelf: bookshelf, image: image, readStatus: readStatus, desc: desc, pageCount: Int(pageCount), userPage: Int(userPage))
-                    books.append(book)
-                }
-            }
-            completion(books)
-        }
-    }
 }
 
 

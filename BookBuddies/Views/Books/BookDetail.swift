@@ -215,7 +215,7 @@ struct BookDetail: View {
             getPercent()
             for user in userViewModel.friends {
                 var books: [Book] = []
-                Book.loadBooksFromFirestore(user: user) { fetchedBooks in
+                userViewModel.loadBooksFromFirestore(user: user) { fetchedBooks in
                     DispatchQueue.main.async {
                         books = fetchedBooks // Update the published books
                         if let matchBook = books.first(where: { $0.id == book.id }), let readStatus = matchBook.readStatus, let ownerStatus = matchBook.bookshelf {
@@ -229,7 +229,7 @@ struct BookDetail: View {
                 }
             }
             
-            Book.loadBooksFromFirestore(user: userViewModel.currentUser) { fetchedBooks in
+            userViewModel.loadBooksFromFirestore(user: userViewModel.currentUser) { fetchedBooks in
                 DispatchQueue.main.async {
                     if let matchBook = fetchedBooks.first(where: { $0.id == book.id }), let readStatus = matchBook.readStatus, let ownerStatus = matchBook.bookshelf {
                         let array = [ownerStatus, readStatus]

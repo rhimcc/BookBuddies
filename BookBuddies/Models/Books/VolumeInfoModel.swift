@@ -16,7 +16,7 @@ struct VolumeInfo: Codable {
     let category: String?
     let pageCount: Int?
     
-    init(title: String, authors: [String]?, imageLinks: ImageLinks?, desc: String?, category: String?, pageCount: Int?) {
+    init(title: String, authors: [String]?, imageLinks: ImageLinks?, desc: String?, category: String?, pageCount: Int?) { // initialiser to create instances
         self.title = title
         self.authors = authors
         self.imageLinks = imageLinks
@@ -26,7 +26,7 @@ struct VolumeInfo: Codable {
         
     }
     
-    init(from decoder: Decoder) throws { //initialises all of the variables for JSON decoding
+    init(from decoder: Decoder) throws { //initialises all of the variables from JSON decoding
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.title = try container.decode(String.self, forKey: .title)
         self.authors = try container.decodeIfPresent([String].self, forKey: .authors)
@@ -45,7 +45,7 @@ struct VolumeInfo: Codable {
         case pageCount
     }
     
-    func encode(to encoder: Encoder) throws {
+    func encode(to encoder: Encoder) throws { // encoding the variables for JSON
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(title, forKey: .title)
         try container.encodeIfPresent(authors, forKey: .authors)

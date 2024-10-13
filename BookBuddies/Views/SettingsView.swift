@@ -28,7 +28,7 @@ struct SettingsView: View {
                         SettingsRow(field:"Total Books", value: "\(bookshelfViewModel.getBookTotal())")
                         SettingsRow(field: "Books Read", value: "\(bookshelfViewModel.getBooksRead())")
                     } .onAppear {
-                        Book.loadBooksFromFirestore(user: userViewModel.currentUser) { fetchedBooks in
+                        userViewModel.loadBooksFromFirestore(user: userViewModel.currentUser) { fetchedBooks in
                               DispatchQueue.main.async {
                                   bookshelfViewModel.currentUserBooks = fetchedBooks // Update the published books
                               }

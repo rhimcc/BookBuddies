@@ -116,7 +116,7 @@ struct BookPreview: View {
 //       
 //    }
     func loadBooks() {
-            Book.loadBooksFromFirestore(user: currentUser) { fetchedBooks in
+            userViewModel.loadBooksFromFirestore(user: currentUser) { fetchedBooks in
                 DispatchQueue.main.async {
                     self.currentUserBooks = fetchedBooks
                 }

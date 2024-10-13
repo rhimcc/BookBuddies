@@ -22,7 +22,8 @@ struct BookSearchView: View {
                     Text(bookshelf.rawValue.capitalized)
                 }
             }.pickerStyle(.segmented)
-                .padding(10)
+            .padding(10)
+            .padding(.top, 20)
             TextField("prompt", text: $searchViewModel.searchQuery)
                 .textFieldStyle(.roundedBorder)
                 .padding(10)

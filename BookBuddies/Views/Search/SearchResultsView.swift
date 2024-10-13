@@ -49,7 +49,7 @@ struct SearchResultsView: View {
     }
     
     func loadBooks() {
-        Book.loadBooksFromFirestore(user: userViewModel.currentUser) { fetchedBooks in
+        userViewModel.loadBooksFromFirestore(user: userViewModel.currentUser) { fetchedBooks in
             DispatchQueue.main.async {
                 self.books = fetchedBooks
                 self.isLoading = false // Set loading to false after fetching is done
