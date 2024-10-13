@@ -32,7 +32,7 @@ struct SearchResultsView: View {
             }
             if bookshelfViewModel.bookSave {
                 Button {
-                    bookshelfViewModel.bookPreview.toggle()
+                    bookshelfViewModel.bookSave.toggle()
                 } label : {
                     Color.black.opacity(0.6)
                         .edgesIgnoringSafeArea(.all)

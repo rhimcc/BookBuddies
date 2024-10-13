@@ -22,8 +22,7 @@ struct SaveBookView: View {
             VStack {
                 HStack {
                     Button {
-                        bookshelfViewModel.bookPreview.toggle()
-                        print(bookshelfViewModel.bookPreview)
+                        bookshelfViewModel.bookSave.toggle()
                     } label: {
                         Image(systemName: "xmark")
                     }.foregroundColor(.gray)
@@ -70,9 +69,7 @@ struct SaveBookView: View {
                         }
                     }
                     Button ("Save") {
-//                        let db = Firestore.firestore()
                         let newBook = bookshelfViewModel.add(book: book)
-                        print(newBook.userPage)
                         userViewModel.addBookToFirestore(book: newBook)
                         bookshelfViewModel.bookSave.toggle()
                     }

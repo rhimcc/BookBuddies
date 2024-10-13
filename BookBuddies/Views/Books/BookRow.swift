@@ -7,38 +7,46 @@
 
 import SwiftUI
 
-struct BookRow: View {
+struct BookRow: View { // Called from the search bar
     var bookshelfViewModel: BookshelfViewModel
     var book: Book
     var body: some View {
         ZStack {
-            HStack(alignment: .center) {
+            HStack {
                 let authors = book.getAuthorStringFromJSON()
                 BookView(book: book, inSearch: bookshelfViewModel.inSearch)
-                    .frame(width: 75, height: 105)
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 75)
                     .padding(5)
                 Spacer()
                 VStack(alignment: .leading) {
-                    Text(book.volumeInfo?.title ?? "") // book name
-                        .foregroundColor(.black)
-                        .lineLimit(2)
-                        .minimumScaleFactor(0.5)
-                        .multilineTextAlignment(.leading)
-                        .fixedSize(horizontal: false, vertical: true)
-                        .frame(maxWidth: 150, alignment: .leading)
-                        .bold()
-                        .font(.system(size: 20))
-                        .padding(.leading, 10)
+                    if let volumeInfo = book.volumeInfo {
+                        Text(volumeInfo.title) // book name
+                            .foregroundColor(.black)
+                            .lineLimit(2)
+                            .minimumScaleFactor(0.5)
+                            .multilineTextAlignment(.leading)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .frame(alignment: .leading)
+                            .bold()
+                            .font(.system(size: 20))
+                    }
                     
                     Text(authors)
                         .lineLimit(2)
                         .minimumScaleFactor(0.5)
                         .multilineTextAlignment(.leading)
                         .fixedSize(horizontal: false, vertical: true)
-                }
-                Button ("Add to"){
+                }.frame(maxWidth: .infinity, alignment: .leading)
+                Button {
                     bookshelfViewModel.bookSave.toggle()
                     bookshelfViewModel.currentBookSave = book
+
+                } label : {
+                    Image(systemName: "plus.circle.fill")
+                        .foregroundStyle(.white, .navy)
+                        .font(.system(size: 30))
+                        .padding(10)
                 }
             }
             .frame(width: UIScreen.main.bounds.width - 20, height: 120)
@@ -51,5 +59,5 @@ struct BookRow: View {
 }
 
 //#Preview {
-//    BookRow()
+//    BookRow(bookshelfViewModel: BookshelfViewModel(), book: Book(id: "123", title: "grhiwojk", authors: "hwuij", bookshelf: "hgewj", image: "fwheuj", readStatus: "fewj", desc: "fweik", pageCount: 12, category: "grwe", userPage: 23))
 //}
