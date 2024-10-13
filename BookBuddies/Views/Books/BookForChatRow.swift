@@ -72,7 +72,9 @@ struct BookForChatRow: View {
                 }
                     Button {
                         if (source == "google") {
-                            book = Book(id: book.id, title: book.getTitleFromJSON(), authors: book.getAuthorStringFromJSON(), bookshelf: "", image: book.getImageThumbnailFromJSON() ?? "", readStatus: "", desc: book.volumeInfo?.desc ?? "")
+                            if let volumeInfo = book.volumeInfo, let image = book.getImageThumbnailFromJSON(), let desc = volumeInfo.desc, let pageCount = book.pageCount {
+                                book = Book(id: book.id, title: book.getTitleFromJSON(), authors: book.getAuthorStringFromJSON(), bookshelf: "", image: image, readStatus: "", desc: desc, pageCount: pageCount, category: book.getCategoryFromJSON(), userPage: bookshelfViewModel.getUserPage(book: book))
+                            }
                         }
                         chatViewModel.book = book
                         chatViewModel.isShowingSheet = false

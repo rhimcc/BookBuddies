@@ -49,6 +49,9 @@ class Book: Codable, Identifiable, Equatable {
     let title: String?
     let authors: String?
     let desc: String?
+    let category: String?
+    let pageCount: Int?
+    var userPage: Int?
     
     func convertURL(imageURL: String) -> String? {
         var imageURL = imageURL
@@ -66,6 +69,20 @@ class Book: Codable, Identifiable, Equatable {
             return desc
         }
         return ""
+    }
+    
+    func getCategoryFromJSON() -> String {
+        if let volumeInfo = volumeInfo, let category = volumeInfo.category {
+            return category
+        }
+        return ""
+    }
+    
+    func getPageCount() -> Int {
+        if let volumeInfo = volumeInfo, let pageCount = volumeInfo.pageCount{
+            return pageCount
+        }
+        return 0
     }
     
     func getAuthorStringFromJSON() -> String {
@@ -135,7 +152,7 @@ class Book: Codable, Identifiable, Equatable {
     }
 
     
-    init(id: String?, title: String, authors: String, bookshelf: String, image: String, readStatus: String, desc: String){ // initalising all values for books
+    init(id: String?, title: String, authors: String, bookshelf: String, image: String, readStatus: String, desc: String, pageCount: Int, category: String, userPage: Int){ // initalising all values for books
         self.id = id
         self.title = title
         self.authors = authors
@@ -143,6 +160,9 @@ class Book: Codable, Identifiable, Equatable {
         self.image = image
         self.readStatus = readStatus
         self.desc = desc
+        self.pageCount = pageCount
+        self.category = category
+        self.userPage = userPage
     }
     
     required init(from decoder: Decoder) throws { //initialises all of the variables for JSON decoding
@@ -166,18 +186,10 @@ class Book: Codable, Identifiable, Equatable {
         case readStatus
         case title
         case authors
+        case category
+        case pageCount
+        case userPage
     }
-    
-//    enum EncodingKeys: String, CodingKey {
-//        case id
-//        case selfLink
-//        case bookshelf
-//        case image
-//        case readStatus
-//        case title
-//        case authors
-//        case description
-//    }
     
     func printBook() {
         print(id, title, authors, bookshelf, readStatus, image)
@@ -194,6 +206,10 @@ class Book: Codable, Identifiable, Equatable {
         try container.encodeIfPresent(title, forKey: .title)
         try container.encodeIfPresent(authors, forKey: .authors)
         try container.encodeIfPresent(desc, forKey: .description)
+        try container.encodeIfPresent(pageCount, forKey: .pageCount)
+        try container.encodeIfPresent(category, forKey: .category)
+        try container.encodeIfPresent(userPage, forKey: .userPage)
+
     }
     
     
@@ -220,9 +236,12 @@ extension Book {
                    let bookshelf = data["bookshelf"] as? String,
                    let image = data["image"] as? String,
                    let readStatus = data["readStatus"] as? String,
-                   let desc = data["description"] as? String {
-                    
-                    let book = Book(id: id, title: title, authors: authors, bookshelf: bookshelf, image: image, readStatus: readStatus, desc: desc)
+                   let desc = data["description"] as? String,
+                   let pageCount = data["pageCount"] as? Int,
+                   let userPage = data["userPage"] as? Int,
+                   let category = data["category"] as? String
+                {
+                    let book = Book(id: id, title: title, authors: authors, bookshelf: bookshelf, image: image, readStatus: readStatus, desc: desc, pageCount: Int(pageCount) ?? 0, category: category, userPage: Int(userPage) ?? 0)
                     books.append(book)
                 }
             }

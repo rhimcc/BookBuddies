@@ -25,11 +25,13 @@ class UserViewModel: ObservableObject {
         do {
             let jsonData = try JSONEncoder().encode(book)
             let jsonDict = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any]
-            db.collection("users").document(userId).collection("books").addDocument(data: jsonDict ?? [:]) { error in
-                if let error = error {
-                    print("Error adding document: \(error.localizedDescription)")
-                } else {
-                    print("Document successfully added")
+            if let id = book.id {
+                db.collection("users").document(userId).collection("books").document(id).setData(jsonDict ?? [:]) { error in
+                    if let error = error {
+                        print("Error adding document: \(error.localizedDescription)")
+                    } else {
+                        print("Document successfully added")
+                    }
                 }
             }
         } catch {
@@ -251,6 +253,40 @@ class UserViewModel: ObservableObject {
             }
         } catch {
             print("Error encoding message: \(error.localizedDescription)")
+        }
+    }
+    
+    func updateStatus(book: Book, oldReadStatus: String, readStatus: String, ownerStatus: String) {
+        guard let userId = Auth.auth().currentUser?.uid else {
+            print("User not authenticated.")
+            return
+        }
+        
+        do {
+            if let id = book.id {
+                db.collection("users").document(userId).collection("books").document(id).setData([ "readStatus": readStatus ], merge: true)
+                db.collection("users").document(userId).collection("books").document(id).setData([ "bookshelf": ownerStatus ], merge: true)
+                if (readStatus != "Read") {
+                    db.collection("users").document(userId).collection("books").document(id).setData([ "userPage": 0 ], merge: true)
+                    book.userPage = 0
+                } else {
+                    db.collection("users").document(userId).collection("books").document(id).setData([ "userPage": book.pageCount], merge: true)
+                    book.userPage = book.pageCount
+                }
+            }
+        }
+    }
+    
+    func updateUserPage(userPage: Int, book: Book) {
+        guard let userId = Auth.auth().currentUser?.uid else {
+            print("User not authenticated.")
+            return
+        }
+        
+        do {
+            if let id = book.id {
+                db.collection("users").document(userId).collection("books").document(id).setData([ "userPage": userPage ], merge: true)
+            }
         }
     }
 }

@@ -42,9 +42,16 @@ class BookshelfViewModel: ObservableObject{
     }
     
     func add(book: Book) -> Book{
-        let savedBook = Book(id: book.id, title: book.getTitleFromJSON(), authors: book.getAuthorStringFromJSON(), bookshelf: selectedBookshelf, image: book.getImageThumbnailFromJSON() ?? "", readStatus: selectedReadStatus, desc: book.getDescriptionFromJSON())
+        let savedBook = Book(id: book.id, title: book.getTitleFromJSON(), authors: book.getAuthorStringFromJSON(), bookshelf: selectedBookshelf, image: book.getImageThumbnailFromJSON() ?? "", readStatus: selectedReadStatus, desc: book.getDescriptionFromJSON(), pageCount: book.getPageCount(), category: book.getCategoryFromJSON(), userPage: getUserPage(book: book))
         BookshelfViewModel.books.append(savedBook)
         return savedBook
+    }
+    
+    func getUserPage(book: Book) -> Int {
+        if selectedReadStatus == "Read" {
+            return book.getPageCount()
+        }
+        return 0
     }
     
     static func getReadImage(readStatus: String) -> String {

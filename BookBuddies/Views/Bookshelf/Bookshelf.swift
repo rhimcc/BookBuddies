@@ -280,6 +280,9 @@ struct Bookshelf: View {
                                                 .rotationEffect(Angle(degrees: -90))
                                                 .padding(.trailing, 4)
                                                 .shadow(color: .black.opacity(0.2), radius: 5)
+                                                .onAppear {
+                                                    print(books.count)
+                                                }
                                         }
                                     }
                                 }
