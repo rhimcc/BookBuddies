@@ -135,6 +135,7 @@
 		99DE58292CBB5AD8003A615B /* BookSuggestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSuggestionView.swift; sourceTree = "<group>"; };
 		99DE582B2CBB6DDE003A615B /* BookThumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookThumbnail.swift; sourceTree = "<group>"; };
 		99DE582F2CBBC889003A615B /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		99DE58312CBBCDEB003A615B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +192,7 @@
 		998886732CAAD972004E9E0F /* BookBuddies */ = {
 			isa = PBXGroup;
 			children = (
+				99DE58312CBBCDEB003A615B /* Info.plist */,
 				998886742CAAD972004E9E0F /* BookBuddiesApp.swift */,
 				998886AE2CAFFBB7004E9E0F /* Views */,
 				998886AF2CAFFBC6004E9E0F /* Models */,
@@ -608,6 +610,7 @@
 				DEVELOPMENT_TEAM = HRF24T6BK3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BookBuddies/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -637,6 +640,7 @@
 				DEVELOPMENT_TEAM = HRF24T6BK3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BookBuddies/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
