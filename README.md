@@ -1,5 +1,11 @@
 github repo link: https://github.com/rhimcc/BookBuddies.git
+If you want to use other logins:
+- Email: a@gmail.com
+- Password: 123456
 
+-  Email: b@gmail.com
+- Password: 123456
+  
 # Store all your books in one place
 - Keep track of your books!
 - With bookshelf options of “Owned”, “Library” and “Borrowed”, you’ll be able to track where all your books came from
