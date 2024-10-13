@@ -18,6 +18,20 @@ class UserViewModel: ObservableObject {
         }
     }
 
+    func removeBook(book: Book) {
+        guard let userId = Auth.auth().currentUser?.uid, !userId.isEmpty else {
+            print("User not authenticated or invalid user ID.")
+            return
+        }
+        do {
+            if let id = book.id {
+                try db.collection("users").document(userId).collection("books").document(id).delete()
+            }
+          print("Document successfully removed!")
+        } catch {
+          print("Error removing document: \(error)")
+        }
+    }
 
     func addBookToFirestore(book: Book) {
         guard let userId = Auth.auth().currentUser?.uid else {

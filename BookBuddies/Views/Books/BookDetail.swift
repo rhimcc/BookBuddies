@@ -23,6 +23,8 @@ struct BookDetail: View {
     @State private var editingPage: Bool = false
     @State private var validInput: Bool = false
     @State private var percentText: String = ""
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
     var source: String
     var body: some View {
         ZStack {
@@ -51,6 +53,8 @@ struct BookDetail: View {
                     if source == "self" {
                         if let book = bookshelfViewModel.currentBookPreview {
                             VStack {
+                                Text("Bookshelf Status")
+                                    .font(.headline)
                                 HStack (alignment: .center) {
                                     Image(systemName: BookshelfViewModel.getBookshelfImage(bookshelf: bookshelfViewModel.currentBookPreview?.bookshelf ?? ""))
                                     Picker("Bookshelf", selection: $selectedBookshelf) {
@@ -72,17 +76,28 @@ struct BookDetail: View {
                                     .onChange(of: selectedReadStatus) { newValue in
                                         updateBookStatus(readStatus: newValue, bookshelf: book.bookshelf ?? "")
                                     }
+                                  
+                                   
                                 }.padding(.horizontal, 30)
+                                Button ("REMOVE"){
+                                    userViewModel.removeBook(book: book)
+                                    presentationMode.wrappedValue.dismiss()
+
+                                }.buttonStyle(.borderedProminent)
+                                
+                                LineView()
                                 if let userPage = book.userPage, let pageCount = book.pageCount {
                                     HStack {
                                         ProgressView(value: Float(userPage), total: Float(pageCount))
                                             .animation(.easeInOut, value: Float(userPage))
                                             .frame(width: UIScreen.main.bounds.width - 60, alignment: .center)
+                                            .padding(.top, 10)
+                            
                                         Text(percentText)
                                     }
                                     
                                     
-                                    HStack {
+                                    VStack {
                                         if (!editingPage) {
                                             Spacer()
                                             Text("Read \(userPage) of \(String(describing: pageCount)) pages")
@@ -101,15 +116,17 @@ struct BookDetail: View {
                                             }
                                         } else {
                                             Spacer()
-                                            TextField("page no..", text: $userPageText, onEditingChanged: checkFocus)
-                                                .onChange(of: userPageText) {
-                                                    checkValidInput()
-                                                }
-                                                .textFieldStyle(.roundedBorder)
-                                                .multilineTextAlignment(.trailing)
-                                                .lineLimit(1)
-                                                .frame(width: 50)
-                                            Text(" of \(pageCount) pages")
+                                            HStack {
+                                                TextField("page no..", text: $userPageText, onEditingChanged: checkFocus)
+                                                    .onChange(of: userPageText) {
+                                                        checkValidInput()
+                                                    }
+                                                    .textFieldStyle(.roundedBorder)
+                                                    .multilineTextAlignment(.trailing)
+                                                    .lineLimit(1)
+                                                    .frame(width: 50)
+                                                Text(" of \(pageCount) pages")
+                                            }
                                             Spacer()
                                             Button ("SAVE"){
                                                 updatePage(userPage: userPageText)
