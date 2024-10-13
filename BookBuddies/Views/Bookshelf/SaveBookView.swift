@@ -11,7 +11,6 @@ import FirebaseFirestore
 struct SaveBookView: View {
     @ObservedObject var bookshelfViewModel: BookshelfViewModel
     @ObservedObject var userViewModel: UserViewModel
-    @Environment(\.modelContext) private var modelContext
 
     
     var book: Book

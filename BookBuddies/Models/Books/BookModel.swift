@@ -38,7 +38,6 @@ struct Books: Decodable {
 }
 
 
-@Model
 class Book: Codable, Identifiable, Equatable {
     let id: String?
     let selfLink: String?
@@ -49,7 +48,6 @@ class Book: Codable, Identifiable, Equatable {
     let title: String?
     let authors: String?
     let desc: String?
-    let category: String?
     let pageCount: Int?
     var userPage: Int?
     
@@ -67,13 +65,6 @@ class Book: Codable, Identifiable, Equatable {
     func getDescriptionFromJSON() -> String {
         if let volumeInfo = volumeInfo, let desc = volumeInfo.desc {
             return desc
-        }
-        return ""
-    }
-    
-    func getCategoryFromJSON() -> String {
-        if let volumeInfo = volumeInfo, let category = volumeInfo.category {
-            return category
         }
         return ""
     }
@@ -152,7 +143,7 @@ class Book: Codable, Identifiable, Equatable {
     }
 
     
-    init(id: String?, title: String, authors: String, bookshelf: String, image: String, readStatus: String, desc: String, pageCount: Int, category: String, userPage: Int){ // initalising all values for books
+    init(id: String?, title: String, authors: String, bookshelf: String, image: String, readStatus: String, desc: String, pageCount: Int, userPage: Int){ // initalising all values for books
         self.id = id
         self.title = title
         self.authors = authors
@@ -161,8 +152,9 @@ class Book: Codable, Identifiable, Equatable {
         self.readStatus = readStatus
         self.desc = desc
         self.pageCount = pageCount
-        self.category = category
         self.userPage = userPage
+        self.selfLink = ""
+        self.volumeInfo = nil
     }
     
     required init(from decoder: Decoder) throws { //initialises all of the variables for JSON decoding
@@ -174,6 +166,7 @@ class Book: Codable, Identifiable, Equatable {
         self.desc = try container.decodeIfPresent(String.self, forKey: .description)
         self.authors = try container.decodeIfPresent(String.self, forKey: .authors)
         self.image = try container.decodeIfPresent(String.self, forKey: .image)
+        self.pageCount = try container.decodeIfPresent(Int.self, forKey: .pageCount)
         }
     
     enum CodingKeys: String, CodingKey {
@@ -202,7 +195,6 @@ class Book: Codable, Identifiable, Equatable {
         try container.encodeIfPresent(authors, forKey: .authors)
         try container.encodeIfPresent(desc, forKey: .description)
         try container.encodeIfPresent(pageCount, forKey: .pageCount)
-        try container.encodeIfPresent(category, forKey: .category)
         try container.encodeIfPresent(userPage, forKey: .userPage)
 
     }
@@ -233,10 +225,9 @@ extension Book {
                    let readStatus = data["readStatus"] as? String,
                    let desc = data["description"] as? String,
                    let pageCount = data["pageCount"] as? Int,
-                   let userPage = data["userPage"] as? Int,
-                   let category = data["category"] as? String
+                   let userPage = data["userPage"] as? Int
                 {
-                    let book = Book(id: id, title: title, authors: authors, bookshelf: bookshelf, image: image, readStatus: readStatus, desc: desc, pageCount: Int(pageCount), category: category, userPage: Int(userPage))
+                    let book = Book(id: id, title: title, authors: authors, bookshelf: bookshelf, image: image, readStatus: readStatus, desc: desc, pageCount: Int(pageCount), userPage: Int(userPage))
                     books.append(book)
                 }
             }

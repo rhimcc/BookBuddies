@@ -14,8 +14,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
     FirebaseApp.configure()
-    let db = Firestore.firestore()
-    authViewModel = AuthViewModel()
+    let db = Firestore.firestore() // initialising Firestore
+    authViewModel = AuthViewModel() // creating auth view model to authenticate users
     
     return true
   }
@@ -27,15 +27,14 @@ struct BookBuddiesApp: App {
     
     var body: some Scene {
         WindowGroup {
-            if let authViewModel = delegate.authViewModel {
+            if let authViewModel = delegate.authViewModel { // ensures there is a valid auth view model
                 NavigationView {
-                    ContentView(authViewModel: authViewModel)
+                    ContentView(authViewModel: authViewModel) // creates content view, passing in the auth view model
                 }
             } else {
                 Text("Loading...") // Show a loading state while Firebase is initializing
             }
         }
-        .modelContainer(for: Book.self)
     }
 }
 
