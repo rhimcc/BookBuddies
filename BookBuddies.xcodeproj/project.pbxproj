@@ -80,6 +80,7 @@
 		99DE58282CB926EA003A615B /* ShareToFriendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE58272CB926EA003A615B /* ShareToFriendView.swift */; };
 		99DE582A2CBB5AD8003A615B /* BookSuggestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE58292CBB5AD8003A615B /* BookSuggestionView.swift */; };
 		99DE582C2CBB6DDE003A615B /* BookThumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE582B2CBB6DDE003A615B /* BookThumbnail.swift */; };
+		99DE58302CBBC889003A615B /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DE582F2CBBC889003A615B /* ErrorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -133,6 +134,7 @@
 		99DE58272CB926EA003A615B /* ShareToFriendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareToFriendView.swift; sourceTree = "<group>"; };
 		99DE58292CBB5AD8003A615B /* BookSuggestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSuggestionView.swift; sourceTree = "<group>"; };
 		99DE582B2CBB6DDE003A615B /* BookThumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookThumbnail.swift; sourceTree = "<group>"; };
+		99DE582F2CBBC889003A615B /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -318,6 +320,7 @@
 				998886F82CB166B8004E9E0F /* StartView.swift */,
 				998886EE2CB00535004E9E0F /* SignInView.swift */,
 				998886F22CB00AAE004E9E0F /* SignUpView.swift */,
+				99DE582F2CBBC889003A615B /* ErrorView.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -435,6 +438,7 @@
 				9988869D2CACF0BD004E9E0F /* VolumeInfoModel.swift in Sources */,
 				998886C72CB002A2004E9E0F /* MainView.swift in Sources */,
 				998886AD2CAE42DD004E9E0F /* BookSpineView.swift in Sources */,
+				99DE58302CBBC889003A615B /* ErrorView.swift in Sources */,
 				99DE582A2CBB5AD8003A615B /* BookSuggestionView.swift in Sources */,
 				998886772CAAD972004E9E0F /* ContentView.swift in Sources */,
 				99DE58262CB92626003A615B /* ShareView.swift in Sources */,

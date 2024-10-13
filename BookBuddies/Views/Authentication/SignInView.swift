@@ -45,7 +45,7 @@ struct SignInView: View {
                 
                 
                 if let error = authViewModel.errorMessage {
-                    Text(error)
+                    ErrorView(errorMessage: error)
                 }
             }.padding(.horizontal, 10)
             .onAppear {
