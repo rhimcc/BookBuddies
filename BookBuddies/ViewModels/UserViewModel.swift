@@ -293,11 +293,8 @@ class UserViewModel: ObservableObject {
     func loadBooksFromFirestore(user: User, completion: @escaping ([Book]) -> Void) {
         let db = Firestore.firestore() // connecting to database
         
-        let collectionRef = "db.collection(\"users\")"
-        checkIfDocumentExists(collection: collectionRef, documentID: user.id) { exists in
             DispatchQueue.main.async {
-                if (exists) {
-                    db.collection("users").document(user.id).collection("books").getDocuments { (snapshot, error) in // gets the book documents from the specified collection
+                        db.collection("users").document(user.id).collection("books").getDocuments { (snapshot, error) in // gets the book documents from the specified collection
                         if let error = error {
                             print("Error loading books: \(error.localizedDescription)")
                             completion([])
@@ -325,26 +322,12 @@ class UserViewModel: ObservableObject {
                         }
                         completion(books) // returns the books on completion
                     }
-                }
+                
             }
-        }
+        
        
     }
     
-    func checkIfDocumentExists(collection: String, documentID: String, completion: @escaping (Bool) -> Void) {
-        let db = Firestore.firestore()
-        let docRef = db.collection(collection).document(documentID)
-
-        docRef.getDocument { (document, error) in
-            if let document = document, document.exists {
-                // Document exists
-                completion(true)
-            } else {
-                // Document does not exist
-                completion(false)
-            }
-        }
-    }
     
     func updateUserPage(userPage: Int, book: Book) { // updates the users amount of pages read
         guard let userId = Auth.auth().currentUser?.uid else { // gets user's id
