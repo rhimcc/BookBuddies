@@ -37,10 +37,10 @@ struct BookPreview: View {
 
                         if let book = bookshelfViewModel.currentBookPreview {
                             BookView(book: book, inSearch: false)
-                                .frame(width: 75, height: 105)
-
-                                .padding(.horizontal, 10)
-                            
+                                .frame(width: 70)
+                                .aspectRatio(contentMode: .fit)
+                                .padding(.leading, 20)
+                            Spacer().frame(width: 10)
                             VStack (alignment: .leading){
                                 Text(book.title ?? "")
                                     .bold()
@@ -51,9 +51,9 @@ struct BookPreview: View {
                                     .lineLimit(2)
                                     .multilineTextAlignment(.leading)
                                     .minimumScaleFactor(0.5)
-                            }
+                            }.frame(alignment: .leading)
                         }
-                    }
+                    }.frame(width: 280, alignment: .leading)
                     HStack {
                         VStack (alignment: .center){
                             if let book = bookshelfViewModel.currentBookPreview, let bookshelf = book.bookshelf, let readStatus = book.readStatus {
