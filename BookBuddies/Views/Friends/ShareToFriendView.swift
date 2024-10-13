@@ -14,9 +14,9 @@ struct ShareToFriendView: View {
     
     var body: some View {
         HStack {
-            Text(friend.displayName)
+            Text(friend.displayName) // name
             Spacer()
-            if let array = userStatuses[friend.id] {
+            if let array = userStatuses[friend.id] { // gets the array from the user's status
                 HStack {
                     VStack {
                         Text(array[0])
@@ -30,7 +30,7 @@ struct ShareToFriendView: View {
             }
             NavigationLink {
                 let chatViewModel: ChatViewModel = ChatViewModel()
-                ChatView(userViewModel: userViewModel, friend: friend, chatViewModel: chatViewModel)
+                ChatView(userViewModel: userViewModel, friend: friend, chatViewModel: chatViewModel) // puts user in the chat view
                     .onAppear {
                         chatViewModel.book = book
                         

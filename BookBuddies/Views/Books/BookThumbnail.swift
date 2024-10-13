@@ -11,10 +11,10 @@ struct BookThumbnail: View {
     var book: Book
     var body: some View {
         VStack {
-            BookView(book: book, inSearch: false)
+            BookView(book: book, inSearch: false) // shows book cover
                 .frame(width: 70, height: 100)
                 .padding()
-            if let title = book.title, let authors = book.authors {
+            if let title = book.title, let authors = book.authors { // gets title and authors
                 Text(title)
                     .bold()
                 Text(authors)

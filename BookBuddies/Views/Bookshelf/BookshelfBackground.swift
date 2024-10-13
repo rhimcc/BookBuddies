@@ -16,14 +16,14 @@ struct BookshelfBackground: View {
                 .padding(0)
                 .offset(y: -220)
             VStack (spacing: 0) {
-                ForEach(0..<3) { i in
+                ForEach(0..<3) { i in // creates 3 shelves, one for each read status
                     ShelfView(totalWidth: UIScreen.main.bounds.width - 60, totalHeight: 120, text: getText(i: i))
                 }
             }
         }.offset(y: -100)
     }
     
-    func getText(i: Int) -> String{
+    func getText(i: Int) -> String{ // gets the text for each row
         switch(i) {
         case 0:
             return "Reading"

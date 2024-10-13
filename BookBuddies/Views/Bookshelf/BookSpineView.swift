@@ -14,26 +14,26 @@ struct BookSpineView: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 5)
-                .fill(bookshelfViewModel.bookColors[book.id ?? ""] ?? .gray)
+                .fill(bookshelfViewModel.bookColors[book.id ?? ""] ?? .gray) // fills with the stored colour, identified by the book id
                 .onAppear {
-                    book.getImageColour { color in
+                    book.getImageColour { color in // loads the colour
                         DispatchQueue.main.async {
                             bookshelfViewModel.bookColors[book.id ?? ""] = color
                         }
                     }
                 }
             
-            Text(book.title ?? "")
+            Text(book.title ?? "") // shows title
                 .bold()
                 .foregroundStyle(getFontShade())
                 .foregroundStyle(.black)
                 .lineLimit(1)
-                .minimumScaleFactor(0.5) // Shrink text to fit if needed
+                .minimumScaleFactor(0.5)
                 .padding(.horizontal, 5)
         }.frame(width: 100, height: 20)
     }
     
-    func getFontShade() -> Color {
+    func getFontShade() -> Color { // returns black or white depending on if the background colour is light or dark
         if let colour = bookshelfViewModel.bookColors[book.id ?? ""] {
             let UIColour = UIColor(colour)
             var red: CGFloat = 0

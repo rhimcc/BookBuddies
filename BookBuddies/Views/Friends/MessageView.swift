@@ -14,16 +14,19 @@ struct MessageView: View {
     var body: some View {
             
             HStack {
-                if (currentUserSender) {
+                if (currentUserSender) { // makes bubble align right is the user is the sender
                     Spacer()
                 }
                 VStack (alignment: currentUserSender ? .trailing : .leading){
                    
+                    // time text
                     Text(String(message.time[message.time.index(message.time.startIndex, offsetBy: 11)...message.time.index(message.time.startIndex, offsetBy: 15)]))
                         .font(.system(size: 12))
                         .foregroundStyle(.gray)
                         .frame(alignment: currentUserSender ? .trailing : .leading)
+                    
                     VStack {
+                        // if there is a book in the message, provide link to its detail with a preview
                         if let book = message.book {
                             NavigationLink {
                                 BookDetail(book: book, bookshelfViewModel: BookshelfViewModel(), userViewModel: userViewModel, source: "other")
@@ -47,18 +50,18 @@ struct MessageView: View {
                             
                         Text(message.messageContent)
                             .cornerRadius(20)
-                            .foregroundStyle(currentUserSender ? .veryLightPeach : .navy)
-                            .frame(alignment: currentUserSender ? .trailing : .leading)
+                            .foregroundStyle(currentUserSender ? .veryLightPeach : .navy) // set colours based on reader/sender
+                            .frame(alignment: currentUserSender ? .trailing : .leading) // set alignment based on reader/sender
                     }.padding()
-                    .background(currentUserSender ? .navy : .lightPeach)
+                    .background(currentUserSender ? .navy : .lightPeach) // set colours based on reader/sender
                     .cornerRadius(20)
                 }
-                .frame(maxWidth: 250, alignment: currentUserSender ? .trailing : .leading) // Constrain message width
+                .frame(maxWidth: 250, alignment: currentUserSender ? .trailing : .leading)
                 
-                if (!currentUserSender) {
+                if (!currentUserSender) { // makes bubble align left is the user is not the sender
                     Spacer()
                 }
-            }.padding(.horizontal, 10) // Add padding to create space on the side
+            }.padding(.horizontal, 10)
                 .padding(.bottom, 5)
         
     }

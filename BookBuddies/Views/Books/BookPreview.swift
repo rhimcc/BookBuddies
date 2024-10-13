@@ -24,7 +24,7 @@ struct BookPreview: View {
                 VStack {
                     HStack {
                         Button {
-                            bookshelfViewModel.bookPreview.toggle()
+                            bookshelfViewModel.bookPreview.toggle() // closes book preview
                         } label: {
                             Image(systemName: "xmark")
                         }.foregroundColor(.gray)
@@ -35,7 +35,7 @@ struct BookPreview: View {
                     Spacer()
                     HStack {
 
-                        if let book = bookshelfViewModel.currentBookPreview {
+                        if let book = bookshelfViewModel.currentBookPreview { // gets book which is previewed
                             BookView(book: book, inSearch: false)
                                 .frame(width: 70)
                                 .aspectRatio(contentMode: .fit)
@@ -54,7 +54,7 @@ struct BookPreview: View {
                             }.frame(alignment: .leading)
                         }
                     }.frame(width: 280, alignment: .leading)
-                    HStack {
+                    HStack { // icons and text for the owner/read status
                         VStack (alignment: .center){
                             if let book = bookshelfViewModel.currentBookPreview, let bookshelf = book.bookshelf, let readStatus = book.readStatus {
                                 Image(systemName: BookshelfViewModel.getBookshelfImage(bookshelf: bookshelf))
@@ -77,7 +77,7 @@ struct BookPreview: View {
                      
                        
                         Spacer()
-                        NavigationLink {
+                        NavigationLink { // button to show details of book
                             if let book = bookshelfViewModel.currentBookPreview {
                                 BookDetail(currentUser: currentUser, book: book, bookshelfViewModel: bookshelfViewModel, userViewModel: userViewModel, source: source)
                             }
@@ -97,25 +97,12 @@ struct BookPreview: View {
             .onAppear {
                 if (source != "self") {
                     loadBooks()
-//                    getCurrentUserStatus()
                 }
             }
         
     }
-    
-//    func getCurrentUserStatus() {
-//        if let bookPreview = bookshelfViewModel.currentBookPreview {
-//            if let matchingBook = currentUserBooks.first(where: { $0.id == bookPreview.id }), let readStatus = matchingBook.readStatus, let ownerStatus = matchingBook.bookshelf {
-//                   currentReadStatus = readStatus
-//                   currentOwnerStatus = ownerStatus
-//
-//               } else {
-//                   print("Book not found in user's current books.")
-//               }
-//           }
-//       
-//    }
-    func loadBooks() {
+
+    func loadBooks() { // loads books
             userViewModel.loadBooksFromFirestore(user: currentUser) { fetchedBooks in
                 DispatchQueue.main.async {
                     self.currentUserBooks = fetchedBooks

@@ -32,15 +32,15 @@ struct BookRow: View { // Called from the search bar
                             .font(.system(size: 20))
                     }
                     
-                    Text(authors)
+                    Text(authors) // book authors
                         .lineLimit(2)
                         .minimumScaleFactor(0.5)
                         .multilineTextAlignment(.leading)
                         .fixedSize(horizontal: false, vertical: true)
                 }.frame(maxWidth: .infinity, alignment: .leading)
                 Button {
-                    bookshelfViewModel.bookSave.toggle()
-                    bookshelfViewModel.currentBookSave = book
+                    bookshelfViewModel.bookSave.toggle() // toggles bool for book save popup
+                    bookshelfViewModel.currentBookSave = book // sets the book which is shown in save as the book
 
                 } label : {
                     Image(systemName: "plus.circle.fill")

@@ -24,7 +24,7 @@ struct Bookshelf: View {
     var body: some View {
         NavigationStack {
             VStack {
-                Text(bookshelfText)
+                Text(bookshelfText) // shows the current bookshelf
                     .font(.title)
                     .bold()
 
@@ -67,8 +67,8 @@ struct Bookshelf: View {
                 }
 
                 ZStack { // Adding books
-                    BookshelfBackground()
-                        .position(x: UIScreen.main.bounds.width / 2, y: (UIScreen.main.bounds.height - 100) / 2)
+                    BookshelfBackground() // background
+                        .position(x: UIScreen.main.bounds.width / 2, y: (UIScreen.main.bounds.height - 100) / 2) // centers
 
                     VStack (spacing: 30){ // Stack to hold all the shelves
                         ForEach(Array(bookshelfViewModel.shelfOptions.enumerated()), id: \.element) { index, option in
@@ -78,15 +78,15 @@ struct Bookshelf: View {
                             ScrollView(.horizontal, showsIndicators: true) {
                                 HStack(spacing: 2) {
                                     ForEach(Array(bookArray.enumerated()), id: \.element.id) { index2, book in
-                                        Button {
+                                        Button { // previews the book when the user clicks on it
                                             bookshelfViewModel.bookPreview.toggle()
                                             currentBook = book
                                             currentIndex = index2
                                             bookshelfViewModel.currentBookPreview = book
                                             bookshelfViewModel.getCurrentUserStatus()
                                         } label: {
-                                            BookSpineView(book: book, bookshelfViewModel: bookshelfViewModel)
-                                                .frame(width: 20, height: 100) // Adjust width and height according to your design
+                                            BookSpineView(book: book, bookshelfViewModel: bookshelfViewModel) // shows as a book spine
+                                                .frame(width: 20, height: 100)
                                                 .rotationEffect(Angle(degrees: -90))
                                                 .padding(.trailing, 4)
                                                 .shadow(color: .black.opacity(0.2), radius: 5)
@@ -98,16 +98,16 @@ struct Bookshelf: View {
                         }
                     }.frame(alignment: .center)
 
-                    if bookshelfViewModel.bookPreview {
+                    if bookshelfViewModel.bookPreview { // shows the preview of the book
                         Button {
-                            bookshelfViewModel.bookPreview.toggle()
+                            bookshelfViewModel.bookPreview.toggle() // closes the preview if user clicks elsewhere
                         } label : {
                             Color.black.opacity(0.6)
                                 .edgesIgnoringSafeArea(.all)
                         }
                         
-                        HStack {
-                            Button {
+                        HStack { // changing the previewed book
+                            Button { // previous button
                                 currentIndex -= 1
                                 if (currentIndex < 0) {
                                     currentIndex = books.count - 1
@@ -120,9 +120,10 @@ struct Bookshelf: View {
                                     .foregroundStyle(.gray)
                                     .font(.system(size: 30))
                             }
-                            
+                            // book preview
                             BookPreview(bookshelfViewModel: bookshelfViewModel, currentUser: userViewModel.currentUser, currentUserBooks: currentUserBooks, userViewModel: userViewModel, source: bookshelfOwner.id == userViewModel.currentUser.id ? "self" : "other", bookshelfOwner: bookshelfOwner)
                             
+                            // next button
                             Button {
                                 currentIndex += 1
                                 if (currentIndex >= books.count) {
@@ -147,7 +148,7 @@ struct Bookshelf: View {
             .onAppear {
                 loadBooks()
                 loadCurrentUserBooks()
-                if (bookshelfOwner.id == User.getCurrentUser()) {
+                if (bookshelfOwner.id == User.getCurrentUser()) { // sets the text for the owner of the bookshelf
                     bookshelfText = "Your Bookshelf"
                 } else {
                     bookshelfText = bookshelfOwner.displayName + "'s Bookshelf"
@@ -156,18 +157,18 @@ struct Bookshelf: View {
         }
     }
     
-    func loadBooks() {
+    func loadBooks() { // loads the books of the owner of the bookshelf
         userViewModel.loadBooksFromFirestore(user: bookshelfOwner) { fetchedBooks in
             DispatchQueue.main.async {
-                self.books = fetchedBooks // Update the published books
+                self.books = fetchedBooks
             }
         }
     }
     
-    func loadCurrentUserBooks() {
+    func loadCurrentUserBooks() { // loads the books of the current user
         userViewModel.loadBooksFromFirestore(user: userViewModel.currentUser) { fetchedBooks in
             DispatchQueue.main.async {
-                bookshelfViewModel.currentUserBooks = fetchedBooks // Update the published books
+                bookshelfViewModel.currentUserBooks = fetchedBooks
             }
         }
     }

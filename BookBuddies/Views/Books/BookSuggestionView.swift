@@ -11,12 +11,12 @@ struct BookSuggestionView: View {
     @ObservedObject var userViewModel: UserViewModel
     
     var body: some View {
-        Text("What your friends are reading")
+        Text("What your friends are reading") // page title
             .font(.system(size: 20))
             .bold()
             .padding()
         ScrollView {
-            ForEach(userViewModel.friends, id: \.id) { friend in
+            ForEach(userViewModel.friends, id: \.id) { friend in // iterates through friends
                 VStack {
                     HStack {
                         Text(friend.displayName)
@@ -26,6 +26,7 @@ struct BookSuggestionView: View {
                     
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 10) {
+                            // gets the books which the friend is currently reading
                             if let bookArray = userViewModel.friendsReading[friend.id], !bookArray.isEmpty {
                                 ForEach(bookArray, id: \.id) { book in
                                     NavigationLink {
@@ -36,12 +37,10 @@ struct BookSuggestionView: View {
                                             .frame(width: 150, height: 200)
                                             .padding(.vertical, 5)
                                             .padding(.horizontal, 5)
-
-                                        
                                     }
                                 }
                             } else {
-                                Text("\(friend.displayName) is not reading anything")
+                                Text("\(friend.displayName) is not reading anything") // placeholder if the friend isnt reading anything
                                     .foregroundColor(.gray)
                             }
                         }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LineView: View {
     var body: some View {
-        Rectangle()
+        Rectangle() // Line
             .frame(width: UIScreen.main.bounds.width, height: 1)
             .padding(.vertical, 5)
     }

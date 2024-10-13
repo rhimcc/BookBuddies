@@ -10,27 +10,24 @@ import FirebaseAuth
 
 struct ContentView: View {
     @ObservedObject var authViewModel: AuthViewModel
-//    @State private var isSignedIn: Bool = false
     
     var body: some View {
         VStack {
             if authViewModel.isSignedIn {
-                MainView(authViewModel: authViewModel)
+                MainView(authViewModel: authViewModel) // if the user is signed in, goes to the main view
             } else {
-                StartView(authViewModel: authViewModel)
+                StartView(authViewModel: authViewModel) // if the user isnt signed in, it puts them in the view to let them sign in or sign up
             }
         }
         .onAppear {
-            checkUserSignInStatus()
+            checkUserSignInStatus() // checks the status when the view appears
         }
     }
 
-    func checkUserSignInStatus() {
+    func checkUserSignInStatus() { // updates the status of the user sign in
         if let user = Auth.auth().currentUser {
-            print("User is signed in: \(user.email ?? "No email")")
             authViewModel.isSignedIn = true
         } else {
-            print("No user is signed in")
             authViewModel.isSignedIn = false
         }
     }

@@ -11,7 +11,7 @@ struct FriendSearchView: View {
     @ObservedObject var searchViewModel: SearchViewModel
     var body: some View {
         EmptyView()
-            .searchable(text: $searchViewModel.searchQuery, isPresented: $searchViewModel.isActive, prompt: "Search...")
+            .searchable(text: $searchViewModel.searchQuery, isPresented: $searchViewModel.isActive, prompt: "Search...") // defines the search view
     }
 }
 

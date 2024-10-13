@@ -13,22 +13,22 @@ struct SignInView: View {
     @State var username: String = ""
     @State var password: String = ""
     var body: some View {
-        if (authViewModel.isSignedIn) {
+        if (authViewModel.isSignedIn) { // if the user is signed in, puts them in the main view
             MainView(authViewModel: authViewModel)
         } else {
             VStack {
-                Image("NameLong")
+                Image("NameLong") // loads image from assets
                     .resizable()
                     .frame(width: 300, height: 60)
                     .padding(.bottom, 50)
                 Text("Sign In")
                     .font(.title)
                     .bold()
-                TextField("Email", text: $username)
+                TextField("Email", text: $username) // email field
                     .textFieldStyle(.roundedBorder)
-                SecureField("Password", text: $password)
+                SecureField("Password", text: $password) // secure field for password
                     .textFieldStyle(.roundedBorder)
-                Button("SIGN IN") {
+                Button("SIGN IN") { // sign in button
                     authViewModel.signIn(withEmail: username, password: password)
                 }.buttonStyle(.borderedProminent)
                     .tint(.navy)
@@ -37,7 +37,7 @@ struct SignInView: View {
                 HStack {
                     Text("Don't have an account?")
                     NavigationLink {
-                        SignUpView(authViewModel: authViewModel)
+                        SignUpView(authViewModel: authViewModel) // link to sign up view
                     } label: {
                         Text("Sign Up!")
                     }.tint(.navy)

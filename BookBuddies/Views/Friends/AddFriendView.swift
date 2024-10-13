@@ -15,13 +15,11 @@ struct AddFriendView: View {
             Text("Add Friends")
                 .font(.title)
                 .bold()
-            TextField("Search by name", text: $searchViewModel.searchQuery)
+            TextField("Search by name", text: $searchViewModel.searchQuery) // lets user search
                 .padding(.horizontal, 10)
                 .textFieldStyle(.roundedBorder)
             if (searchViewModel.searchQuery != "") {
-                FriendSearchResultsView(searchViewModel: searchViewModel, userViewModel: userViewModel)
-            } else {
-                Text("Search for friends")
+                FriendSearchResultsView(searchViewModel: searchViewModel, userViewModel: userViewModel) // if there is text in search query
             }
             Spacer()
         }

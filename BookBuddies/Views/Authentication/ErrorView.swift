@@ -11,14 +11,14 @@ struct ErrorView: View {
     var errorMessage: String
     var body: some View {
         HStack {
-            Image(systemName: "exclamationmark.triangle.fill")
+            Image(systemName: "exclamationmark.triangle.fill") // warning icon
                 .foregroundStyle(.darkRed)
                 .font(.system(size: 25))
             Text(errorMessage)
         }.padding()
         .background {
             
-            RoundedRectangle(cornerRadius: 20)
+            RoundedRectangle(cornerRadius: 20) // background
                 .fill(.red.opacity(0.5))
                 .stroke(.darkRed, lineWidth: 3)
         }

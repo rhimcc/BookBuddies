@@ -18,29 +18,26 @@ struct SettingsView: View {
                 .bold()
             VStack (alignment: .leading){
                 List {
-                    Section(header: Text("Profile")) {
+                    Section(header: Text("Profile")) { // shows the user their profile variables
                         SettingsRow(field:"User ID", value: userViewModel.currentUser.id)
                         SettingsRow(field: "Display Name", value: userViewModel.currentUser.displayName)
                         SettingsRow(field: "Email", value: userViewModel.currentUser.email)
                     }
                     
-                    Section(header: Text("Stats")) {
+                    Section(header: Text("Stats")) { // shows some stats for the users enjoyment
                         SettingsRow(field:"Total Books", value: "\(bookshelfViewModel.getBookTotal())")
                         SettingsRow(field: "Books Read", value: "\(bookshelfViewModel.getBooksRead())")
                     } .onAppear {
                         userViewModel.loadBooksFromFirestore(user: userViewModel.currentUser) { fetchedBooks in
                               DispatchQueue.main.async {
-                                  bookshelfViewModel.currentUserBooks = fetchedBooks // Update the published books
+                                  bookshelfViewModel.currentUserBooks = fetchedBooks // Updates the published books
                               }
                         }
                     }
                 }
-            
-             
-                
             } .frame(maxWidth: .infinity)
                 .background(RoundedRectangle(cornerRadius: 15).fill(.lightPeach))
-            Button ("SIGN OUT") {
+            Button ("SIGN OUT") { // button to let the user sign out
                 authViewModel.signOut()
             }.buttonStyle(.borderedProminent)
                 .tint(.navy)
@@ -48,12 +45,9 @@ struct SettingsView: View {
         }
         
     }
-    //Change email
-    // Change colour
-    // sign out
 }
 
-struct SettingsRow: View {
+struct SettingsRow: View { // defines the layout of each row in the settings list
     var field: String
     var value: String
     

@@ -15,7 +15,7 @@ struct BookForChatRow: View {
     var body: some View {
         ZStack {
             HStack(alignment: .center) {
-                if (source == "google") {
+                if (source == "google") { // if the book is from a google search
                     let authors = book.getAuthorStringFromJSON()
                     ZStack {
                         BookView(book: book, inSearch: true)
@@ -44,15 +44,15 @@ struct BookForChatRow: View {
                             .fixedSize(horizontal: false, vertical: true)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                } else {
+                } else { // if the book is from the current user or friend list
                     ZStack {
-                        BookView(book: book, inSearch: false)
+                        BookView(book: book, inSearch: false) // show book cover
                             .frame(width: 70)
-                            .aspectRatio(contentMode: .fit) // Maintain aspect ratio
+                            .aspectRatio(contentMode: .fit)
                             .padding(.horizontal, 10)
                     }.frame(width: 100, height: 100)
                     VStack (alignment: .leading) {
-                        Text(book.title ?? "")
+                        Text(book.title ?? "") // title
                             .foregroundColor(.black)
                             .lineLimit(2)
                             .minimumScaleFactor(0.5)
@@ -62,7 +62,7 @@ struct BookForChatRow: View {
                             .font(.system(size: 20))
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        Text(book.authors ?? "")
+                        Text(book.authors ?? "") // authors
                             .lineLimit(2)
                             .minimumScaleFactor(0.5)
                             .multilineTextAlignment(.leading)
@@ -73,10 +73,12 @@ struct BookForChatRow: View {
                     Button {
                         if (source == "google") {
                             if let volumeInfo = book.volumeInfo, let image = book.getImageThumbnailFromJSON(), let desc = volumeInfo.desc, let pageCount = book.pageCount {
+                                
                                 book = Book(id: book.id, title: book.getTitleFromJSON(), authors: book.getAuthorStringFromJSON(), bookshelf: "", image: image, readStatus: "", desc: desc, pageCount: pageCount, userPage: bookshelfViewModel.getUserPage(book: book))
+                                // create book from the book data
                             }
                         }
-                        chatViewModel.book = book
+                        chatViewModel.book = book // store book in chat view model
                         chatViewModel.isShowingSheet = false
                     } label: {
                         Image(systemName: "plus.circle.fill")

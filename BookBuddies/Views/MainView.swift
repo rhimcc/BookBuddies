@@ -14,8 +14,8 @@ struct MainView: View {
     @ObservedObject var userViewModel: UserViewModel = UserViewModel()
     var body: some View {
        
-        TabView(selection: $tabSelection) {
-            SearchBaseView(bookshelfViewModel: viewModel, userViewModel: userViewModel)
+        TabView(selection: $tabSelection) { // tabs for each of the main views
+            SearchBaseView(bookshelfViewModel: viewModel, userViewModel: userViewModel) // the search view
                 .tabItem {
                     VStack {
                         Image(systemName: "magnifyingglass")
@@ -23,14 +23,14 @@ struct MainView: View {
                     }
                 
                 }.tag(0)
-            Bookshelf(bookshelfViewModel: viewModel, bookshelfOwner: userViewModel.currentUser, userViewModel: userViewModel)
+            Bookshelf(bookshelfViewModel: viewModel, bookshelfOwner: userViewModel.currentUser, userViewModel: userViewModel) // the bookshelf view
                 .tabItem {
                     VStack {
                         Image(systemName: "books.vertical.fill")
                         Text("Bookshelf")
                     }
                 }.tag(1)
-            FriendView(userViewModel: userViewModel)
+            FriendView(userViewModel: userViewModel) // the friend view
                 .tabItem {
                     VStack {
                         Image(systemName: "person.3")
@@ -41,10 +41,10 @@ struct MainView: View {
             
             
         }.tint(.navy)
-            .toolbar {
+            .toolbar { // creates a toolbar item, which is accessible from anywhere
                 ToolbarItem (placement: .topBarLeading) {
                     NavigationLink {
-                        SettingsView(userViewModel: userViewModel, bookshelfViewModel: viewModel, authViewModel: authViewModel)
+                        SettingsView(userViewModel: userViewModel, bookshelfViewModel: viewModel, authViewModel: authViewModel) // the settings/profile view
                     } label : {
                         VStack {
                             Image(systemName: "person.crop.circle")

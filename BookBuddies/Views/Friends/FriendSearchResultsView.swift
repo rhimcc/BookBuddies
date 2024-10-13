@@ -15,7 +15,7 @@ struct FriendSearchResultsView: View {
         NavigationStack {
             ScrollView {
                 ForEach(userViewModel.allUsers.filter {$0.displayName.lowercased().contains(searchViewModel.searchQuery.lowercased()) && $0.id != User.getCurrentUser()}) { user in
-                    FriendRow(friend: user, userViewModel: userViewModel, friendsList: false)
+                    FriendRow(friend: user, userViewModel: userViewModel, friendsList: false) // shows each friend
                 }
             }
         }

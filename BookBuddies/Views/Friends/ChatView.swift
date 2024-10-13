@@ -19,10 +19,11 @@ struct ChatView: View {
     var body: some View {
         VStack {
             Text(friend.displayName)
+                .font(.title)
             Spacer()
             ScrollViewReader { proxy in
                 ScrollView {
-                    ForEach(chatViewModel.messages) { message in
+                    ForEach(chatViewModel.messages) { message in // show all messages
                         MessageView(message: message, currentUserSender: message.senderId == User.getCurrentUser())
                     }
                 }.onAppear {
@@ -30,13 +31,13 @@ struct ChatView: View {
                    
                     if let lastMessage = chatViewModel.messages.last {
                         proxy.scrollTo(lastMessage.id, anchor: .bottom)
-                    }
+                    } // snaps the view to the last sent message
                     chatViewModel.currentUser = userViewModel.currentUser
                     chatViewModel.friend = friend
                     chatViewModel.loadCurrentUser()
                     chatViewModel.loadOtherUser()
                 }
-                .onChange(of: chatViewModel.messages) { _, _ in
+                .onChange(of: chatViewModel.messages) { _, _ in // snaps view to the last sent message
                     if let lastMessage = chatViewModel.messages.last {
                         withAnimation {
                             proxy.scrollTo(lastMessage.id, anchor: .bottom)
@@ -46,15 +47,12 @@ struct ChatView: View {
             }.onDisappear {
                 chatViewModel.stopListening() // Stop listening when the view disappears
             }
-        }.onAppear {
-            print("MESSAGES:")
-            print(chatViewModel.messages)
         }
         
         VStack {
             if let book = chatViewModel.book {
                 HStack {
-                    BookView(book: book, inSearch: false)
+                    BookView(book: book, inSearch: false) // show cover
                         .frame(height: 25)
                         .aspectRatio(contentMode: .fit)
                     
@@ -79,7 +77,7 @@ struct ChatView: View {
             }
         
             HStack {
-                TextField("Message...", text: $message, axis: .vertical)
+                TextField("Message...", text: $message, axis: .vertical) // message field
                 .textFieldStyle(.roundedBorder)
                 .lineLimit(20)
                 
@@ -92,12 +90,12 @@ struct ChatView: View {
                         .background(RoundedRectangle(cornerRadius: 25.0).fill(.lightPeach))
                 }
                 Button {
-                    if let book = chatViewModel.book {
+                    if let book = chatViewModel.book { // if there is a book attached
                         newMessage = Message(id: UUID(), senderId: User.getCurrentUser(), receiverId: friend.id, messageContent: message, book: book, time: Date().formatted(as: "YYYY-MM-dd HH:mm:ss"))
-                    } else {
+                    } else { // if there is no book attached
                         newMessage = Message(id: UUID(), senderId: User.getCurrentUser(), receiverId: friend.id, messageContent: message, book: nil, time: Date().formatted(as: "YYYY-MM-dd HH:mm:ss"))
                     }
-                    if let message = newMessage {
+                    if let message = newMessage { // stores the message in both users fire store
                         userViewModel.storeMessage(user1: friend, user2: userViewModel.currentUser, message: message)
                         userViewModel.storeMessage(user1: userViewModel.currentUser, user2: friend, message: message)
                     }

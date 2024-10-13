@@ -18,7 +18,7 @@ struct ShareView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                BookView(book: book, inSearch: false)
+                BookView(book: book, inSearch: false) // shows book that the user wants to send to a user
                     .frame(width: 150, height: 210)
                     .aspectRatio(contentMode: .fit)
                     .padding(20)
@@ -33,11 +33,12 @@ struct ShareView: View {
                     .textFieldStyle(.roundedBorder)
                 ScrollView {
                     if searchQuery.isEmpty {
-                        ForEach(userViewModel.friends) { friend in
+                        ForEach(userViewModel.friends) { friend in // iterate through all friends
                             ShareToFriendView(friend: friend, userStatuses: userStatuses, userViewModel: userViewModel, book: book)
                         }
                     } else {
-                        ForEach(userViewModel.friends.filter {$0.displayName.contains(searchQuery)}) { friend in
+                        
+                        ForEach(userViewModel.friends.filter {$0.displayName.contains(searchQuery)}) { friend in // iterates through friends filtered by the search query
                             ShareToFriendView(friend: friend, userStatuses: userStatuses, userViewModel: userViewModel, book: book)
                         }
                     }

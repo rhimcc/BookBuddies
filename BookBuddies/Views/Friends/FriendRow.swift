@@ -19,24 +19,24 @@ struct FriendRow: View {
             Spacer()
             HStack {
                 if (friendsList) {
-                    if (friend.status == "Pending") {
+                    if (friend.status == "Pending") { // if the friend is pending
                         Button {
-                            userViewModel.approveFriend(friend: friend)
+                            userViewModel.approveFriend(friend: friend) // approve friend button
                         } label: {
                             Image(systemName: "checkmark.circle.fill")
                                 .font(.system(size: 30))
                                 .padding(.trailing, 10)
                         }
                         Button {
-                            userViewModel.removeFriendFromFirestore(friend: friend, from: userViewModel.currentUser)
+                            userViewModel.removeFriendFromFirestore(friend: friend, from: userViewModel.currentUser) // reject friend button
                             userViewModel.friends.remove(at: getIndex(of: friend))
                         } label: {
                             Image(systemName: "x.circle.fill")
                                 .font(.system(size: 30))
                         }
-                    } else {
+                    } else { // friend is friend, not pending
                         NavigationLink {
-                            Bookshelf(bookshelfViewModel: BookshelfViewModel(), bookshelfOwner: friend, userViewModel: userViewModel)
+                            Bookshelf(bookshelfViewModel: BookshelfViewModel(), bookshelfOwner: friend, userViewModel: userViewModel) // view friends bookshelf
                         } label: {
                             Image("BookshelfNavy")
                                 .resizable()
@@ -45,7 +45,7 @@ struct FriendRow: View {
                         }
                         
                         NavigationLink {
-                            ChatView(userViewModel: userViewModel, friend: friend, chatViewModel: ChatViewModel())
+                            ChatView(userViewModel: userViewModel, friend: friend, chatViewModel: ChatViewModel()) // open chat with friend
                         } label: {
                             ZStack {
                                 Circle()
@@ -57,9 +57,9 @@ struct FriendRow: View {
                         }
                         
                         Button {
-                            userViewModel.friends.remove(at: getIndex(of: friend))
+                            userViewModel.friends.remove(at: getIndex(of: friend)) // delete friend
                             userViewModel.removeFriendFromFirestore(friend: friend, from: userViewModel.currentUser)
-                            userViewModel.removeFriendFromFirestore(friend: userViewModel.currentUser, from: friend)
+                            userViewModel.removeFriendFromFirestore(friend: userViewModel.currentUser, from: friend) // remove from both users in firestore
                             
                         } label: {
                             ZStack {
@@ -74,13 +74,13 @@ struct FriendRow: View {
                         }
                     }
                 }
-                if (!friendsList) {
-                    if existingFriend {
+                if (!friendsList) { // if the view is not in the friends list
+                    if existingFriend { // if the users are already friends
                         Text("FRIENDS")
                             .bold()
                         Image(systemName: getIcon(status: "Friends"))
 
-                    } else if pendingFriend {
+                    } else if pendingFriend { // if the user is pending
                         Text("PENDING")
                             .bold()
                         Image(systemName: getIcon(status: "Pending"))
@@ -90,7 +90,7 @@ struct FriendRow: View {
                         } label : {
                             Image(systemName: "xmark")
                         }
-                    } else {
+                    } else { // if the users aren't friends, and it is not pending
                         Button {
                             userViewModel.addFriendToFirestore(friend: userViewModel.currentUser, to: friend, status: "Pending")
                             userViewModel.friends.append(friend)
@@ -117,7 +117,7 @@ struct FriendRow: View {
         }
     }
     
-    func checkIfFriend() {
+    func checkIfFriend() { // checks if the users are friends
         userViewModel.isFriend(user: friend) { isFriend in
             self.existingFriend = isFriend
             userViewModel.hasPendingRequest(from: userViewModel.currentUser, to: friend) { hasPendingRequest in
@@ -128,7 +128,7 @@ struct FriendRow: View {
         }
     }
     
-    func getIndex(of user: User) -> Int {
+    func getIndex(of user: User) -> Int { // gets the index of a user within the friends list
         for i in userViewModel.friends.indices {
             if userViewModel.friends[i].id == user.id {
                 return i
@@ -138,7 +138,7 @@ struct FriendRow: View {
         return 0
     }
     
-    func getIcon(status: String) -> String {
+    func getIcon(status: String) -> String { // gets the icon for pending/friend/not friend status
         switch(status) {
         case "Pending":
             return "person.badge.clock.fill"

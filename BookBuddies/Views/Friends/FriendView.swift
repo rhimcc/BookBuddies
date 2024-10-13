@@ -25,7 +25,7 @@ struct FriendView: View {
                     HStack (alignment: .center) {
                         Spacer()
                         NavigationLink {
-                            AddFriendView(userViewModel: userViewModel)
+                            AddFriendView(userViewModel: userViewModel) // add friends
                         } label : {
                             Image(systemName: "plus.circle.fill")
                                 .foregroundStyle(.navy)
@@ -35,25 +35,25 @@ struct FriendView: View {
                 }
                 
                 ScrollView {
-                    if (userViewModel.friends.filter {$0.status == "Pending"}.count > 0) {
-                        Text("Pending (\(userViewModel.friends.filter {$0.status == "Pending"}.count))")
+                    if (userViewModel.friends.filter {$0.status == "Pending"}.count > 0) { // if there are pending requests
+                        Text("Pending (\(userViewModel.friends.filter {$0.status == "Pending"}.count))") // pending subtitle
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.leading, 20)
                             .bold()
                             .foregroundStyle(.navy)
 
-                        ForEach(userViewModel.friends.filter {$0.status == "Pending"}) { friend in
+                        ForEach(userViewModel.friends.filter {$0.status == "Pending"}) { friend in // pending friends
                             FriendRow(friend: friend, userViewModel: userViewModel, friendsList: true)
                         }
                     }
                     
-                    Text("Friends (\(userViewModel.friends.filter {$0.status == "Friends"}.count))")
+                    Text("Friends (\(userViewModel.friends.filter {$0.status == "Friends"}.count))") // friends subtitle
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.leading, 20)
                         .bold()
                         .foregroundStyle(.navy)
 
-                    ForEach(userViewModel.friends.filter {$0.status == "Friends"}) { friend in
+                    ForEach(userViewModel.friends.filter {$0.status == "Friends"}) { friend in // friends list
                         FriendRow(friend: friend, userViewModel: userViewModel, friendsList: true)
                     }
                 }
