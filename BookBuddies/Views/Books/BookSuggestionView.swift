@@ -17,11 +17,12 @@ struct BookSuggestionView: View {
             .padding()
         ScrollView {
             ForEach(userViewModel.friends, id: \.id) { friend in
-                VStack(alignment: .leading) {
-                    Text(friend.displayName)
-                        .font(.headline)
-                        .padding(.horizontal)
-                    
+                VStack {
+                    HStack {
+                        Text(friend.displayName)
+                            .font(.headline)
+                        Spacer()
+                    }
                     
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 10) {
@@ -29,23 +30,23 @@ struct BookSuggestionView: View {
                                 ForEach(bookArray, id: \.id) { book in
                                     NavigationLink {
                                         BookDetail(book: book, bookshelfViewModel: BookshelfViewModel(), userViewModel: userViewModel, source: "other")
-                                     
+                                        
                                     } label : {
                                         BookThumbnail(book: book)
                                             .frame(width: 150, height: 200)
+                                            .padding(.vertical, 5)
+                                            .padding(.horizontal, 5)
 
+                                        
                                     }
                                 }
                             } else {
                                 Text("\(friend.displayName) is not reading anything")
                                     .foregroundColor(.gray)
-                                    .padding(.horizontal, 5)
                             }
                         }
-                        .padding()
                     }.frame(maxWidth: UIScreen.main.bounds.width - 20)
-                }
-                .padding(.bottom)
+                }.frame(alignment: .leading)
             }
         }
         .padding()

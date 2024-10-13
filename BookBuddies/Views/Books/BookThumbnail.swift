@@ -25,7 +25,7 @@ struct BookThumbnail: View {
         .background {
             RoundedRectangle(cornerRadius: 20)
                 .fill(.veryLightPeach)
-                .shadow(color: .black, radius: 2)
+                .shadow(color: .black, radius: 5)
         }
         
     }
