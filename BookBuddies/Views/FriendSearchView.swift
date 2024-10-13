@@ -10,9 +10,7 @@ import SwiftUI
 struct FriendSearchView: View {
     @ObservedObject var searchViewModel: SearchViewModel
     var body: some View {
-        VStack {
-            Text("Search")
-        }
+        EmptyView()
             .searchable(text: $searchViewModel.searchQuery, isPresented: $searchViewModel.isActive, prompt: "Search...")
     }
 }

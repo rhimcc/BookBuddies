@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BookSearchView: View {
     @State var bookshelf: Bookshelves = .yourBooks
-    @ObservedObject var searchViewModel: BookViewModel = BookViewModel()
+    @ObservedObject var searchViewModel: BookSearchViewModel = BookSearchViewModel()
     @ObservedObject var chatViewModel: ChatViewModel
     @State var placeHolderBooks: [Book] = []
     var currentUser: User

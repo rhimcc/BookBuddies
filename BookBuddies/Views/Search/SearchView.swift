@@ -8,11 +8,9 @@
 import SwiftUI
 
 struct SearchView: View {
-    @ObservedObject var searchViewModel: BookViewModel
+    @ObservedObject var searchViewModel: BookSearchViewModel
     var body: some View {
-        VStack {
-            Text("Search")
-        }
+        EmptyView()
             .searchable(text: $searchViewModel.searchQuery, isPresented: $searchViewModel.searchActive, prompt: "Search...")
     }
 }

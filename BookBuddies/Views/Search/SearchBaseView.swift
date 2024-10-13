@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchBaseView: View {
-    @StateObject private var searchViewModel: BookViewModel = BookViewModel()
+    @StateObject private var searchViewModel: BookSearchViewModel = BookSearchViewModel()
     @ObservedObject var bookshelfViewModel: BookshelfViewModel
     @ObservedObject var userViewModel: UserViewModel
 
@@ -20,7 +20,7 @@ struct SearchBaseView: View {
                 SearchResultsView(viewModel: searchViewModel, bookshelfViewModel: bookshelfViewModel, userViewModel: userViewModel) // shows the results of the search if its active
 
             } else {
-                Text("Search not active") // shows the suggested topics if the search isnt active
+                BookSuggestionView(userViewModel: userViewModel) // shows the suggested topics if the search isnt active
             }
         }
     

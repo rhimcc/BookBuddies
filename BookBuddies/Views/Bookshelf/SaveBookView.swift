@@ -23,6 +23,7 @@ struct SaveBookView: View {
                 HStack {
                     Button {
                         bookshelfViewModel.bookPreview.toggle()
+                        print(bookshelfViewModel.bookPreview)
                     } label: {
                         Image(systemName: "xmark")
                     }.foregroundColor(.gray)

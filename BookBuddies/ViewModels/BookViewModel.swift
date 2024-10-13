@@ -7,7 +7,7 @@
 
 import Foundation
 
-class BookViewModel: ObservableObject {
+class BookSearchViewModel: ObservableObject {
     @Published var books: [Book] = []
     @Published var searchQuery: String = "" {
         didSet {

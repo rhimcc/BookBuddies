@@ -12,7 +12,7 @@ struct ChatView: View {
     var friend: User
     @State var message: String = ""
     @ObservedObject var chatViewModel: ChatViewModel
-    @ObservedObject var searchViewModel: BookViewModel = BookViewModel()
+    @ObservedObject var searchViewModel: BookSearchViewModel = BookSearchViewModel()
     @State var bookTitle: String = ""
     @State var books: [Book] = []
     @State var newMessage: Message? = nil

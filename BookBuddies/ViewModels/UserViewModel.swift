@@ -8,11 +8,14 @@ class UserViewModel: ObservableObject {
     @Published var allUsers: [User] = []
     @Published var currentUser: User = User(id: "", email: "", displayName: "", status: "")
     @Published var shareSheet: Bool = false
+    @Published var friendsReading: [String: [Book]] = [:]
     
     init() {
-        loadFriendsToArray()
         loadUsersToArray()
         getUser()
+        loadFriendsToArray() {
+            self.getFriendsBooks()
+        }
     }
 
 
@@ -49,10 +52,11 @@ class UserViewModel: ObservableObject {
        
     }
     
-    func loadFriendsToArray(){
+    func loadFriendsToArray(completion: @escaping () -> Void) {
         UserViewModel.loadFriends() { users in
             DispatchQueue.main.async {
                 self.friends = users
+                completion() // Call completion after loading friends
             }
         }
     }
@@ -61,6 +65,16 @@ class UserViewModel: ObservableObject {
         UserViewModel.loadUsers() { users in
             DispatchQueue.main.async {
                 self.allUsers = users
+            }
+        }
+    }
+    
+    func getFriendsBooks() {
+        for friend in friends {
+            Book.loadBooksFromFirestore(user: friend) { fetchedBooks in
+                DispatchQueue.main.async {
+                    self.friendsReading[friend.id] = fetchedBooks.filter {$0.readStatus == "Reading"}
+                }
             }
         }
     }
@@ -288,6 +302,13 @@ class UserViewModel: ObservableObject {
                 db.collection("users").document(userId).collection("books").document(id).setData([ "userPage": userPage ], merge: true)
             }
         }
+    }
+    
+    func getFriendFromID(id: String) -> User? {
+        if let friend = friends.first(where: {$0.id == id}) {
+            return friend
+        }
+        return nil
     }
 }
     

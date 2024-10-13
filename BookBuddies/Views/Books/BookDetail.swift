@@ -23,8 +23,6 @@ struct BookDetail: View {
     @State private var editingPage: Bool = false
     @State private var validInput: Bool = false
     @State private var percentText: String = ""
-    
-    
     var source: String
     var body: some View {
         ZStack {
@@ -297,7 +295,9 @@ struct BookDetail: View {
     
     private func getPercent() {
         if let userPage = book.userPage, let pageCount = book.pageCount {
-            percentText = "\(userPage*100/pageCount)%"
+            if (pageCount != 0) {
+                percentText = "\(userPage*100/pageCount)%"
+            }
         }
     }
     

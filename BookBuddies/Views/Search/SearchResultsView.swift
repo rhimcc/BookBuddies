@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchResultsView: View {
-    @ObservedObject var viewModel: BookViewModel
+    @ObservedObject var viewModel: BookSearchViewModel
     @ObservedObject var bookshelfViewModel: BookshelfViewModel
     @ObservedObject var userViewModel: UserViewModel
     @State var books: [Book] = []
